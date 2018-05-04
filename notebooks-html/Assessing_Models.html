@@ -1,5 +1,5 @@
 <div id="ipython-notebook">
-            <a class="interact-button" href="https://mybinder.org/v2/gh/data-8/textbook/gh-pages?filepath=notebooks/Assessing_Models.ipynb">Interact</a>
+            <a class="interact-button" href="http://104.155.140.67/hub/user-redirect/git-pull?repo=https://github.com/data-8/textbook&branch=gh-pages&subPath=notebooks/Assessing_Models.ipynb">Interact</a>
             
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -117,9 +117,10 @@
 <p>If the model is good, the percent of purple-flowering plants in the sample should be close to 75%. If the model is not good, the percent purple-flowering will be away from 75%. It may be higher, or lower; the direction doesn't matter.</p>
 <p>The key for us is the <em>distance</em> between 75% and the percent of purple-flowering plants in the sample. Big distances are evidence that the model isn't good.</p>
 <p>Our statistic, therefore, is the <strong>distance between the sample percent and 75%</strong>:</p>
-$$
+<p>$$
 \big{\vert} \text{sample percent of purple-flowering plants} - 75 \big{\vert}
-$$<h3 id="Predicting-the-Statistic-Under-the-Model">Predicting the Statistic Under the Model<a class="anchor-link" href="#Predicting-the-Statistic-Under-the-Model">¶</a></h3><p>To see how big the distance would be if Mendel's model were true, we can use <code>sample_proportions</code> to simulate the distance under the assumptions of the model.</p>
+$$</p>
+<h3 id="Predicting-the-Statistic-Under-the-Model">Predicting the Statistic Under the Model<a class="anchor-link" href="#Predicting-the-Statistic-Under-the-Model">¶</a></h3><p>To see how big the distance would be if Mendel's model were true, we can use <code>sample_proportions</code> to simulate the distance under the assumptions of the model.</p>
 <p>First, we have to figure out how many times to sample. To do this, remember that we are going to compare our simulation with Mendel's plants. So we should simulate the same number of plants that he had.</p>
 <p>Mendel grew a lot of plants. There were 929 plants of the variety corresponding to this model. So we have to sample 929 times.</p>
 <h4 id="Generating-One-Value-of-the-Statistic">Generating One Value of the Statistic<a class="anchor-link" href="#Generating-One-Value-of-the-Statistic">¶</a></h4><p>The steps in the calculation:</p>
