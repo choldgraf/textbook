@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/07/3/Overlaid_Graphs.ipynb
-title: '7.3 Overlaid Graphs'
-permalink: 'chapters/07/3/Overlaid_Graphs'
-previouschapter:
-  url: chapters/07/2/Visualizing_Numerical_Distributions
-  title: '7.2 Numerical Distributions'
-nextchapter:
-  url: chapters/08/Functions_and_Tables
-  title: '8. Functions and Tables'
-redirect_from:
-  - 'chapters/07/3/overlaid-graphs'
+interact_link: chapters/07/3/Overlaid_Graphs.ipynb
+title: 'Overlaid Graphs'
+permalink: '/chapters/07/3/Overlaid_Graphs'
+prev_page:
+  url: /chapters/07/2/Visualizing_Numerical_Distributions
+  title: 'Numerical Distributions'
+next_page:
+  url: /chapters/08/Functions_and_Tables
+  title: 'Functions and Tables'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Overlaid Graphs
@@ -34,11 +33,13 @@ More commonly, we will first select only the columns needed for our graph, and t
 Galton meticulously collected copious amounts of data, some of which we will analyze in this course. Here is a subset of Galton's data on heights of parents and their children. Specifically, the population consists of 179 men who were the first-born in their families. The data are their own heights and the heights of their parents. All heights were measured in inches.
 
 
+
 {:.input_area}
 ```python
 heights = Table.read_table(path_data + 'galton_subset.csv')
 heights
 ```
+
 
 
 
@@ -91,10 +92,12 @@ heights
 The `scatter` method allows us to visualize how the sons' heights are related to the heights of both their parents. In the graph, the sons' heights will form the common horizontal axis. 
 
 
+
 {:.input_area}
 ```python
 heights.scatter('son')
 ```
+
 
 
 ![png](../../../images/chapters/07/3/Overlaid_Graphs_4_0.png)
@@ -107,6 +110,7 @@ Both the gold and the blue scatter plots slope upwards and show a positive assoc
 ### Line Plots
 
 Our next example involves data on children of more recent times. We will return to the Census data table `us_pop`, created below again for reference. From this, we will extract the counts of all children in each of the age categories 0 through 18 years.
+
 
 
 {:.input_area}
@@ -123,6 +127,7 @@ us_pop = partial_census_table.relabeled('POPESTIMATE2010', '2010').relabeled('PO
 children = us_pop.where('SEX', are.equal_to(0)).where('AGE', are.below(19)).drop('SEX')
 children.show()
 ```
+
 
 
 <div markdown="0">
@@ -198,10 +203,12 @@ children.show()
 We can now draw two overlaid line plots, showing the numbers of children in the different age groups for each of the years 2010 and 2014. The method call is analogous to the `scatter` call in the previous example.
 
 
+
 {:.input_area}
 ```python
 children.plot('AGE')
 ```
+
 
 
 ![png](../../../images/chapters/07/3/Overlaid_Graphs_9_0.png)
@@ -222,11 +229,13 @@ The Kaiser Family Foundation has complied Census data on the distribution of rac
 Here is a table adapted from their data for the United States and California. The columns represent everyone in the U.S.A., everyone in California, children in the U.S.A., and children in California. The body of the table contains proportions in the different categories. Each column shows the distribution of ethnicities in the group of people corresponding to that column. So in each column, the entries add up to 1.
 
 
+
 {:.input_area}
 ```python
 usa_ca = Table.read_table(path_data + 'usa_ca_2014.csv')
 usa_ca
 ```
+
 
 
 
@@ -262,10 +271,12 @@ It is natural to want to compare these distributions. It makes sense to compare 
 The method `barh` allows us to visualize the comparisons by drawing multiple bar charts on the same axes. The call is analogous to those for `scatter` and `plot`: we have to specify the common axis of categories. 
 
 
+
 {:.input_area}
 ```python
 usa_ca.barh('Ethnicity')
 ```
+
 
 
 ![png](../../../images/chapters/07/3/Overlaid_Graphs_14_0.png)
@@ -276,10 +287,12 @@ While drawing the overlaid bar charts is straightforward, there is a bit too muc
 Let's start by comparing the entire populations of the U.S.A. and California. 
 
 
+
 {:.input_area}
 ```python
 usa_ca.select('Ethnicity', 'USA All', 'CA All').barh('Ethnicity')
 ```
+
 
 
 ![png](../../../images/chapters/07/3/Overlaid_Graphs_16_0.png)
@@ -290,10 +303,12 @@ The two distributions are quite different. California has higher proportions in 
 As you can see from the graph, almost 40% of the Californian population in 2014 was `Hispanic`. A comparison with the population of children in the state indicates that the `Hispanic` proportion is likely to be greater in future years. Among Californian children, 50% are in the `Hispanic` category.
 
 
+
 {:.input_area}
 ```python
 usa_ca.select('Ethnicity', 'CA All', 'CA Children').barh('Ethnicity')
 ```
+
 
 
 ![png](../../../images/chapters/07/3/Overlaid_Graphs_18_0.png)

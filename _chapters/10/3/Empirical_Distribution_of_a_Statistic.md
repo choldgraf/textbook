@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/10/3/Empirical_Distribution_of_a_Statistic.ipynb
-title: '10.3 Empirical Distibution of a Statistic'
-permalink: 'chapters/10/3/Empirical_Distribution_of_a_Statistic'
-previouschapter:
-  url: chapters/10/2/Sampling_from_a_Population
-  title: '10.2 Sampling from a Population'
-nextchapter:
-  url: chapters/11/Testing_Hypotheses
-  title: '11. Testing Hypotheses'
-redirect_from:
-  - 'chapters/10/3/empirical-distribution-of-a-statistic'
+interact_link: chapters/10/3/Empirical_Distribution_of_a_Statistic.ipynb
+title: 'Empirical Distibution of a Statistic'
+permalink: '/chapters/10/3/Empirical_Distribution_of_a_Statistic'
+prev_page:
+  url: /chapters/10/2/Sampling_from_a_Population
+  title: 'Sampling from a Population'
+next_page:
+  url: /chapters/11/Testing_Hypotheses
+  title: 'Testing Hypotheses'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Empirical Distribution of a Statistic
@@ -20,10 +19,13 @@ The resemblance is visible in two histograms: the empirical histogram of a large
 As a reminder, here is the histogram of the delays of all the flights in `united`, and an empirical histogram of the delays of a random sample of 1,000 of these flights.
 
 
+
 {:.input_area}
 ```python
 united = Table.read_table(path_data + 'united_summer2015.csv')
 ```
+
+
 
 
 {:.input_area}
@@ -34,7 +36,9 @@ plots.title('Population');
 ```
 
 
+
 ![png](../../../images/chapters/10/3/Empirical_Distribution_of_a_Statistic_2_0.png)
+
 
 
 
@@ -44,6 +48,7 @@ sample_1000 = united.sample(1000)
 sample_1000.select('Delay').hist(bins = delay_bins, unit = 'minute')
 plots.title('Sample of Size 1000');
 ```
+
 
 
 ![png](../../../images/chapters/10/3/Empirical_Distribution_of_a_Statistic_3_0.png)
@@ -60,10 +65,12 @@ Frequently, we are interested in numerical quantities associated with a populati
 Numerical quantities associated with a population are called *parameters*. For the population of flights in `united`, we know the value of the parameter "median delay":
 
 
+
 {:.input_area}
 ```python
 np.median(united.column('Delay'))
 ```
+
 
 
 
@@ -78,10 +85,12 @@ np.median(united.column('Delay'))
 The `NumPy` function `median` returns the median (half-way point) of an array. Among all the flights in `united`, the median delay was 2 minutes. That is, about 50% of flights in the population had delays of 2 or fewer minutes:
 
 
+
 {:.input_area}
 ```python
 united.where('Delay', are.below_or_equal_to(2)).num_rows/united.num_rows
 ```
+
 
 
 
@@ -98,10 +107,12 @@ Half of all flights left no more than 2 minutes after their scheduled departure 
 **Note.** The percent isn't exactly 50 because of "ties," that is, flights that had delays of exactly 2 minutes. There were 480 such flights. Ties are quite common in data sets, and we will not worry about them in this course.
 
 
+
 {:.input_area}
 ```python
 united.where('Delay', are.equal_to(2)).num_rows
 ```
+
 
 
 
@@ -121,10 +132,12 @@ A *statistic* (note the singular!) is any number computed using the data in a sa
 Remember that `sample_1000` contains a random sample of 1000 flights from `united`. The observed value of the sample median is:
 
 
+
 {:.input_area}
 ```python
 np.median(sample_1000.column('Delay'))
 ```
+
 
 
 
@@ -142,10 +155,12 @@ Our sample – one set of 1,000 flights – gave us one observed value of the st
 A fundamental consideration in using any statistic based on a random sample is that *the sample could have come out differently*, and therefore the statistic could have come out differently too. 
 
 
+
 {:.input_area}
 ```python
 np.median(united.sample(1000).column('Delay'))
 ```
+
 
 
 
@@ -171,10 +186,12 @@ We will simulate the sample median using the steps we set up in an earlier chapt
 **Step 2: Write the code to generate one value of the statistic.** Draw a random sample of size 1000 and compute the median of the sample. We did this in the code cell above. Here it is again for reference.
 
 
+
 {:.input_area}
 ```python
 np.median(united.sample(1000).column('Delay'))
 ```
+
 
 
 
@@ -193,6 +210,7 @@ np.median(united.sample(1000).column('Delay'))
 The simulation takes a noticeable amount of time to run. That is because it is performing 5000 repetitions of the process of drawing a sample of size 1000 and computing its median. That's a lot of sampling and repeating!
 
 
+
 {:.input_area}
 ```python
 medians = make_array()
@@ -202,6 +220,7 @@ for i in np.arange(5000):
     medians = np.append(medians, new_median)
 ```
 
+
 The simulation is done. All 5,000 simulated sample medians have been collected in the array `medians`. Now it's time to visualize the results. 
 
 ### Visualization
@@ -209,11 +228,13 @@ The simulation is done. All 5,000 simulated sample medians have been collected i
 Here are the simulated values displayed in the table `simulated_medians`.
 
 
+
 {:.input_area}
 ```python
 simulated_medians = Table().with_column('Sample Median', medians)
 simulated_medians
 ```
+
 
 
 
@@ -266,10 +287,12 @@ simulated_medians
 We can also visualize the simulated data using a histogram. The histogram is called an *empirical histogram of the statistic*. It displays the *empirical distribution* of the statistic. Remember that *empirical* means *observed*.
 
 
+
 {:.input_area}
 ```python
 simulated_medians.hist(bins=np.arange(0.5, 5, 1))
 ```
+
 
 
 ![png](../../../images/chapters/10/3/Empirical_Distribution_of_a_Statistic_25_0.png)

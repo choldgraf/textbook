@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/08/Functions_and_Tables.ipynb
-title: '8. Functions and Tables'
-permalink: 'chapters/08/Functions_and_Tables'
-previouschapter:
-  url: chapters/07/3/Overlaid_Graphs
-  title: '7.3 Overlaid Graphs'
-nextchapter:
-  url: chapters/08/1/Applying_a_Function_to_a_Column
-  title: '8.1 Applying Functions to Columns'
-redirect_from:
-  - 'chapters/08/functions-and-tables'
+interact_link: chapters/08/Functions_and_Tables.ipynb
+title: 'Functions and Tables'
+permalink: '/chapters/08/Functions_and_Tables'
+prev_page:
+  url: /chapters/07/3/Overlaid_Graphs
+  title: 'Overlaid Graphs'
+next_page:
+  url: /chapters/08/1/Applying_a_Function_to_a_Column
+  title: 'Applying Functions to Columns'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Functions and Tables
@@ -22,6 +21,7 @@ We have used functions extensively already in this text, but never defined a fun
 The definition of the `double` function below simply doubles a number.
 
 
+
 {:.input_area}
 ```python
 # Our first function definition
@@ -30,6 +30,7 @@ def double(x):
     """ Double x """
     return 2*x
 ```
+
 
 We start any function definition by writing `def`.  Here is a breakdown of the other parts (the *syntax*) of this small function:
 
@@ -40,10 +41,12 @@ When we run the cell above, no particular number is doubled, and the code inside
 We can call `double` in exactly the same way we have called other functions. Each time we do that, the code in the body is executed, with the value of the argument given the name `x`.
 
 
+
 {:.input_area}
 ```python
 double(17)
 ```
+
 
 
 
@@ -56,10 +59,12 @@ double(17)
 
 
 
+
 {:.input_area}
 ```python
 double(-0.6/4)
 ```
+
 
 
 
@@ -82,11 +87,13 @@ Executing this *`return` statement* completes execution of the `double` function
 The argument to `double` can be any expression, as long as its value is a number.  For example, it can be a name.  The `double` function does not know or care how its argument is computed or stored; its only job is to execute its own body using the values of the arguments passed to it.
 
 
+
 {:.input_area}
 ```python
 any_name = 42
 double(any_name)
 ```
+
 
 
 
@@ -101,10 +108,12 @@ double(any_name)
 The argument can also be any value that can be doubled. For example, a whole array of numbers can be passed as an argument to `double`, and the result will be another array.
 
 
+
 {:.input_area}
 ```python
 double(make_array(3, 4, 5))
 ```
+
 
 
 
@@ -121,10 +130,12 @@ However, names that are defined inside a function, including arguments like `dou
 Therefore the name `x` isn't recognized outside the body of the function, even though we have called `double` in the cells above.
 
 
+
 {:.input_area}
 ```python
 x
 ```
+
 
 
 {:.output_traceback_line}
@@ -157,6 +168,7 @@ A docstring can be any string, as long as it is the first thing in a function's 
 Here is a definition of a function called `percent` that takes two arguments. The definition includes a docstring.
 
 
+
 {:.input_area}
 ```python
 # A function with more than one argument
@@ -177,10 +189,13 @@ def percent(x, total):
 ```
 
 
+
+
 {:.input_area}
 ```python
 percent(33, 200)
 ```
+
 
 
 
@@ -195,6 +210,7 @@ percent(33, 200)
 Contrast the function `percent` defined above with the function `percents` defined below. The latter takes an array as its argument, and converts all the numbers in the array to percents out of the total of the values in the array. The percents are all rounded to two decimal places, this time replacing `round` by `np.round` because the argument is an array and not a number.
 
 
+
 {:.input_area}
 ```python
 def percents(counts):
@@ -203,7 +219,9 @@ def percents(counts):
     return np.round((counts/total)*100, 2)
 ```
 
+
 The function `percents` returns an array of percents that add up to 100 apart from rounding.
+
 
 
 {:.input_area}
@@ -211,6 +229,7 @@ The function `percents` returns an array of percents that add up to 100 apart fr
 some_array = make_array(7, 10, 4)
 percents(some_array)
 ```
+
 
 
 
@@ -225,6 +244,7 @@ array([33.33, 47.62, 19.05])
 It is helpful to understand the steps Python takes to execute a function.  To facilitate this, we have put a function definition and a call to that function in the same cell below.
 
 
+
 {:.input_area}
 ```python
 def biggest_difference(array_x):
@@ -237,6 +257,7 @@ some_numbers = make_array(2, 4, 5, 6, 4, -1, 1)
 big_diff = biggest_difference(some_numbers)
 print("The biggest difference is", big_diff)
 ```
+
 
 {:.output_stream}
 ```
@@ -253,6 +274,7 @@ Here is what happens when we run that cell:
 There can be multiple ways to generalize an expression or block of code, and so a function can take multiple arguments that each determine different aspects of the result. For example, the `percents` function we defined previously rounded to two decimal places every time. The following two-argument definition allows different calls to round to different amounts.
 
 
+
 {:.input_area}
 ```python
 def percents(counts, decimal_places):
@@ -266,6 +288,7 @@ print("Rounded to 2 decimal places:", percents(parts, 2))
 print("Rounded to 3 decimal places:", percents(parts, 3))
 ```
 
+
 {:.output_stream}
 ```
 Rounded to 1 decimal place:  [28.6 14.3 57.1]
@@ -275,6 +298,7 @@ Rounded to 3 decimal places: [28.571 14.286 57.143]
 ```
 
 The flexibility of this new definition comes at a small price: each time the function is called, the number of decimal places must be specified. Default argument values allow a function to be called with a variable number of arguments; any argument that isn't specified in the call expression is given its default value, which is stated in the first line of the `def` statement. For example, in this final definition of `percents`, the optional argument `decimal_places` is given a default value of 2.
+
 
 
 {:.input_area}
@@ -288,6 +312,7 @@ parts = make_array(2, 1, 4)
 print("Rounded to 1 decimal place:", percents(parts, 1))
 print("Rounded to the default number of decimal places:", percents(parts))
 ```
+
 
 {:.output_stream}
 ```

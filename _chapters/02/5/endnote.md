@@ -1,14 +1,13 @@
 ---
-title: '2.5 Endnote'
-permalink: 'chapters/02/5/endnote'
-previouschapter:
-  url: chapters/02/4/randomization
-  title: '2.4 Randomization'
-nextchapter:
-  url: chapters/03/programming-in-python
+title: 'Endnote'
+permalink: '/chapters/02/5/endnote'
+prev_page:
+  url: /chapters/02/4/randomization
+  title: 'Randomization'
+next_page:
+  url: /chapters/03/programming-in-python
   title: '3. Programming in Python'
-redirect_from:
-  - 'chapters/02/5/endnote'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Endnote
 -------

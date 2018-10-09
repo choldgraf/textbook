@@ -1,21 +1,21 @@
 ---
-interact_link: notebooks/15/2/Regression_Line.ipynb
-title: '15.2 The Regression Line'
-permalink: 'chapters/15/2/Regression_Line'
-previouschapter:
-  url: chapters/15/1/Correlation
-  title: '15.1 Correlation'
-nextchapter:
-  url: chapters/15/3/Method_of_Least_Squares
-  title: '15.3 The Method of Least Squares'
-redirect_from:
-  - 'chapters/15/2/regression-line'
+interact_link: chapters/15/2/Regression_Line.ipynb
+title: 'The Regression Line'
+permalink: '/chapters/15/2/Regression_Line'
+prev_page:
+  url: /chapters/15/1/Correlation
+  title: 'Correlation'
+next_page:
+  url: /chapters/15/3/Method_of_Least_Squares
+  title: 'The Method of Least Squares'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### The Regression Line
 The correlation coefficient $r$ doesn't just measure how clustered the points in a scatter plot are about a straight line. It also helps identify the straight line about which the points are clustered. In this section we will retrace the path that Galton and Pearson took to discover that line.
 
 Galton's data on the heights of parents and their adult children showed a linear association. The linearity was confirmed when our predictions of the children's heights based on the midparent heights roughly followed a straight line.
+
 
 
 {:.input_area}
@@ -27,6 +27,8 @@ heights = Table().with_columns(
     'Child', galton.column('childHeight')
     )
 ```
+
+
 
 
 {:.input_area}
@@ -44,6 +46,8 @@ def predict_child(mpht):
 ```
 
 
+
+
 {:.input_area}
 ```python
 heights_with_predictions = heights.with_column(
@@ -52,10 +56,13 @@ heights_with_predictions = heights.with_column(
 ```
 
 
+
+
 {:.input_area}
 ```python
 heights_with_predictions.scatter('MidParent')
 ```
+
 
 
 ![png](../../../images/chapters/15/2/Regression_Line_4_0.png)
@@ -66,12 +73,15 @@ heights_with_predictions.scatter('MidParent')
 Let's see if we can find a way to identify this line. First, notice that linear association doesn't depend on the units of measurement – we might as well measure both variables in standard units. 
 
 
+
 {:.input_area}
 ```python
 def standard_units(xyz):
     "Convert any array of numbers to standard units."
     return (xyz - np.mean(xyz))/np.std(xyz)  
 ```
+
+
 
 
 {:.input_area}
@@ -82,6 +92,7 @@ heights_SU = Table().with_columns(
 )
 heights_SU
 ```
+
 
 
 
@@ -136,11 +147,13 @@ On this scale, we can calculate our predictions exactly as before. But first we 
 One SD of midparent heights is about 1.8 inches. So 0.5 inches is about 0.28 SDs.
 
 
+
 {:.input_area}
 ```python
 sd_midparent = np.std(heights.column(0))
 sd_midparent
 ```
+
 
 
 
@@ -153,10 +166,12 @@ sd_midparent
 
 
 
+
 {:.input_area}
 ```python
 0.5/sd_midparent
 ```
+
 
 
 
@@ -171,6 +186,7 @@ sd_midparent
  We are now ready to modify our prediction function to make predictions on the standard units scale. All that has changed is that we are using the table of values in standard units, and defining "close" as above.
 
 
+
 {:.input_area}
 ```python
 def predict_child_su(mpht_su):
@@ -183,6 +199,8 @@ def predict_child_su(mpht_su):
 ```
 
 
+
+
 {:.input_area}
 ```python
 heights_with_su_predictions = heights_SU.with_column(
@@ -191,10 +209,13 @@ heights_with_su_predictions = heights_SU.with_column(
 ```
 
 
+
+
 {:.input_area}
 ```python
 heights_with_su_predictions.scatter('MidParent SU')
 ```
+
 
 
 ![png](../../../images/chapters/15/2/Regression_Line_14_0.png)
@@ -223,13 +244,16 @@ The green "graph of averages" line is called the *regression line*, for reasons 
 The function that performs the simulation is called `regression_line` and takes $r$ as its argument.
 
 
+
 {:.input_area}
 ```python
 regression_line(0.95)
 ```
 
 
+
 ![png](../../../images/chapters/15/2/Regression_Line_21_0.png)
+
 
 
 
@@ -237,6 +261,7 @@ regression_line(0.95)
 ```python
 regression_line(0.6)
 ```
+
 
 
 ![png](../../../images/chapters/15/2/Regression_Line_22_0.png)
@@ -287,6 +312,7 @@ $$
 The three functions below compute the correlation, slope, and intercept. All of them take three arguments: the name of the table, the label of the column containing $x$, and the label of the column containing $y$.
 
 
+
 {:.input_area}
 ```python
 def correlation(t, label_x, label_y):
@@ -300,8 +326,10 @@ def intercept(t, label_x, label_y):
     return np.mean(t.column(label_y)) - slope(t, label_x, label_y)*np.mean(t.column(label_x))
 ```
 
+
 ### The Regression Line and Galton's Data
 The correlation between midparent height and child's height is 0.32:
+
 
 
 {:.input_area}
@@ -309,6 +337,7 @@ The correlation between midparent height and child's height is 0.32:
 galton_r = correlation(heights, 'MidParent', 'Child')
 galton_r
 ```
+
 
 
 
@@ -323,12 +352,14 @@ galton_r
 We can also find the equation of the regression line for predicting the child's height based on midparent height.
 
 
+
 {:.input_area}
 ```python
 galton_slope = slope(heights, 'MidParent', 'Child')
 galton_intercept = intercept(heights, 'MidParent', 'Child')
 galton_slope, galton_intercept
 ```
+
 
 
 
@@ -351,10 +382,12 @@ This is also known as the *regression equation.* The principal use of the regres
 For example, for a midparent height of 70.48 inches, the regression equation predicts the child's height to be 67.56 inches.
 
 
+
 {:.input_area}
 ```python
 galton_slope*70.48 + galton_intercept
 ```
+
 
 
 
@@ -369,10 +402,12 @@ galton_slope*70.48 + galton_intercept
 Our original prediction, created by taking the average height of all children who had midparent heights close to 70.48, came out to be pretty close: 67.63 inches compared to the regression line's prediction of 67.55 inches.
 
 
+
 {:.input_area}
 ```python
 heights_with_predictions.where('MidParent', are.equal_to(70.48)).show(3)
 ```
+
 
 
 <div markdown="0">
@@ -401,6 +436,7 @@ heights_with_predictions.where('MidParent', are.equal_to(70.48)).show(3)
 Here are all of the rows in Galton's table, along with our original predictions and the new regression predictions of the children's heights.
 
 
+
 {:.input_area}
 ```python
 heights_with_predictions = heights_with_predictions.with_column(
@@ -408,6 +444,7 @@ heights_with_predictions = heights_with_predictions.with_column(
 )
 heights_with_predictions
 ```
+
 
 
 
@@ -458,10 +495,12 @@ heights_with_predictions
 
 
 
+
 {:.input_area}
 ```python
 heights_with_predictions.scatter('MidParent')
 ```
+
 
 
 ![png](../../../images/chapters/15/2/Regression_Line_38_0.png)
@@ -473,6 +512,7 @@ The grey dots show the regression predictions, all on the regression line. Notic
 The predictions all lie on the line and are known as the "fitted values". The function `fit` takes the name of the table and the labels of $x$ and $y$, and returns an array of fitted values, one fitted value for each point in the scatter plot.
 
 
+
 {:.input_area}
 ```python
 def fit(table, x, y):
@@ -482,7 +522,9 @@ def fit(table, x, y):
     return a * table.column(x) + b
 ```
 
+
 It is easier to see the line in the graph below than in the one above.
+
 
 
 {:.input_area}
@@ -491,16 +533,19 @@ heights.with_column('Fitted', fit(heights, 'MidParent', 'Child')).scatter('MidPa
 ```
 
 
+
 ![png](../../../images/chapters/15/2/Regression_Line_43_0.png)
 
 
 Another way to draw the line is to use the option `fit_line=True` with the Table method `scatter`.
 
 
+
 {:.input_area}
 ```python
 heights.scatter('MidParent', fit_line=True)
 ```
+
 
 
 ![png](../../../images/chapters/15/2/Regression_Line_45_0.png)
@@ -510,10 +555,13 @@ heights.scatter('MidParent', fit_line=True)
 The slope is a ratio, and it worth taking a moment to study the units in which it is measured. Our example comes from the familiar dataset about mothers who gave birth in a hospital system. The scatter plot of pregnancy weights versus heights looks like a football that has been used in one game too many, but it's close enough to a football that we can justify putting our fitted line through it. In later sections we will see how to make such justifications more formal.
 
 
+
 {:.input_area}
 ```python
 baby = Table.read_table(path_data + 'baby.csv')
 ```
+
+
 
 
 {:.input_area}
@@ -522,7 +570,9 @@ baby.scatter('Maternal Height', 'Maternal Pregnancy Weight', fit_line=True)
 ```
 
 
+
 ![png](../../../images/chapters/15/2/Regression_Line_48_0.png)
+
 
 
 
@@ -530,6 +580,7 @@ baby.scatter('Maternal Height', 'Maternal Pregnancy Weight', fit_line=True)
 ```python
 slope(baby, 'Maternal Height', 'Maternal Pregnancy Weight')
 ```
+
 
 
 

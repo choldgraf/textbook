@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/13/2/Bootstrap.ipynb
-title: '13.2 The Bootstrap'
-permalink: 'chapters/13/2/Bootstrap'
-previouschapter:
-  url: chapters/13/1/Percentiles
-  title: '13.1 Percentiles'
-nextchapter:
-  url: chapters/13/3/Confidence_Intervals
-  title: '13.3 Confidence Intervals'
-redirect_from:
-  - 'chapters/13/2/bootstrap'
+interact_link: chapters/13/2/Bootstrap.ipynb
+title: 'The Bootstrap'
+permalink: '/chapters/13/2/Bootstrap'
+prev_page:
+  url: /chapters/13/1/Percentiles
+  title: 'Percentiles'
+next_page:
+  url: /chapters/13/3/Confidence_Intervals
+  title: 'Confidence Intervals'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### The Bootstrap
@@ -33,16 +32,20 @@ In this section, we will see how and why the bootstrap works. In the rest of the
 Compensation data for the calendar year 2015 are in the table `sf2015`.
 
 
+
 {:.input_area}
 ```python
 sf2015 = Table.read_table(path_data + 'san_francisco_2015.csv')
 ```
 
 
+
+
 {:.input_area}
 ```python
 sf2015
 ```
+
 
 
 
@@ -95,10 +98,12 @@ sf2015
 There is one row for each of 42,979 employees. There are numerous columns containing information about City departmental affiliation and details of the different parts of the employee's compensation package. Here is the row correspoding to the late Edward Lee, the Mayor at that time.
 
 
+
 {:.input_area}
 ```python
 sf2015.where('Job', are.equal_to('Mayor'))
 ```
+
 
 
 
@@ -125,10 +130,12 @@ We are going to study the final column, `Total Compensation`. That's the employe
 Financial packages in a calendar year can sometimes be hard to understand as they depend on the date of hire, whether the employee is changing jobs within the City, and so on. For example, the lowest values in the `Total Compensation` column look a little strange.
 
 
+
 {:.input_area}
 ```python
 sf2015.sort('Total Compensation')
 ```
+
 
 
 
@@ -181,16 +188,20 @@ sf2015.sort('Total Compensation')
 For clarity of comparison, we will focus our attention on those who had at least the equivalent of a half-time job for the whole year. At a minimum wage of about \\$10 per hour, and 20 hours per week for 52 weeks, that's a salary of about \\$10,000.
 
 
+
 {:.input_area}
 ```python
 sf2015 = sf2015.where('Salaries', are.above(10000))
 ```
 
 
+
+
 {:.input_area}
 ```python
 sf2015.num_rows
 ```
+
 
 
 
@@ -206,11 +217,13 @@ sf2015.num_rows
 Let this table of just over 36,500 rows be our population. Here is a histogram of the total compensations.
 
 
+
 {:.input_area}
 ```python
 sf_bins = np.arange(0, 700000, 25000)
 sf2015.select('Total Compensation').hist(bins=sf_bins)
 ```
+
 
 
 ![png](../../../images/chapters/13/2/Bootstrap_13_0.png)
@@ -219,10 +232,12 @@ sf2015.select('Total Compensation').hist(bins=sf_bins)
 While most of the values are below \\$300,000, a few are quite a bit higher. For example, the total compensation of the Chief Investment Officer was almost \\$650,000. That is why the horizontal axis stretches to \\$700,000.
 
 
+
 {:.input_area}
 ```python
 sf2015.sort('Total Compensation', descending=True).show(2)
 ```
+
 
 
 <div markdown="0">
@@ -250,11 +265,13 @@ Now let the parameter be the median of the total compensations.
 Since we have the luxury of having all of the data from the population, we can simply calculate the parameter:
 
 
+
 {:.input_area}
 ```python
 pop_median = percentile(50, sf2015.column('Total Compensation'))
 pop_median
 ```
+
 
 
 
@@ -276,6 +293,7 @@ In later sections, we will come down to earth and work in situations where the p
 Let us draw a sample of 500 employees at random without replacement, and let the median total compensation of the sampled employees serve as our estimate of the parameter.
 
 
+
 {:.input_area}
 ```python
 our_sample = sf2015.sample(500, with_replacement=False)
@@ -283,7 +301,9 @@ our_sample.select('Total Compensation').hist(bins=sf_bins)
 ```
 
 
+
 ![png](../../../images/chapters/13/2/Bootstrap_20_0.png)
+
 
 
 
@@ -292,6 +312,7 @@ our_sample.select('Total Compensation').hist(bins=sf_bins)
 est_median = percentile(50, our_sample.column('Total Compensation'))
 est_median
 ```
+
 
 
 
@@ -329,10 +350,13 @@ Why is this a good idea? By the law of averages, the distribution of the origina
 Recall that when the `sample` method is used without specifying a sample size, by default the sample size equals the number of rows of the table from which the sample is drawn. That's perfect for the bootstrap! Here is one new sample drawn from the original sample, and the corresponding sample median.
 
 
+
 {:.input_area}
 ```python
 resample_1 = our_sample.sample()
 ```
+
+
 
 
 {:.input_area}
@@ -341,7 +365,9 @@ resample_1.select('Total Compensation').hist(bins=sf_bins)
 ```
 
 
+
 ![png](../../../images/chapters/13/2/Bootstrap_26_0.png)
+
 
 
 
@@ -350,6 +376,7 @@ resample_1.select('Total Compensation').hist(bins=sf_bins)
 resampled_median_1 = percentile(50, resample_1.column('Total Compensation'))
 resampled_median_1
 ```
+
 
 
 
@@ -364,12 +391,14 @@ resampled_median_1
 By resampling, we have another estimate of the population median. By resampling again and again, we will get many such estimates, and hence an empirical distribution of the estimates.
 
 
+
 {:.input_area}
 ```python
 resample_2 = our_sample.sample()
 resampled_median_2 = percentile(50, resample_2.column('Total Compensation'))
 resampled_median_2
 ```
+
 
 
 
@@ -385,6 +414,7 @@ resampled_median_2
 Let us define a function `bootstrap_median` that takes our original sample, the label of the column containing the variable, and the number of bootstrap samples we want to take, and returns an array of the corresponding resampled medians. 
 
 Each time we resample and find the median, we *replicate* the bootstrap process. So the number of bootstrap samples will be called the number of replications.
+
 
 
 {:.input_area}
@@ -405,7 +435,9 @@ def bootstrap_median(original_sample, label, replications):
     return medians
 ```
 
+
 We now replicate the bootstrap process 5,000 times. The array `bstrap_medians` contains the medians of all 5,000 bootstrap samples. Notice that the code takes longer to run than our previous code. It has a lot of resampling to do!
+
 
 
 {:.input_area}
@@ -413,7 +445,9 @@ We now replicate the bootstrap process 5,000 times. The array `bstrap_medians` c
 bstrap_medians = bootstrap_median(our_sample, 'Total Compensation', 5000)
 ```
 
+
 Here is the histogram of the 5000 medians. The red dot is the population parameter: it is the median of the entire population, which we happen to know but did not use in the bootstrap process.
+
 
 
 {:.input_area}
@@ -426,6 +460,7 @@ resampled_medians.hist()
 
 plots.scatter(pop_median, 0, color='red', s=30);
 ```
+
 
 
 ![png](../../../images/chapters/13/2/Bootstrap_35_0.png)
@@ -442,11 +477,13 @@ How often does the empirical histogram of the resampled medians sit firmly over 
 Here are the two ends of the "middle 95%" interval of resampled medians:
 
 
+
 {:.input_area}
 ```python
 left = percentile(2.5, bstrap_medians)
 left
 ```
+
 
 
 
@@ -459,11 +496,13 @@ left
 
 
 
+
 {:.input_area}
 ```python
 right = percentile(97.5, bstrap_medians)
 right
 ```
+
 
 
 
@@ -478,6 +517,7 @@ right
 The population median of \\$110,305 is between these two numbers. The interval and the population median are shown on the histogram below.
 
 
+
 {:.input_area}
 ```python
 #median_bins=np.arange(100000, 130000, 2500)
@@ -487,6 +527,7 @@ resampled_medians.hist()
 plots.plot(make_array(left, right), make_array(0, 0), color='yellow', lw=3, zorder=1)
 plots.scatter(pop_median, 0, color='red', s=30, zorder=2);
 ```
+
 
 
 ![png](../../../images/chapters/13/2/Bootstrap_41_0.png)
@@ -502,6 +543,7 @@ To see how frequently the interval contains the parameter, we have to run the en
 We will end up with 100 intervals, and count how many of them contain the population median.
 
 **Spoiler alert:** The statistical theory of the bootstrap says that the number should be around 95. It may be in the low 90s or high 90s, but not much farther off 95 than that.
+
 
 
 {:.input_area}
@@ -527,13 +569,16 @@ intervals = Table().with_columns(
 )    
 ```
 
+
 For each of the 100 replications, we get one interval of estimates of the median.
+
 
 
 {:.input_area}
 ```python
 intervals
 ```
+
 
 
 
@@ -586,10 +631,12 @@ intervals
 The good intervals are those that contain the parameter we are trying to estimate. Typically the parameter is unknown, but in this section we happen to know what the parameter is.
 
 
+
 {:.input_area}
 ```python
 pop_median
 ```
+
 
 
 
@@ -604,10 +651,12 @@ pop_median
 How many of the 100 intervals contain the population median? That's the number of intervals where the left end is below the population median and the right end is above.
 
 
+
 {:.input_area}
 ```python
 intervals.where('Left', are.below(pop_median)).where('Right', are.above(pop_median)).num_rows
 ```
+
 
 
 

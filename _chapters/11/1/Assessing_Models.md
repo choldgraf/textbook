@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/11/1/Assessing_Models.ipynb
-title: '11.1 Assessing Models'
-permalink: 'chapters/11/1/Assessing_Models'
-previouschapter:
-  url: chapters/11/Testing_Hypotheses
-  title: '11. Testing Hypotheses'
-nextchapter:
-  url: chapters/11/2/Multiple_Categories
-  title: '11.2 Multiple Categories'
-redirect_from:
-  - 'chapters/11/1/assessing-models'
+interact_link: chapters/11/1/Assessing_Models.ipynb
+title: 'Assessing Models'
+permalink: '/chapters/11/1/Assessing_Models'
+prev_page:
+  url: /chapters/11/Testing_Hypotheses
+  title: 'Testing Hypotheses'
+next_page:
+  url: /chapters/11/2/Multiple_Categories
+  title: 'Multiple Categories'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Assessing Models
@@ -56,11 +55,13 @@ It returns an array containing the distribution of the categories in a random sa
 To see how to use this, remember that according to our model, the panel is selected at random from a population of men among whom 26% were black and 74% were not. Thus the distribution of the two categories can be represented as the list `[0.26, 0.74]`, which we have assigned to the name `eligible_population`. Now let's sample at random 100 times from this distribution, and see what proportions of the two categories we get in our sample.
 
 
+
 {:.input_area}
 ```python
 eligible_population = [0.26, 0.74]
 sample_proportions(100, eligible_population)
 ```
+
 
 
 
@@ -79,12 +80,14 @@ Because there are 100 men in the sample, the number of men in each category is 1
 Run the cell a few times to see how the output varies.
 
 
+
 {:.input_area}
 ```python
 # count of black men in a simulated panel
 
 (100 * sample_proportions(100, eligible_population)).item(0)
 ```
+
 
 
 
@@ -100,6 +103,7 @@ Run the cell a few times to see how the output varies.
 To get a sense of the variability without running the cell over and over, let's generate 10,000 simulated values of the count. The code follows the same steps that we have used in every simulation.
 
 
+
 {:.input_area}
 ```python
 counts = make_array()
@@ -110,8 +114,10 @@ for i in np.arange(repetitions):
     counts = np.append(counts, simulated_count)
 ```
 
+
 ### The Prediction
 To interpret the results of our simulation, we start as usual by visualizing the results by an empirical histogram.
+
 
 
 {:.input_area}
@@ -120,6 +126,7 @@ Table().with_column(
     'Count in a Random Sample', counts
 ).hist(bins = np.arange(5.5, 46.6, 1))
 ```
+
 
 
 ![png](../../../images/chapters/11/1/Assessing_Models_8_0.png)
@@ -133,6 +140,7 @@ To generate each simulated count, we drew at 100 times at random from a populati
 Though the simulated counts are quite varied, very few of them came out to be eight or less. The value eight is far out in the left hand tail of the histogram. It's the red dot on the horizontal axis of the histogram.
 
 
+
 {:.input_area}
 ```python
 Table().with_column(
@@ -140,6 +148,7 @@ Table().with_column(
 ).hist(bins = np.arange(5.5, 46.6, 1))
 plots.scatter(8, 0, color='red', s=30);
 ```
+
 
 
 ![png](../../../images/chapters/11/1/Assessing_Models_11_0.png)
@@ -199,11 +208,13 @@ The steps in the calculation:
 That's the statistic: the distance between the sample percent and 75.
 
 
+
 {:.input_area}
 ```python
 model_proportions = [0.75, 0.25]
 abs(100 * sample_proportions(929, model_proportions).item(0) - 75)
 ```
+
 
 
 
@@ -222,6 +233,7 @@ To get a sense of how variable the distance could be, we have to simulate it man
 We will generate 10,000 values of the distance.
 
 
+
 {:.input_area}
 ```python
 distances = make_array()
@@ -232,8 +244,10 @@ for i in np.arange(repetitions):
     distances = np.append(distances, one_distance)
 ```
 
+
 ### The Prediction
 The empirical histogram of the simulated values shows the distribution of the distance as predicted by the model.
+
 
 
 {:.input_area}
@@ -242,6 +256,7 @@ Table().with_column(
     'Distance between Sample % and 75%', distances
 ).hist()
 ```
+
 
 
 ![png](../../../images/chapters/11/1/Assessing_Models_19_0.png)
@@ -253,10 +268,12 @@ Look on the horizontal axis to see the typical values of the distance, as predic
 To assess the model, we have to compare this prediction with the data. Mendel recorded the number of purple and white flowering plants. Among the 929 plants that he grew, 705 were purple flowering. That's just about 75.89%.
 
 
+
 {:.input_area}
 ```python
 705 / 929
 ```
+
 
 
 
@@ -271,11 +288,13 @@ To assess the model, we have to compare this prediction with the data. Mendel re
 So the observed value of our statistic – the distance between Mendel's sample percent and 75 – is about 0.89:
 
 
+
 {:.input_area}
 ```python
 observed_statistic = abs (100 * (705 / 929) - 75)
 observed_statistic
 ```
+
 
 
 
@@ -292,6 +311,7 @@ Just by eye, locate roughly where 0.89 is on the horizontal axis of the histogra
 The cell below redraws the histogram with the observed value plotted on the horizontal axis.
 
 
+
 {:.input_area}
 ```python
 Table().with_column(
@@ -299,6 +319,7 @@ Table().with_column(
 ).hist()
 plots.scatter(observed_statistic, 0, color='red', s=30);
 ```
+
 
 
 ![png](../../../images/chapters/11/1/Assessing_Models_26_0.png)

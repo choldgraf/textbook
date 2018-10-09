@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/07/1/Visualizing_Categorical_Distributions.ipynb
-title: '7.1 Categorical Distributions'
-permalink: 'chapters/07/1/Visualizing_Categorical_Distributions'
-previouschapter:
-  url: chapters/07/Visualization
-  title: '7. Visualization'
-nextchapter:
-  url: chapters/07/2/Visualizing_Numerical_Distributions
-  title: '7.2 Numerical Distributions'
-redirect_from:
-  - 'chapters/07/1/visualizing-categorical-distributions'
+interact_link: chapters/07/1/Visualizing_Categorical_Distributions.ipynb
+title: 'Categorical Distributions'
+permalink: '/chapters/07/1/Visualizing_Categorical_Distributions'
+prev_page:
+  url: /chapters/07/Visualization
+  title: 'Visualization'
+next_page:
+  url: /chapters/07/2/Visualizing_Numerical_Distributions
+  title: 'Numerical Distributions'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Visualizing Categorical Distributions
@@ -24,6 +23,7 @@ Data come in many forms that are not numerical. Data can be pieces of music, or 
 The table `icecream` contains data on 30 cartons of ice-cream. 
 
 
+
 {:.input_area}
 ```python
 icecream = Table().with_columns(
@@ -32,6 +32,7 @@ icecream = Table().with_columns(
 )
 icecream
 ```
+
 
 
 
@@ -67,10 +68,12 @@ The bar chart is a familiar way of visualizing categorical distributions. It dis
 We will draw bar charts with horizontal bars because it's easier to label the bars that way. The Table method is therefore called `barh`. It takes two arguments: the first is the column label of the categories, and the second is the column label of the frequencies.
 
 
+
 {:.input_area}
 ```python
 icecream.barh('Flavor', 'Number of Cartons')
 ```
+
 
 
 ![png](../../../images/chapters/07/1/Visualizing_Categorical_Distributions_5_0.png)
@@ -79,10 +82,12 @@ icecream.barh('Flavor', 'Number of Cartons')
 If the table consists just of a column of categories and a column of frequencies, as in `icecream`, the method call is even simpler. You can just specify the column containing the categories, and `barh` will use the values in the other column as frequencies.
 
 
+
 {:.input_area}
 ```python
 icecream.barh('Flavor')
 ```
+
 
 
 ![png](../../../images/chapters/07/1/Visualizing_Categorical_Distributions_7_0.png)
@@ -98,10 +103,12 @@ Most importantly, the bars can be drawn in any order. The categories "chocolate,
 This means that we can draw a bar chart that is easier to interpret, by rearranging the bars in decreasing order. To do this, we first rearrange the rows of `icecream` in decreasing order of `Number of Cartons`, and then draw the bar chart.
 
 
+
 {:.input_area}
 ```python
 icecream.sort('Number of Cartons', descending=True).barh('Flavor')
 ```
+
 
 
 ![png](../../../images/chapters/07/1/Visualizing_Categorical_Distributions_9_0.png)
@@ -117,11 +124,13 @@ The table `top` consists of U.S.A.'s top grossing movies of all time. The first 
 There are 200 movies on the list. Here are the top ten according to unadjusted gross receipts.
 
 
+
 {:.input_area}
 ```python
 top = Table.read_table(path_data + 'top_movies.csv')
 top
 ```
+
 
 
 
@@ -176,18 +185,22 @@ The Disney subsidiary Buena Vista shows up frequently in the top ten, as do Fox 
 To figure this out, first notice that all we need is a table with the movies and the studios; the other information is unnecessary.
 
 
+
 {:.input_area}
 ```python
 movies_and_studios = top.select('Title', 'Studio')
 ```
 
+
 The Table method `group` allows us to count how frequently each studio appears in the table, by calling each studio a category and assigning each row to one category. The `group` method takes as its argument the label of the column that contains the categories, and returns a table of counts of rows in each category. The column of counts is always called `count`, but you can change that if you like by using `relabeled`.
+
 
 
 {:.input_area}
 ```python
 movies_and_studios.group('Studio')
 ```
+
 
 
 
@@ -242,11 +255,13 @@ Thus `group` creates a distribution table that shows how the movies are distribu
 We can now use this table, along with the graphing skills that we acquired above, to draw a bar chart that shows which studios are most frequent among the 200 highest grossing movies.
 
 
+
 {:.input_area}
 ```python
 studio_distribution = movies_and_studios.group('Studio')
 studio_distribution.sort('count', descending=True).barh('Studio')
 ```
+
 
 
 ![png](../../../images/chapters/07/1/Visualizing_Categorical_Distributions_18_0.png)
@@ -257,11 +272,13 @@ Warner Brothers and Buena Vista are the most common studios among the top 200 mo
 Because total gross receipts are being measured in unadjusted dollars, it is not very surprising that the top movies are more frequently from recent years than from bygone decades. In absolute terms, movie tickets cost more now than they used to, and thus gross receipts are higher. This is borne out by a bar chart that show the distribution of the 200 movies by year of release.
 
 
+
 {:.input_area}
 ```python
 movies_and_years = top.select('Title', 'Year')
 movies_and_years.group('Year').sort('count', descending=True).barh('Year')
 ```
+
 
 
 ![png](../../../images/chapters/07/1/Visualizing_Categorical_Distributions_21_0.png)
@@ -277,10 +294,12 @@ But years are fixed chronological units that do have an order. They also have fi
 By default, `barh` sorts the categories (years) from lowest to highest. So we will run the code without sorting by count. 
 
 
+
 {:.input_area}
 ```python
 movies_and_years.group('Year').barh('Year')
 ```
+
 
 
 ![png](../../../images/chapters/07/1/Visualizing_Categorical_Distributions_24_0.png)

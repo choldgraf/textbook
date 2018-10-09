@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/17/4/Implementing_the_Classifier.ipynb
-title: '17.4 Implementing the Classifier'
-permalink: 'chapters/17/4/Implementing_the_Classifier'
-previouschapter:
-  url: chapters/17/3/Rows_of_Tables
-  title: '17.3 Rows of Tables'
-nextchapter:
-  url: chapters/17/5/Accuracy_of_the_Classifier
-  title: '17.5 The Accuracy of the Classifier'
-redirect_from:
-  - 'chapters/17/4/implementing-the-classifier'
+interact_link: chapters/17/4/Implementing_the_Classifier.ipynb
+title: 'Implementing the Classifier'
+permalink: '/chapters/17/4/Implementing_the_Classifier'
+prev_page:
+  url: /chapters/17/3/Rows_of_Tables
+  title: 'Rows of Tables'
+next_page:
+  url: /chapters/17/5/Accuracy_of_the_Classifier
+  title: 'The Accuracy of the Classifier'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Implementing the Classifier
@@ -20,11 +19,13 @@ We are now ready to impelment a $k$-nearest neighbor classifier based on multipl
 This time we'll look at predicting whether a banknote (e.g., a \\$20 bill) is counterfeit or legitimate.  Researchers have put together a data set for us, based on photographs of many individual banknotes: some counterfeit, some legitimate.  They computed a few numbers from each image, using techniques that we won't worry about for this course.  So, for each banknote, we know a few numbers that were computed from a photograph of it as well as its class (whether it is counterfeit or not).  Let's load it into a table and take a look.
 
 
+
 {:.input_area}
 ```python
 banknotes = Table.read_table(path_data + 'banknote.csv')
 banknotes
 ```
+
 
 
 
@@ -77,6 +78,7 @@ banknotes
 Let's look at whether the first two numbers tell us anything about whether the banknote is counterfeit or not.  Here's a scatterplot:
 
 
+
 {:.input_area}
 ```python
 color_table = Table().with_columns(
@@ -86,16 +88,21 @@ color_table = Table().with_columns(
 ```
 
 
+
+
 {:.input_area}
 ```python
 banknotes = banknotes.join('Class', color_table)
 ```
 
 
+
+
 {:.input_area}
 ```python
 banknotes.scatter('WaveletVar', 'WaveletCurt', colors='Color')
 ```
+
 
 
 ![png](../../../images/chapters/17/4/Implementing_the_Classifier_6_0.png)
@@ -108,10 +115,12 @@ Take a minute and think it through: Suppose we used $k=11$ (say).  What parts of
 The patterns that show up in the data can get pretty wild.  For instance, here's what we'd get if used a different pair of measurements from the images:
 
 
+
 {:.input_area}
 ```python
 banknotes.scatter('WaveletSkew', 'Entropy', colors='Color')
 ```
+
 
 
 ![png](../../../images/chapters/17/4/Implementing_the_Classifier_8_0.png)
@@ -130,6 +139,7 @@ In fact, there's nothing special about 2 or 3.  If you have 4 attributes, you ca
 For instance, let's see what happens if we try to predict whether a banknote is counterfeit or not using 3 of the measurements, instead of just 2.  Here's what you get:
 
 
+
 {:.input_area}
 ```python
 ax = plt.figure(figsize=(8,8)).add_subplot(111, projection='3d')
@@ -138,6 +148,7 @@ ax.scatter(banknotes.column('WaveletSkew'),
            banknotes.column('WaveletCurt'), 
            c=banknotes.column('Color'));
 ```
+
 
 
 ![png](../../../images/chapters/17/4/Implementing_the_Classifier_11_0.png)
@@ -169,6 +180,7 @@ In $n$-dimensional space, things are a bit harder to visualize, but I think you 
 In the last section, we defined the function `distance` which returned the distance between two points. We used it in two-dimensions, but the great news is that the function doesn't care how many dimensions there are! It just subtracts the two arrays of coordinates (no matter how long the arrays are), squares the differences and adds up, and then takes the square root. To work in multiple dimensions, we don't have to change the code at all.
 
 
+
 {:.input_area}
 ```python
 def distance(point1, point2):
@@ -178,7 +190,9 @@ def distance(point1, point2):
     return np.sqrt(np.sum((point1 - point2)**2))
 ```
 
+
 Let's use this on a [new dataset](https://archive.ics.uci.edu/ml/datasets/Wine). The table `wine` contains the chemical composition of 178 different Italian wines. The classes are the grape species, called cultivars. There are three classes but let's just see whether we can tell Class 1 apart from the other two.
+
 
 
 {:.input_area}
@@ -197,10 +211,13 @@ wine = wine.with_column('Class', wine.apply(is_one, 0))
 ```
 
 
+
+
 {:.input_area}
 ```python
 wine
 ```
+
 
 
 
@@ -253,16 +270,20 @@ wine
 The first two wines are both in Class 1. To find the distance between them, we first need a table of just the attributes:
 
 
+
 {:.input_area}
 ```python
 wine_attributes = wine.drop('Class')
 ```
 
 
+
+
 {:.input_area}
 ```python
 distance(np.array(wine_attributes.row(0)), np.array(wine_attributes.row(1)))
 ```
+
 
 
 
@@ -277,10 +298,12 @@ distance(np.array(wine_attributes.row(0)), np.array(wine_attributes.row(1)))
 The last wine in the table is of Class 0. Its distance from the first wine is:
 
 
+
 {:.input_area}
 ```python
 distance(np.array(wine_attributes.row(0)), np.array(wine_attributes.row(177)))
 ```
+
 
 
 
@@ -295,10 +318,13 @@ distance(np.array(wine_attributes.row(0)), np.array(wine_attributes.row(177)))
 That's quite a bit bigger! Let's do some visualization to see if Class 1 really looks different from Class 0. 
 
 
+
 {:.input_area}
 ```python
 wine_with_colors = wine.join('Class', color_table)
 ```
+
+
 
 
 {:.input_area}
@@ -307,10 +333,12 @@ wine_with_colors.scatter('Flavanoids', 'Alcohol', colors='Color')
 ```
 
 
+
 ![png](../../../images/chapters/17/4/Implementing_the_Classifier_26_0.png)
 
 
 The blue points (Class 1) are almost entirely separate from the gold ones. That is one indication of why the distance between two Class 1 wines would be smaller than the distance between wines of two different classes. We can see a similar phenomenon with a different pair of attributes too:
+
 
 
 {:.input_area}
@@ -319,16 +347,19 @@ wine_with_colors.scatter('Alcalinity of Ash', 'Ash', colors='Color')
 ```
 
 
+
 ![png](../../../images/chapters/17/4/Implementing_the_Classifier_28_0.png)
 
 
 But for some pairs the picture is more murky.
 
 
+
 {:.input_area}
 ```python
 wine_with_colors.scatter('Magnesium', 'Total Phenols', colors='Color')
 ```
+
 
 
 ![png](../../../images/chapters/17/4/Implementing_the_Classifier_30_0.png)
@@ -346,6 +377,7 @@ It's time to write some code to implement the classifier.  The input is a `point
 So that will guide the structure of our Python code.
 
 
+
 {:.input_area}
 ```python
 def closest(training, p, k):
@@ -360,10 +392,12 @@ def classify(training, p, k):
     return majority(kclosest)
 ```
 
+
 ### Implementation Step 1
 To implement the first step for the kidney disease data, we had to compute the distance from each patient in the training set to `point`, sort them by distance, and take the $k$ closest patients in the training set.  
 
 That's what we did in the previous section with the point corresponding to Alice. Let's generalize that code. We'll redefine `distance` here, just for convenience.
+
 
 
 {:.input_area}
@@ -397,9 +431,11 @@ def closest(training, new_point, k):
     return topk
 ```
 
+
 Let's see how this works on our `wine` data. We'll just take the first wine and find its five nearest neighbors among all the wines. Remember that since this wine is part of the dataset, it is its own nearest neighbor. So we should expect to see it at the top of the list, followed by four others.
 
 First let's extract its attributes:
+
 
 
 {:.input_area}
@@ -407,13 +443,16 @@ First let's extract its attributes:
 special_wine = wine.drop('Class').row(0)
 ```
 
+
 And now let's find its 5 nearest neighbors.
+
 
 
 {:.input_area}
 ```python
 closest(wine, special_wine, 5)
 ```
+
 
 
 
@@ -453,6 +492,7 @@ Bingo! The first row is the nearest neighbor, which is itself – there's a 0 in
 Next we need to take a "majority vote" of the nearest neighbors and assign our point the same class as the majority.
 
 
+
 {:.input_area}
 ```python
 def majority(topkclasses):
@@ -470,10 +510,13 @@ def classify(training, new_point, k):
 ```
 
 
+
+
 {:.input_area}
 ```python
 classify(wine, special_wine, 5)
 ```
+
 
 
 
@@ -488,11 +531,13 @@ classify(wine, special_wine, 5)
 If we change `special_wine` to be the last one in the dataset, is our classifier able to tell that it's in Class 0?
 
 
+
 {:.input_area}
 ```python
 special_wine = wine.drop('Class').row(177)
 classify(wine, special_wine, 5)
 ```
+
 
 
 

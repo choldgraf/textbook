@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/07/Visualization.ipynb
-title: '7. Visualization'
-permalink: 'chapters/07/Visualization'
-previouschapter:
-  url: chapters/06/4/Example_Gender_Ratio_in_the_US_Population
-  title: '6.4 Example: Trends in Gender'
-nextchapter:
-  url: chapters/07/1/Visualizing_Categorical_Distributions
-  title: '7.1 Categorical Distributions'
-redirect_from:
-  - 'chapters/07/visualization'
+interact_link: chapters/07/Visualization.ipynb
+title: 'Visualization'
+permalink: '/chapters/07/Visualization'
+prev_page:
+  url: /chapters/06/4/Example_Gender_Ratio_in_the_US_Population
+  title: 'Example: Trends in Gender'
+next_page:
+  url: /chapters/07/1/Visualizing_Categorical_Distributions
+  title: 'Categorical Distributions'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Visualization
@@ -36,11 +35,13 @@ In the calculation of the gross receipt, the data tabulators did not include mov
 The table has 50 rows, corresponding to the 50 top grossing actors. The table is already sorted by `Total Gross`, so it is easy to see that Harrison Ford is the highest grossing actor. In total, his movies have brought in more money at domestic box office than the movies of any other actor.
 
 
+
 {:.input_area}
 ```python
 actors = Table.read_table(path_data + 'actors.csv')
 actors
 ```
+
 
 
 
@@ -101,10 +102,12 @@ A *scatter plot* displays the relation between two numerical variables. You saw 
 The Table method `scatter` draws a scatter plot consisting of one point for each row of the table. Its first argument is the label of the column to be plotted on the horizontal axis, and its second argument is the label of the column on the vertical.
 
 
+
 {:.input_area}
 ```python
 actors.scatter('Number of Movies', 'Total Gross')
 ```
+
 
 
 ![png](../../images/chapters/07/Visualization_7_0.png)
@@ -121,10 +124,12 @@ Later in the course we will study how to quantify association. For the moment, w
 Now that we have explored how the number of movies is related to the *total* gross receipt, let's turn our attention to how it is related to the *average* gross receipt per movie.
 
 
+
 {:.input_area}
 ```python
 actors.scatter('Number of Movies', 'Average per Movie')
 ```
+
 
 
 ![png](../../images/chapters/07/Visualization_10_0.png)
@@ -139,11 +144,13 @@ We will examine the negative association further by looking at points at the rig
 For the right end, let's zoom in on the main body of the plot by just looking at the portion that doesn't have the outlier.
 
 
+
 {:.input_area}
 ```python
 no_outlier = actors.where('Number of Movies', are.above(10))
 no_outlier.scatter('Number of Movies', 'Average per Movie')
 ```
+
 
 
 ![png](../../images/chapters/07/Visualization_13_0.png)
@@ -152,10 +159,12 @@ no_outlier.scatter('Number of Movies', 'Average per Movie')
 The negative association is still clearly visible. Let's identify the actors corresponding to the points that lie on the right hand side of the plot where the number of movies is large:
 
 
+
 {:.input_area}
 ```python
 actors.where('Number of Movies', are.above(60))
 ```
+
 
 
 
@@ -193,10 +202,12 @@ To understand the negative association, note that the more movies an actor is in
 To approach this argument from a different direction, let us now take a look at the outlier.
 
 
+
 {:.input_area}
 ```python
 actors.where('Number of Movies', are.below(10))
 ```
+
 
 
 
@@ -241,11 +252,13 @@ The table `movies_by_year` contains data on movies produced by U.S. studios in e
 | `#1 Movie` | Highest grossing movie |
 
 
+
 {:.input_area}
 ```python
 movies_by_year = Table.read_table(path_data + 'movies_by_year.csv')
 movies_by_year
 ```
+
 
 
 
@@ -298,10 +311,12 @@ movies_by_year
 The Table method `plot` produces a line graph. Its two arguments are the same as those for `scatter`: first the column on the horizontal axis, then the column on the vertical. Here is a line graph of the number of movies released each year over the years 1980 through 2015.
 
 
+
 {:.input_area}
 ```python
 movies_by_year.plot('Year', 'Number of Movies')
 ```
+
 
 
 ![png](../../images/chapters/07/Visualization_22_0.png)
@@ -312,16 +327,20 @@ The graph rises sharply and then has a gentle upwards trend though the numbers v
 Our focus will be on more recent years. In keeping with the theme of movies, the table of rows corresponding to the years 2000 through 2015 have been assigned to the name `century_21`.
 
 
+
 {:.input_area}
 ```python
 century_21 = movies_by_year.where('Year', are.above(1999))
 ```
 
 
+
+
 {:.input_area}
 ```python
 century_21.plot('Year', 'Number of Movies')
 ```
+
 
 
 ![png](../../images/chapters/07/Visualization_25_0.png)
@@ -332,10 +351,12 @@ The global financial crisis of 2008 has a visible effect – in 2009 there is a 
 The dollar figures, however, didn't suffer much.
 
 
+
 {:.input_area}
 ```python
 century_21.plot('Year', 'Total Gross')
 ```
+
 
 
 ![png](../../images/chapters/07/Visualization_27_0.png)
@@ -348,10 +369,12 @@ One reason for this apparent contradiction is that people tend to go to the movi
 In 2009, another reason for high box office receipts was the movie Avatar and its 3D release. Not only was Avatar the \#1 movie of 2009, it is also by some calculations the second highest grossing movie of all time, as we will see later.
 
 
+
 {:.input_area}
 ```python
 century_21.where('Year', are.equal_to(2009))
 ```
+
 
 
 

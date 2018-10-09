@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/17/3/Rows_of_Tables.ipynb
-title: '17.3 Rows of Tables'
-permalink: 'chapters/17/3/Rows_of_Tables'
-previouschapter:
-  url: chapters/17/2/Training_and_Testing
-  title: '17.2 Training and Testing'
-nextchapter:
-  url: chapters/17/4/Implementing_the_Classifier
-  title: '17.4 Implementing the Classifier'
-redirect_from:
-  - 'chapters/17/3/rows-of-tables'
+interact_link: chapters/17/3/Rows_of_Tables.ipynb
+title: 'Rows of Tables'
+permalink: '/chapters/17/3/Rows_of_Tables'
+prev_page:
+  url: /chapters/17/2/Training_and_Testing
+  title: 'Training and Testing'
+next_page:
+  url: /chapters/17/4/Implementing_the_Classifier
+  title: 'Implementing the Classifier'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Rows of Tables
@@ -22,18 +21,22 @@ So let's start by taking a closer look at rows.
 Here is the original table `ckd` containing data on patients who were tested for chronic kidney disease.
 
 
+
 {:.input_area}
 ```python
 ckd = Table.read_table(path_data + 'ckd.csv').relabeled('Blood Glucose Random', 'Glucose')
 ```
 
+
 The data corresponding to the first patient is in row 0 of the table, consistent with Python's indexing system. The Table method `row` accesses the row by taking the index of the row as its argument:
+
 
 
 {:.input_area}
 ```python
 ckd.row(0)
 ```
+
 
 
 
@@ -52,10 +55,12 @@ Rows are in general **not arrays**, as their elements can be of different types.
 However, rows share some characteristics with arrays.  You can use `item` to access a particular element of a row. For example, to access the Albumin level of Patient 0, we can look at the labels in the printout of the row above to find that it's item 3:
 
 
+
 {:.input_area}
 ```python
 ckd.row(0).item(3)
 ```
+
 
 
 
@@ -73,6 +78,7 @@ Rows whose elements are all numerical (or all strings) can be converted to array
 Recall that in the previous section we tried to classify the patients as 'CKD' or 'not CKD', based on two attributes `Hemoglobin` and `Glucose`, both measured in standard units. 
 
 
+
 {:.input_area}
 ```python
 ckd = Table().with_columns(
@@ -88,6 +94,7 @@ color_table = Table().with_columns(
 ckd = ckd.join('Class', color_table)
 ckd
 ```
+
 
 
 
@@ -140,6 +147,7 @@ ckd
 Here is a scatter plot of the two attributes, along with a red point corresponding to Alice, a new patient. Her value of hemoglobin is 0 (that is, at the average) and glucose 1.1 (that is, 1.1 SDs above average).
 
 
+
 {:.input_area}
 ```python
 alice = make_array(0, 1.1)
@@ -148,10 +156,12 @@ plots.scatter(alice.item(0), alice.item(1), color='red', s=30);
 ```
 
 
+
 ![png](../../../images/chapters/17/3/Rows_of_Tables_10_0.png)
 
 
 To find the distance between Alice's point and any of the other points, we only need the values of the attributes:
+
 
 
 {:.input_area}
@@ -160,10 +170,13 @@ ckd_attributes = ckd.select('Hemoglobin', 'Glucose')
 ```
 
 
+
+
 {:.input_area}
 ```python
 ckd_attributes
 ```
+
 
 
 
@@ -216,10 +229,12 @@ ckd_attributes
 Each row consists of the coordinates of one point in our training sample. **Because the rows now consist only of numerical values**, it is possible to convert them to arrays.  For this, we use the function `np.array`, which converts any kind of sequential object, like a row, to an array. (Our old friend `make_array` is for *creating* arrays, not for *converting* other kinds of sequences to arrays.)
 
 
+
 {:.input_area}
 ```python
 ckd_attributes.row(3)
 ```
+
 
 
 
@@ -232,10 +247,12 @@ Row(Hemoglobin=0.5961076648232668, Glucose=-0.19065363034327712)
 
 
 
+
 {:.input_area}
 ```python
 np.array(ckd_attributes.row(3))
 ```
+
 
 
 
@@ -265,11 +282,13 @@ $$
 In the next section we'll see that this formula has a straightforward extension when there are more than two attributes. For now, let's use the formula and array operations to find the distance between Alice and the patient in Row 3.
 
 
+
 {:.input_area}
 ```python
 patient3 = np.array(ckd_attributes.row(3))
 alice, patient3
 ```
+
 
 
 
@@ -282,11 +301,13 @@ alice, patient3
 
 
 
+
 {:.input_area}
 ```python
 distance = np.sqrt(np.sum((alice - patient3)**2))
 distance
 ```
+
 
 
 
@@ -301,6 +322,7 @@ distance
 We're going to need the distance between Alice and a bunch of points, so let's write a function called `distance` that computes the distance between any pair of points. The function will take two arrays, each containing the $(x, y)$ coordinates of a point.  (Remember, those are really the Hemoglobin and Glucose levels of a patient.)
 
 
+
 {:.input_area}
 ```python
 def distance(point1, point2):
@@ -311,10 +333,13 @@ def distance(point1, point2):
 ```
 
 
+
+
 {:.input_area}
 ```python
 distance(alice, patient3)
 ```
+
 
 
 
@@ -334,11 +359,13 @@ Recall that if you want to apply a function to each element of a column of a tab
 If you use `apply` without specifying a column label, then the entire row is passed to the function. Let's see how this works on a very small table `t` containing the information about the first five patients in the training sample.
 
 
+
 {:.input_area}
 ```python
 t = ckd_attributes.take(np.arange(5))
 t
 ```
+
 
 
 
@@ -377,6 +404,7 @@ Just as an example, suppose that for each patient we want to know how unusual th
 That's the same as taking the maximum of the absolute values of the two quantities. To do this for a particular row, we can convert the row to an array and use array operations.
 
 
+
 {:.input_area}
 ```python
 def max_abs(row):
@@ -384,10 +412,13 @@ def max_abs(row):
 ```
 
 
+
+
 {:.input_area}
 ```python
 max_abs(t.row(4))
 ```
+
 
 
 
@@ -402,10 +433,12 @@ max_abs(t.row(4))
 And now we can apply `max_abs` to each row of the table `t`:
 
 
+
 {:.input_area}
 ```python
 t.apply(max_abs)
 ```
+
 
 
 
@@ -430,10 +463,12 @@ Steps 2 and 3 seem straightforward, provided we have the distances. So let's foc
 Here's Alice:
 
 
+
 {:.input_area}
 ```python
 alice
 ```
+
 
 
 
@@ -448,6 +483,7 @@ array([0. , 1.1])
 What we need is a function that finds the distance between Alice and another point whose coordinates are contained in a row. The function `distance` returns the distance between any two points whose coordinates are in arrays. We can use that to define `distance_from_alice`, which takes a row as its argument and returns the distance between that row and Alice.
 
 
+
 {:.input_area}
 ```python
 def distance_from_alice(row):
@@ -456,10 +492,13 @@ def distance_from_alice(row):
 ```
 
 
+
+
 {:.input_area}
 ```python
 distance_from_alice(ckd_attributes.row(3))
 ```
+
 
 
 
@@ -474,6 +513,7 @@ distance_from_alice(ckd_attributes.row(3))
 Now we can `apply` the function `distance_from_alice` to each row of `ckd_attributes`, and augment the table `ckd` with the distances. Step 1 is complete!
 
 
+
 {:.input_area}
 ```python
 distances = ckd_attributes.apply(distance_from_alice)
@@ -481,10 +521,13 @@ ckd_with_distances = ckd.with_column('Distance from Alice', distances)
 ```
 
 
+
+
 {:.input_area}
 ```python
 ckd_with_distances
 ```
+
 
 
 
@@ -537,11 +580,13 @@ ckd_with_distances
 For Step 2, let's sort the table in increasing order of distance:
 
 
+
 {:.input_area}
 ```python
 sorted_by_distance = ckd_with_distances.sort('Distance from Alice')
 sorted_by_distance
 ```
+
 
 
 
@@ -594,11 +639,13 @@ sorted_by_distance
 Step 3: The top 5 rows correspond to Alice's 5 nearest neighbors; you can replace 5 by any other positive integer.
 
 
+
 {:.input_area}
 ```python
 alice_5_nearest_neighbors = sorted_by_distance.take(np.arange(5))
 alice_5_nearest_neighbors
 ```
+
 
 
 

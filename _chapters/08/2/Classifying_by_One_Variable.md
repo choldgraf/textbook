@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/08/2/Classifying_by_One_Variable.ipynb
-title: '8.2 Classifying by One Variable'
-permalink: 'chapters/08/2/Classifying_by_One_Variable'
-previouschapter:
-  url: chapters/08/1/Applying_a_Function_to_a_Column
-  title: '8.1 Applying Functions to Columns'
-nextchapter:
-  url: chapters/08/3/Cross-Classifying_by_More_than_One_Variable
-  title: '8.3 Cross-Classifying'
-redirect_from:
-  - 'chapters/08/2/classifying-by-one-variable'
+interact_link: chapters/08/2/Classifying_by_One_Variable.ipynb
+title: 'Classifying by One Variable'
+permalink: '/chapters/08/2/Classifying_by_One_Variable'
+prev_page:
+  url: /chapters/08/1/Applying_a_Function_to_a_Column
+  title: 'Applying Functions to Columns'
+next_page:
+  url: /chapters/08/3/Cross-Classifying_by_More_than_One_Variable
+  title: 'Cross-Classifying'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Classifying by One Variable
@@ -24,6 +23,7 @@ The `group` method with a single argument counts the number of rows for each cat
 Here is a small table of data on ice cream cones. The `group` method can be used to list the distinct flavors and provide the counts of each flavor.
 
 
+
 {:.input_area}
 ```python
 cones = Table().with_columns(
@@ -32,6 +32,7 @@ cones = Table().with_columns(
 )
 cones
 ```
+
 
 
 
@@ -66,10 +67,12 @@ cones
 
 
 
+
 {:.input_area}
 ```python
 cones.group('Flavor')
 ```
+
 
 
 
@@ -106,10 +109,12 @@ The optional second argument of `group` names the function that will be used to 
 To find the total price of each flavor, we call `group` again, with `Flavor` as its first argument as before. But this time there is a second argument: the function name `sum`.
 
 
+
 {:.input_area}
 ```python
 cones.group('Flavor', sum)
 ```
+
 
 
 
@@ -143,10 +148,12 @@ Because `group` finds the `sum` of all columns other than the one with the categ
 To see in more detail what `group` is doing, notice that you could have figured out the total prices yourself, not only by mental arithmetic but also using code. For example, to find the total price of all the chocolate cones, you could start by creating a new table consisting of only the chocolate cones, and then accessing the column of prices:
 
 
+
 {:.input_area}
 ```python
 cones.where('Flavor', are.equal_to('chocolate')).column('Price')
 ```
+
 
 
 
@@ -159,10 +166,12 @@ array([4.75, 6.55, 5.25])
 
 
 
+
 {:.input_area}
 ```python
 sum(cones.where('Flavor', are.equal_to('chocolate')).column('Price'))
 ```
+
 
 
 
@@ -175,6 +184,7 @@ sum(cones.where('Flavor', are.equal_to('chocolate')).column('Price'))
 
 
 This is what `group` is doing for each distinct value in `Flavor`.
+
 
 
 {:.input_area}
@@ -203,6 +213,7 @@ price_totals
 
 
 
+
 <div markdown="0">
 <table border="1" class="dataframe">
     <thead>
@@ -226,10 +237,12 @@ price_totals
 You can replace `sum` by any other functions that work on arrays. For example, you could use `max` to find the largest price in each category:
 
 
+
 {:.input_area}
 ```python
 cones.group('Flavor', max)
 ```
+
 
 
 
@@ -257,6 +270,7 @@ cones.group('Flavor', max)
 Once again, `group` creates arrays of the prices in each `Flavor` category. But now it finds the `max` of each array:
 
 
+
 {:.input_area}
 ```python
 price_maxes = grouped_cones.with_column(
@@ -264,6 +278,7 @@ price_maxes = grouped_cones.with_column(
 )
 price_maxes
 ```
+
 
 
 
@@ -291,6 +306,7 @@ price_maxes
 Indeed, the original call to `group` with just one argument has the same effect as using `len` as the function and then cleaning up the table.
 
 
+
 {:.input_area}
 ```python
 lengths = grouped_cones.with_column(
@@ -298,6 +314,7 @@ lengths = grouped_cones.with_column(
 )
 lengths
 ```
+
 
 
 
@@ -326,12 +343,14 @@ lengths
 The table `nba` contains data on the 2015-2016 players in the National Basketball Association. We have examined these data earlier. Recall that salaries are measured in millions of dollars.
 
 
+
 {:.input_area}
 ```python
 nba1 = Table.read_table(path_data + 'nba_salaries.csv')
 nba = nba1.relabeled("'15-'16 SALARY", 'SALARY')
 nba
 ```
+
 
 
 
@@ -386,11 +405,13 @@ nba
 The only columns involved are `TEAM` and `SALARY`. We have to `group` the rows by `TEAM` and then `sum` the salaries of the groups. 
 
 
+
 {:.input_area}
 ```python
 teams_and_money = nba.select('TEAM', 'SALARY')
 teams_and_money.group('TEAM', sum)
 ```
+
 
 
 
@@ -445,10 +466,12 @@ teams_and_money.group('TEAM', sum)
 We have to classify by `POSITION`, and count. This can be done with just one argument to group:
 
 
+
 {:.input_area}
 ```python
 nba.group('POSITION')
 ```
+
 
 
 
@@ -487,11 +510,13 @@ nba.group('POSITION')
 This time, we have to group by `POSITION` and take the mean of the salaries. For clarity, we will work with a table of just the positions and the salaries.
 
 
+
 {:.input_area}
 ```python
 positions_and_money = nba.select('POSITION', 'SALARY')
 positions_and_money.group('POSITION', np.mean)
 ```
+
 
 
 
@@ -530,10 +555,12 @@ Center was the most highly paid position, at an average of over 6 million dollar
 If we had not selected the two columns as our first step, `group` would not attempt to "average" the categorical columns in `nba`. (It is impossible to average two strings like "Atlanta Hawks" and "Boston Celtics".) It performs arithmetic only on numerical columns and leaves the rest blank.
 
 
+
 {:.input_area}
 ```python
 nba.group('POSITION', np.mean)
 ```
+
 
 
 

@@ -1,14 +1,13 @@
 ---
-title: '2. Causality and Experiments'
-permalink: 'chapters/02/causality-and-experiments'
-previouschapter:
-  url: chapters/01/3/2/Another_Kind_Of_Character
-  title: '1.3.2 Another Kind of Character'
-nextchapter:
-  url: chapters/02/1/observation-and-visualization-john-snow-and-the-broad-street-pump
-  title: '2.1 John Snow and the Broad Street Pump'
-redirect_from:
-  - 'chapters/02/causality-and-experiments'
+title: 'Causality and Experiments'
+permalink: '/chapters/02/causality-and-experiments'
+prev_page:
+  url: /chapters/01/3/2/Another_Kind_Of_Character
+  title: 'Another Kind of Character'
+next_page:
+  url: /chapters/02/1/observation-and-visualization-john-snow-and-the-broad-street-pump
+  title: 'John Snow and the Broad Street Pump'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Causality and Experiments
 ======================

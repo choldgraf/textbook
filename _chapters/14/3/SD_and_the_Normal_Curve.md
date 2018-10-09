@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/14/3/SD_and_the_Normal_Curve.ipynb
-title: '14.3 The SD and the Normal Curve'
-permalink: 'chapters/14/3/SD_and_the_Normal_Curve'
-previouschapter:
-  url: chapters/14/2/Variability
-  title: '14.2 Variability'
-nextchapter:
-  url: chapters/14/4/Central_Limit_Theorem
-  title: '14.4 The Central Limit Theorem'
-redirect_from:
-  - 'chapters/14/3/sd-and-the-normal-curve'
+interact_link: chapters/14/3/SD_and_the_Normal_Curve.ipynb
+title: 'The SD and the Normal Curve'
+permalink: '/chapters/14/3/SD_and_the_Normal_Curve'
+prev_page:
+  url: /chapters/14/2/Variability
+  title: 'Variability'
+next_page:
+  url: /chapters/14/4/Central_Limit_Theorem
+  title: 'The Central Limit Theorem'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### The SD and the Normal Curve
@@ -22,10 +21,13 @@ However, there is one shape of distribution for which the SD is almost as clearl
 Let us look at the distribution of heights of mothers in our familiar sample of 1,174 mother-newborn pairs. The mothers' heights have a mean of 64 inches and an SD of 2.5 inches. Unlike the heights of the basketball players, the mothers' heights are distributed fairly symmetrically about the mean in a bell-shaped curve.
 
 
+
 {:.input_area}
 ```python
 baby = Table.read_table(path_data + 'baby.csv')
 ```
+
+
 
 
 {:.input_area}
@@ -38,10 +40,12 @@ mean_height
 
 
 
+
 {:.output_data_text}
 ```
 64.0
 ```
+
 
 
 
@@ -55,10 +59,12 @@ sd_height
 
 
 
+
 {:.output_data_text}
 ```
 2.5
 ```
+
 
 
 
@@ -69,6 +75,7 @@ baby.hist('Maternal Height', bins=np.arange(55.5, 72.5, 1), unit='inch')
 positions = np.arange(-3, 3.1, 1)*sd_height + mean_height
 plots.xticks(positions);
 ```
+
 
 
 ![png](../../../images/chapters/14/3/SD_and_the_Normal_Curve_5_0.png)
@@ -115,10 +122,12 @@ Areas under smooth curves are often found by calculus, using a method called int
 Therefore, areas under the curve have to be approximated. That is why almost all statistics textbooks carry tables of areas under the normal curve. It is also why all statistical systems, including a module of Python, include methods that provide excellent approximations to those areas.
 
 
+
 {:.input_area}
 ```python
 from scipy import stats
 ```
+
 
 ### The standard normal "cdf"
 
@@ -129,10 +138,12 @@ Let us use this function to find the area to the left of $z=1$ under the standar
 The numerical value of the shaded area can be found by calling `stats.norm.cdf`.
 
 
+
 {:.input_area}
 ```python
 stats.norm.cdf(1)
 ```
+
 
 
 
@@ -149,10 +160,12 @@ That's about 84%. We can now use the symmetry of the curve and the fact that the
 The area to the right of $z=1$ is about 100% - 84% = 16%.
 
 
+
 {:.input_area}
 ```python
 1 - stats.norm.cdf(1)
 ```
+
 
 
 
@@ -171,10 +184,12 @@ For example, we could calculate the area as "100% - two equal tails", which work
 Or we could note that the area between $z=1$ and $z=-1$ is equal to all the area to the left of $z=1$, minus all the area to the left of $z=-1$.
 
 
+
 {:.input_area}
 ```python
 stats.norm.cdf(1) - stats.norm.cdf(-1)
 ```
+
 
 
 
@@ -189,10 +204,12 @@ stats.norm.cdf(1) - stats.norm.cdf(-1)
 By a similar calculation, we see that the area between $-2$ and 2 is about 95%.
 
 
+
 {:.input_area}
 ```python
 stats.norm.cdf(2) - stats.norm.cdf(-2)
 ```
+
 
 
 

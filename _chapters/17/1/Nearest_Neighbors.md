@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/17/1/Nearest_Neighbors.ipynb
-title: '17.1 Nearest Neighbors'
-permalink: 'chapters/17/1/Nearest_Neighbors'
-previouschapter:
-  url: chapters/17/Classification
-  title: '17. Classification'
-nextchapter:
-  url: chapters/17/2/Training_and_Testing
-  title: '17.2 Training and Testing'
-redirect_from:
-  - 'chapters/17/1/nearest-neighbors'
+interact_link: chapters/17/1/Nearest_Neighbors.ipynb
+title: 'Nearest Neighbors'
+permalink: '/chapters/17/1/Nearest_Neighbors'
+prev_page:
+  url: /chapters/17/Classification
+  title: 'Classification'
+next_page:
+  url: /chapters/17/2/Training_and_Testing
+  title: 'Training and Testing'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Nearest Neighbors
@@ -20,11 +19,13 @@ In this section we'll develop the *nearest neighbor* method of classification. J
 Let's work through an example.  We're going to work with a data set that was collected to help doctors diagnose chronic kidney disease (CKD).  Each row in the data set represents a single patient who was treated in the past and whose diagnosis is known.  For each patient, we have a bunch of measurements from a blood test.  We'd like to find which measurements are most useful for diagnosing CKD, and develop a way to classify future patients as "has CKD" or "doesn't have CKD" based on their blood test results.
 
 
+
 {:.input_area}
 ```python
 ckd = Table.read_table(path_data + 'ckd.csv').relabeled('Blood Glucose Random', 'Glucose')
 ckd
 ```
+
 
 
 
@@ -77,6 +78,7 @@ ckd
 Some of the variables are categorical (words like "abnormal"), and some quantitative. The quantitative variables all have different scales. We're going to want to make comparisons and estimate distances, often by eye, so let's select just a few of the variables and work in standard units. Then we won't have to worry about the scale of each of the different variables.
 
 
+
 {:.input_area}
 ```python
 ckd = Table().with_columns(
@@ -88,10 +90,13 @@ ckd = Table().with_columns(
 ```
 
 
+
+
 {:.input_area}
 ```python
 ckd
 ```
+
 
 
 
@@ -146,6 +151,7 @@ Let's look at two columns in particular: the hemoglobin level (in the patient's 
 We'll draw a scatter plot to visualize the relation between the two variables. Blue dots are patients with CKD; gold dots are patients without CKD.  What kind of medical test results seem to indicate CKD?
 
 
+
 {:.input_area}
 ```python
 color_table = Table().with_columns(
@@ -156,10 +162,13 @@ ckd = ckd.join('Class', color_table)
 ```
 
 
+
+
 {:.input_area}
 ```python
 ckd.scatter('Hemoglobin', 'Glucose', colors='Color')
 ```
+
 
 
 ![png](../../../images/chapters/17/1/Nearest_Neighbors_8_0.png)
@@ -176,12 +185,14 @@ In other words, to classify Alice as CKD or not, we find the patient in the trai
 In the graph below, the red dot represents Alice. It is joined with a black line to the point that is nearest to it – its *nearest neighbor* in the training set. The figure is drawn by a function called `show_closest`. It takes an array that represents the $x$ and $y$ coordinates of Alice's point. Vary those to see how the closest point changes! Note especially when the closest point is blue and when it is gold.
 
 
+
 {:.input_area}
 ```python
 # In this example, Alice's Hemoglobin attribute is 0 and her Glucose is 1.5.
 alice = make_array(0, 1.5)
 show_closest(alice)
 ```
+
 
 
 ![png](../../../images/chapters/17/1/Nearest_Neighbors_12_0.png)
@@ -200,11 +211,13 @@ Sometimes a helpful way to visualize a classifier is to map out the kinds of att
 For example, suppose the coordinates of Alice's point are (0, 1.5). Notice that the nearest neighbor is blue. Now try reducing the height (the $y$-coordinate) of the point. You'll see that at around $y = 0.95$ the nearest neighbor turns from blue to gold.
 
 
+
 {:.input_area}
 ```python
 alice = make_array(0, 0.97)
 show_closest(alice)
 ```
+
 
 
 ![png](../../../images/chapters/17/1/Nearest_Neighbors_15_0.png)
@@ -227,10 +240,12 @@ The decision boundary is where the classifier switches from turning the red poin
 However, the separation between the two classes won't always be quite so clean.  For instance, suppose that instead of hemoglobin levels we were to look at white blood cell count.  Look at what happens:
 
 
+
 {:.input_area}
 ```python
 ckd.scatter('White Blood Cell Count', 'Glucose', colors='Color')
 ```
+
 
 
 ![png](../../../images/chapters/17/1/Nearest_Neighbors_20_0.png)

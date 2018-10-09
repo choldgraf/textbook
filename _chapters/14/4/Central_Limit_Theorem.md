@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/14/4/Central_Limit_Theorem.ipynb
-title: '14.4 The Central Limit Theorem'
-permalink: 'chapters/14/4/Central_Limit_Theorem'
-previouschapter:
-  url: chapters/14/3/SD_and_the_Normal_Curve
-  title: '14.3 The SD and the Normal Curve'
-nextchapter:
-  url: chapters/14/5/Variability_of_the_Sample_Mean
-  title: '14.5 The Variability of the Sample Mean'
-redirect_from:
-  - 'chapters/14/4/central-limit-theorem'
+interact_link: chapters/14/4/Central_Limit_Theorem.ipynb
+title: 'The Central Limit Theorem'
+permalink: '/chapters/14/4/Central_Limit_Theorem'
+prev_page:
+  url: /chapters/14/3/SD_and_the_Normal_Curve
+  title: 'The SD and the Normal Curve'
+next_page:
+  url: /chapters/14/5/Variability_of_the_Sample_Mean
+  title: 'The Variability of the Sample Mean'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### The Central Limit Theorem
@@ -21,10 +20,12 @@ The examples below show two very different situations in which an approximate be
 In an earlier section, the bell appeared as the rough shape of the total amount of money we would make if we placed the same bet repeatedly on different spins of a roulette wheel. 
 
 
+
 {:.input_area}
 ```python
 wheel
 ```
+
 
 
 
@@ -77,6 +78,7 @@ wheel
 Recall that the bet on red pays even money, 1 to 1. We defined the function `red_winnings` that returns the net winnings on one \\$1 bet on red. Specifically, the function takes a color as its argument and returns 1 if the color is red. For all other colors it returns -1.
 
 
+
 {:.input_area}
 ```python
 def red_winnings(color):
@@ -86,7 +88,9 @@ def red_winnings(color):
         return -1
 ```
 
+
 The table `red` shows each pocket's winnings on red.
+
 
 
 {:.input_area}
@@ -96,6 +100,7 @@ red = wheel.with_column(
     )
 red
 ```
+
 
 
 
@@ -148,10 +153,12 @@ red
 Your net gain on one bet is one random draw from the `Winnings: Red` column. There is an 18/38 chance making \\$1, and a 20/38 chance of making -$1. This probability distribution is shown in the histogram below.
 
 
+
 {:.input_area}
 ```python
 red.select('Winnings: Red').hist(bins=np.arange(-1.5, 1.6, 1))
 ```
+
 
 
 ![png](../../../images/chapters/14/4/Central_Limit_Theorem_8_0.png)
@@ -162,6 +169,7 @@ Now suppose you bet many times on red. Your net winnings will be the sum of many
 It will take a bit of math to list all the possible values of your net winnings along with all of their chances. We won't do that; instead, we will approximate the probability distribution by simulation, as we have done all along in this course. 
 
 The code below simulates your net gain if you bet \\$1 on red on 400 different spins of the roulette wheel. 
+
 
 
 {:.input_area}
@@ -183,10 +191,13 @@ results = Table().with_column(
 ```
 
 
+
+
 {:.input_area}
 ```python
 results.hist(bins=np.arange(-80, 50, 6))
 ```
+
 
 
 ![png](../../../images/chapters/14/4/Central_Limit_Theorem_11_0.png)
@@ -197,11 +208,13 @@ That's a roughly bell shaped histogram, even though the distribution we are draw
 **Center.** The distribution is centered near -\$20, roughly. To see why, note that your winnings will be \\$1 on about 18/38 of the bets, and -\$1 on the remaining 20/38. So your average winnings per dollar bet will be roughly -5.26 cents:
 
 
+
 {:.input_area}
 ```python
 average_per_bet = 1*(18/38) + (-1)*(20/38)
 average_per_bet
 ```
+
 
 
 
@@ -216,10 +229,12 @@ average_per_bet
 So in 400 bets you expect that your net gain will be about -\$21:
 
 
+
 {:.input_area}
 ```python
 400 * average_per_bet
 ```
+
 
 
 
@@ -234,10 +249,12 @@ So in 400 bets you expect that your net gain will be about -\$21:
 For confirmation, we can compute the mean of the 10,000 simulated net gains:
 
 
+
 {:.input_area}
 ```python
 np.mean(results.column(0))
 ```
+
 
 
 
@@ -254,10 +271,12 @@ np.mean(results.column(0))
 In the next section we will see where the \\$20 comes from. For now, let's confirm our observation by simply calculating the SD of the 10,000 simulated net gains:
 
 
+
 {:.input_area}
 ```python
 np.std(results.column(0))
 ```
+
 
 
 
@@ -275,10 +294,13 @@ np.std(results.column(0))
 The table `united` contains data on departure delays of 13,825 United Airlines domestic flights out of San Francisco airport in the summer of 2015. As we have seen before, the distribution of delays has a long right-hand tail.
 
 
+
 {:.input_area}
 ```python
 united = Table.read_table(path_data + 'united_summer2015.csv')
 ```
+
+
 
 
 {:.input_area}
@@ -287,10 +309,12 @@ united.select('Delay').hist(bins=np.arange(-20, 300, 10))
 ```
 
 
+
 ![png](../../../images/chapters/14/4/Central_Limit_Theorem_23_0.png)
 
 
 The mean delay was about 16.6 minutes and the SD was about 39.5 minutes. Notice how large the SD is, compared to the mean. Those large deviations on the right have an effect, even though they are a very small proportion of the data.
+
 
 
 {:.input_area}
@@ -300,6 +324,7 @@ sd_delay = np.std(united.column('Delay'))
 
 mean_delay, sd_delay
 ```
+
 
 
 
@@ -316,16 +341,20 @@ Now suppose we sampled 400 delays at random with replacement. You could sample w
 In the sample, what could the average delay be? We expect it to be around 16 or 17, because that's the population average; but it is likely to be somewhat off. Let's see what we get by sampling. We'll work with the table `delay` that only contains the column of delays.
 
 
+
 {:.input_area}
 ```python
 delay = united.select('Delay')
 ```
 
 
+
+
 {:.input_area}
 ```python
 np.mean(delay.sample(400).column('Delay'))
 ```
+
 
 
 
@@ -338,6 +367,7 @@ np.mean(delay.sample(400).column('Delay'))
 
 
 The sample average varies according to how the sample comes out, so we will simulate the sampling process repeatedly and draw the empirical histogram of the sample average. That will be an approximation to the probability histogram of the sample average.
+
 
 
 {:.input_area}
@@ -358,10 +388,13 @@ results = Table().with_column(
 ```
 
 
+
+
 {:.input_area}
 ```python
 results.hist(bins=np.arange(10, 25, 0.5))
 ```
+
 
 
 ![png](../../../images/chapters/14/4/Central_Limit_Theorem_31_0.png)
@@ -387,6 +420,7 @@ In a large sample of plants, about what proportion will have purple flowers? We 
 We can confirm this by simulation. Let's simulate the proportion of purple-flowered plants in a sample of 200 plants.
 
 
+
 {:.input_area}
 ```python
 colors = make_array('Purple', 'Purple', 'Purple', 'White')
@@ -395,6 +429,7 @@ model = Table().with_column('Color', colors)
 
 model
 ```
+
 
 
 
@@ -426,6 +461,7 @@ model
 
 
 
+
 {:.input_area}
 ```python
 props = make_array()
@@ -442,10 +478,13 @@ results = Table().with_column('Sample Proportion: 200', props)
 ```
 
 
+
+
 {:.input_area}
 ```python
 results.hist(bins=np.arange(0.65, 0.85, 0.01))
 ```
+
 
 
 ![png](../../../images/chapters/14/4/Central_Limit_Theorem_37_0.png)
@@ -454,6 +493,7 @@ results.hist(bins=np.arange(0.65, 0.85, 0.01))
 There's that normal curve again, as predicted by the Central Limit Theorem, centered at around 0.75 just as you would expect.
 
 How would this distribution change if we increased the sample size? Let's run the code again with a sample size of 800, and collect the results of simulations in the same table in which we collected simulations based on a sample size of 200. We will keep the number of `repetitions` the same as before so that the two columns have the same length.
+
 
 
 {:.input_area}
@@ -471,10 +511,13 @@ results = results.with_column('Sample Proportion: 800', props2)
 ```
 
 
+
+
 {:.input_area}
 ```python
 results.hist(bins=np.arange(0.65, 0.85, 0.01))
 ```
+
 
 
 ![png](../../../images/chapters/14/4/Central_Limit_Theorem_40_0.png)

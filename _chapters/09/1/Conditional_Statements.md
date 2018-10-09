@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/09/1/Conditional_Statements.ipynb
-title: '9.1 Conditional Statements'
-permalink: 'chapters/09/1/Conditional_Statements'
-previouschapter:
-  url: chapters/09/Randomness
-  title: '9. Randomness'
-nextchapter:
-  url: chapters/09/2/Iteration
-  title: '9.2 Iteration'
-redirect_from:
-  - 'chapters/09/1/conditional-statements'
+interact_link: chapters/09/1/Conditional_Statements.ipynb
+title: 'Conditional Statements'
+permalink: '/chapters/09/1/Conditional_Statements'
+prev_page:
+  url: /chapters/09/Randomness
+  title: 'Randomness'
+next_page:
+  url: /chapters/09/2/Iteration
+  title: 'Iteration'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Conditional Statements
@@ -22,6 +21,7 @@ A conditional statement always begins with an `if` header, which is a single lin
 Let us start defining a function that returns the sign of a number.
 
 
+
 {:.input_area}
 ```python
 def sign(x):
@@ -31,10 +31,13 @@ def sign(x):
 ```
 
 
+
+
 {:.input_area}
 ```python
 sign(3)
 ```
+
 
 
 
@@ -49,12 +52,15 @@ sign(3)
 This function returns the correct sign if the input is a positive number. But if the input is not a positive number, then the *if expression* evaluates to a false value, and so the `return` statement is skipped and the function call has no value.
 
 
+
 {:.input_area}
 ```python
 sign(-3)
 ```
 
+
 So let us refine our function to return `Negative` if the input is a negative number. We can do this by adding an `elif` clause, where `elif` if Python's shorthand for the phrase "else, if".
+
 
 
 {:.input_area}
@@ -68,13 +74,16 @@ def sign(x):
         return 'Negative'
 ```
 
+
 Now `sign` returns the correct answer when the input is -3:
+
 
 
 {:.input_area}
 ```python
 sign(-3)
 ```
+
 
 
 
@@ -87,6 +96,7 @@ sign(-3)
 
 
 What if the input is 0? To deal with this case, we can add another `elif` clause:
+
 
 
 {:.input_area}
@@ -104,10 +114,13 @@ def sign(x):
 ```
 
 
+
+
 {:.input_area}
 ```python
 sign(0)
 ```
+
 
 
 
@@ -120,6 +133,7 @@ sign(0)
 
 
 Equivalently, we can replaced the final `elif` clause by an `else` clause, whose body will be executed only if all the previous comparisons are false; that is, if the input value is equal to 0.
+
 
 
 {:.input_area}
@@ -137,10 +151,13 @@ def sign(x):
 ```
 
 
+
+
 {:.input_area}
 ```python
 sign(0)
 ```
+
 
 
 
@@ -171,6 +188,7 @@ There is always exactly one `if` clause, but there can be any number of `elif` c
 We will now use conditional statements to define a function that seems rather artificial and contrary, but will come in handy later in the chapter. It takes an array with two elements (for example, `red` and `blue`), and another element to compare. If that element is `red`, the function returns `blue`. If the element is (for example) `blue`, the function returns `red`. That is why we'll call the function `other_one`.
 
 
+
 {:.input_area}
 ```python
 def other_one(x, a_b):
@@ -190,11 +208,14 @@ def other_one(x, a_b):
 ```
 
 
+
+
 {:.input_area}
 ```python
 colors = make_array('red', 'blue')
 other_one('red', colors)
 ```
+
 
 
 
@@ -207,10 +228,12 @@ other_one('red', colors)
 
 
 
+
 {:.input_area}
 ```python
 other_one('blue', colors)
 ```
+
 
 
 
@@ -223,10 +246,12 @@ other_one('blue', colors)
 
 
 
+
 {:.input_area}
 ```python
 other_one('potato', colors)
 ```
+
 
 
 

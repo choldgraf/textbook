@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/09/Randomness.ipynb
-title: '9. Randomness'
-permalink: 'chapters/09/Randomness'
-previouschapter:
-  url: chapters/08/5/Bike_Sharing_in_the_Bay_Area
-  title: '8.5 Bike Sharing in the Bay Area'
-nextchapter:
-  url: chapters/09/1/Conditional_Statements
-  title: '9.1 Conditional Statements'
-redirect_from:
-  - 'chapters/09/randomness'
+interact_link: chapters/09/Randomness.ipynb
+title: 'Randomness'
+permalink: '/chapters/09/Randomness'
+prev_page:
+  url: /chapters/08/5/Bike_Sharing_in_the_Bay_Area
+  title: 'Bike Sharing in the Bay Area'
+next_page:
+  url: /chapters/09/1/Conditional_Statements
+  title: 'Conditional Statements'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Randomness
@@ -21,11 +20,13 @@ In this chapter, we begin our analysis of randomness. To start off, we will use 
 Thus the following code evaluates to `treatment` with chance 50%, and `control` with chance 50%.
 
 
+
 {:.input_area}
 ```python
 two_groups = make_array('treatment', 'control')
 np.random.choice(two_groups)
 ```
+
 
 
 
@@ -40,10 +41,12 @@ np.random.choice(two_groups)
 The big difference between the code above and all the other code we have run thus far is that the code above doesn't always return the same value. It can return either `treatment` or `control`, and we don't know ahead of time which one it will pick. We can repeat the process by providing a second argument, the number of times to repeat the process.
 
 
+
 {:.input_area}
 ```python
 np.random.choice(two_groups, 10)
 ```
+
 
 
 
@@ -70,10 +73,12 @@ Once the event has occurred, you can answer "yes" or "no" to all these questions
 In Python, Boolean values, named for the logician [George Boole](https://en.wikipedia.org/wiki/George_Boole), represent truth and take only two possible values: `True` and `False`. Whether problems involve randomness or not, Boolean values most often arise from comparison operators. Python includes a variety of operators that compare values. For example, `3` is larger than `1 + 1`.
 
 
+
 {:.input_area}
 ```python
 3 > 1 + 1
 ```
+
 
 
 
@@ -99,10 +104,12 @@ The value `True` indicates that the comparison is valid; Python has confirmed th
 Notice the two equal signs `==` in the comparison to determine equality. This is necessary because Python already uses `=` to mean assignment to a name, as we have seen. It can't use the same symbol for a different purpose. Thus if you want to check whether 5 is equal to the 10/2, then you have to be careful: `5 = 10/2` returns an error message because Python assumes you are trying to assign the value of the expression 10/2 to a name that is the numeral 5. Instead, you must use `5 == 10/2`, which evaluates to `True`.
 
 
+
 {:.input_area}
 ```python
 5 = 10/2
 ```
+
 
 
 {:.output_traceback_line}
@@ -116,10 +123,12 @@ SyntaxError: can't assign to literal
 
 
 
+
 {:.input_area}
 ```python
 5 == 10/2
 ```
+
 
 
 
@@ -134,10 +143,12 @@ True
 An expression can contain multiple comparisons, and they all must hold in order for the whole expression to be `True`. For example, we can express that `1+1` is between `1` and `3` using the following expression.
 
 
+
 {:.input_area}
 ```python
 1 < 1 + 1 < 3
 ```
+
 
 
 
@@ -152,12 +163,14 @@ True
 The average of two numbers is always between the smaller number and the larger number. We express this relationship for the numbers `x` and `y` below. You can try different values of `x` and `y` to confirm this relationship.
 
 
+
 {:.input_area}
 ```python
 x = 12
 y = 5
 min(x, y) <= (x+y)/2 <= max(x, y)
 ```
+
 
 
 
@@ -174,10 +187,12 @@ True
 Strings can also be compared, and their order is alphabetical. A shorter string is less than a longer string that begins with the shorter string.
 
 
+
 {:.input_area}
 ```python
 'Dog' > 'Catastrophe' > 'Cat'
 ```
+
 
 
 
@@ -192,10 +207,12 @@ True
 Let's return to random selection. Recall the array `two_groups` which consists of just two elements, `treatment` and `control`. To see whether a randomly assigned individual went to the treatment group, you can use a comparison:
 
 
+
 {:.input_area}
 ```python
 np.random.choice(two_groups) == 'treatment'
 ```
+
 
 
 
@@ -213,11 +230,13 @@ As before, the random choice will not always be the same, so the result of the c
 Recall that we can perform arithmetic operations on many numbers in an array at once.  For example, `make_array(0, 5, 2)*2` is equivalent to `make_array(0, 10, 4)`.  In similar fashion, if we compare an array and one value, each element of the array is compared to that value, and the comparison evaluates to an array of Booleans.
 
 
+
 {:.input_area}
 ```python
 tosses = make_array('Tails', 'Heads', 'Tails', 'Heads', 'Heads')
 tosses == 'Heads'
 ```
+
 
 
 
@@ -232,10 +251,12 @@ array([False,  True, False,  True,  True])
 The `numpy` method `count_nonzero` evaluates to the number of non-zero (that is, `True`) elements of the array.
 
 
+
 {:.input_area}
 ```python
 np.count_nonzero(tosses == 'Heads')
 ```
+
 
 
 

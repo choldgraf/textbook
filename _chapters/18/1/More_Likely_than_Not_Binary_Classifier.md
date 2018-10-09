@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/18/1/More_Likely_than_Not_Binary_Classifier.ipynb
-title: '18.1 A "More Likely Than Not" Binary Classifier'
-permalink: 'chapters/18/1/More_Likely_than_Not_Binary_Classifier'
-previouschapter:
-  url: chapters/18/Updating_Predictions
+interact_link: chapters/18/1/More_Likely_than_Not_Binary_Classifier.ipynb
+title: 'A "More Likely Than Not" Binary Classifier'
+permalink: '/chapters/18/1/More_Likely_than_Not_Binary_Classifier'
+prev_page:
+  url: /chapters/18/Updating_Predictions
   title: '18. Updating Predictions'
-nextchapter:
-  url: chapters/18/2/Making_Decisions
-  title: '18.2 Making Decisions'
-redirect_from:
-  - 'chapters/18/1/more-likely-than-not-binary-classifier'
+next_page:
+  url: /chapters/18/2/Making_Decisions
+  title: 'Making Decisions'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### A "More Likely Than Not" Binary Classifier
@@ -40,10 +39,12 @@ Now that we know the student has declared a major, it becomes important to look 
 To visualize this, we will use a table `students` that consists of one row for each of 100 students whose years and majors have the same proportions as given in the data.
 
 
+
 {:.input_area}
 ```python
 students.show(3)
 ```
+
 
 
 <div markdown="0">
@@ -72,10 +73,12 @@ students.show(3)
 To check that the proportions are correct, let's use `pivot` to cross-classify each student according to the two variables.
 
 
+
 {:.input_area}
 ```python
 students.pivot('Major', 'Year')
 ```
+
 
 
 
@@ -115,10 +118,12 @@ What is the chance that our classification is correct? We will be right for all 
 In other words, the chance that we are correct is **the proportion of Third Years among the students who have Declared**.
 
 
+
 {:.input_area}
 ```python
 32/(30+32)
 ```
+
 
 
 
@@ -136,10 +141,12 @@ The proportion that we have just calculated was based on a class of 100 students
 So the calculation depends only on the proportions in the different categories, not on the counts. The proportions can be visualized in a *tree diagram*, shown directly below the pivot table for ease of comparison.
 
 
+
 {:.input_area}
 ```python
 students.pivot('Major', 'Year')
 ```
+
 
 
 
@@ -175,10 +182,12 @@ So, given that the student is Declared, the chance of them being a Third Year ca
 That is, the answer is **the proportion of Third Years among students who are Declared**, as before.
 
 
+
 {:.input_area}
 ```python
 (0.4 * 0.8)/(0.6 * 0.5  +  0.4 * 0.8)
 ```
+
 
 
 
@@ -226,10 +235,12 @@ P(\mbox{Second Year} ~\big{\vert}~ \mbox{Declared})
 $$
 
 
+
 {:.input_area}
 ```python
 (0.6 * 0.5)/(0.6 * 0.5  +  0.4 * 0.8)
 ```
+
 
 
 

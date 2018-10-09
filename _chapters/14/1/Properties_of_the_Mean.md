@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/14/1/Properties_of_the_Mean.ipynb
-title: '14.1 Properties of the Mean'
-permalink: 'chapters/14/1/Properties_of_the_Mean'
-previouschapter:
-  url: chapters/14/Why_the_Mean_Matters
-  title: '14. Why the Mean Matters'
-nextchapter:
-  url: chapters/14/2/Variability
-  title: '14.2 Variability'
-redirect_from:
-  - 'chapters/14/1/properties-of-the-mean'
+interact_link: chapters/14/1/Properties_of_the_Mean.ipynb
+title: 'Properties of the Mean'
+permalink: '/chapters/14/1/Properties_of_the_Mean'
+prev_page:
+  url: /chapters/14/Why_the_Mean_Matters
+  title: 'Why the Mean Matters'
+next_page:
+  url: /chapters/14/2/Variability
+  title: 'Variability'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Properties of the Mean
@@ -21,16 +20,20 @@ In this course, we have used the words "average" and "mean" interchangeably, and
 The methods `np.average` and `np.mean` return the mean of an array. 
 
 
+
 {:.input_area}
 ```python
 not_symmetric = make_array(2, 3, 3, 9)
 ```
 
 
+
+
 {:.input_area}
 ```python
 np.average(not_symmetric)
 ```
+
 
 
 
@@ -43,10 +46,12 @@ np.average(not_symmetric)
 
 
 
+
 {:.input_area}
 ```python
 np.mean(not_symmetric)
 ```
+
 
 
 
@@ -78,11 +83,13 @@ You can think of taking the mean as an "equalizing" or "smoothing" operation. Fo
 If a collection consists only of ones and zeroes, then the sum of the collection is the number of ones in it, and the mean of the collection is the proportion of ones.
 
 
+
 {:.input_area}
 ```python
 zero_one = make_array(1, 1, 1, 0)
 sum(zero_one)
 ```
+
 
 
 
@@ -95,10 +102,12 @@ sum(zero_one)
 
 
 
+
 {:.input_area}
 ```python
 np.mean(zero_one)
 ```
+
 
 
 
@@ -113,10 +122,12 @@ np.mean(zero_one)
 You can replace 1 by the Boolean `True` and 0 by `False`:
 
 
+
 {:.input_area}
 ```python
 np.mean(make_array(True, True, True, False))
 ```
+
 
 
 
@@ -135,7 +146,6 @@ The mean of the collection {2, 3, 3, 9} is 4.25, which is not the "halfway point
 
 To see this, notice that the mean can be calculated in different ways.
 
-$$
 \begin{align*}
 \mbox{mean} ~ &=~ 4.25 \\ \\
 &=~ \frac{2 + 3 + 3 + 9}{4} \\ \\
@@ -143,7 +153,6 @@ $$
 &=~ 2 \cdot \frac{1}{4} ~~ + ~~ 3 \cdot \frac{2}{4} ~~ + ~~ 9 \cdot \frac{1}{4} \\ \\
 &=~ 2 \cdot 0.25 ~~ + ~~ 3 \cdot 0.5 ~~ + ~~ 9 \cdot 0.25
 \end{align*}
-$$
 
 The last expression is an example of a general fact: when we calculate the mean, each distinct value in the collection is *weighted* by the proportion of times it appears in the collection.
 
@@ -154,10 +163,12 @@ Therefore, **if two collections have the same distribution, then they have the s
 For example, here is another collection that has the same distribution as `not_symmetric` and hence the same mean.
 
 
+
 {:.input_area}
 ```python
 not_symmetric
 ```
+
 
 
 
@@ -170,11 +181,13 @@ array([2, 3, 3, 9])
 
 
 
+
 {:.input_area}
 ```python
 same_distribution = make_array(2, 2, 3, 3, 3, 3, 9, 9)
 np.mean(same_distribution)
 ```
+
 
 
 
@@ -205,16 +218,20 @@ Happily for the student, the answer is, "Not necessarily." The reason has to do 
 The relationship is easy to see in a simple example. Here is a histogram of the collection {2, 3, 3, 4} which is in the array `symmetric`. The distribution is symmetric about 3. The mean and the median are both equal to 3.
 
 
+
 {:.input_area}
 ```python
 symmetric = make_array(2, 3, 3, 4)
 ```
 
 
+
+
 {:.input_area}
 ```python
 np.mean(symmetric)
 ```
+
 
 
 
@@ -227,10 +244,12 @@ np.mean(symmetric)
 
 
 
+
 {:.input_area}
 ```python
 percentile(50, symmetric)
 ```
+
 
 
 
@@ -246,6 +265,27 @@ In general, **for symmetric distributions, the mean and the median are equal.**
 
 What if the distribution is not symmetric? Let's compare `symmetric` and `not_symmetric`.
 
+
+
+{:.input_area}
+```python
+
+t2 = t2.with_column(
+        'not_symmetric', make_array(0.25, 0.5, 0, 0.25)
+)
+
+mean2 = sum(t2.column('Value')*t2.column('not_symmetric'))
+t2.hist(counts='Value', bins=np.arange(1.5, 9.6, 1))
+plots.scatter(mean1, -0.009, marker='^', color='darkblue', s=60)
+plots.scatter(mean2, -0.009, marker='^', color='gold', s=60)
+plots.ylim(-0.05, 0.5);
+```
+
+
+
+![png](../../../images/chapters/14/1/Properties_of_the_Mean_22_0.png)
+
+
 The blue histogram represents the original `symmetric` distribution. The gold histogram of `not_symmetric` starts out the same as the blue at the left end, but its rightmost bar has slid over to the value 9. The brown part is where the two histograms overlap.
 
 The median and mean of the blue distribution are both equal to 3. The median of the gold distribution is also equal to 3, though the right half is distributed differently from the left. 
@@ -260,12 +300,15 @@ In general, **if the histogram has a tail on one side (the formal term is "skewe
 The table `sf2015` contains salary and benefits data for San Francisco City employees in 2015. As before, we will restrict our analysis to those who had the equivalent of at least half-time employment for the year.
 
 
+
 {:.input_area}
 ```python
 sf2015 = Table.read_table(path_data + 'san_francisco_2015.csv').where('Salaries', are.above(10000))
 ```
 
+
 As we saw earlier, the highest compensation was above \\$600,000 but the vast majority of employees had compensations below \\$300,000.
+
 
 
 {:.input_area}
@@ -274,7 +317,8 @@ sf2015.select('Total Compensation').hist(bins = np.arange(10000, 700000, 25000))
 ```
 
 
-![png](../../../images/chapters/14/1/Properties_of_the_Mean_28_0.png)
+
+![png](../../../images/chapters/14/1/Properties_of_the_Mean_29_0.png)
 
 
 This histogram is skewed to the right; it has a right-hand tail. 
@@ -282,11 +326,13 @@ This histogram is skewed to the right; it has a right-hand tail.
 The mean gets pulled away from the median in the direction of the tail. So we expect the mean compensation to be larger than the median, and that is indeed the case.
 
 
+
 {:.input_area}
 ```python
 compensation = sf2015.column('Total Compensation')
 percentile(50, compensation)
 ```
+
 
 
 
@@ -299,10 +345,12 @@ percentile(50, compensation)
 
 
 
+
 {:.input_area}
 ```python
 np.mean(compensation)
 ```
+
 
 
 

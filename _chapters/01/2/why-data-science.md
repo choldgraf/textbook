@@ -1,14 +1,13 @@
 ---
-title: '1.2 Why Data Science?'
-permalink: 'chapters/01/2/why-data-science'
-previouschapter:
-  url: chapters/01/1/2/statistical-techniques
-  title: '1.1.2 Statistical Techniques'
-nextchapter:
-  url: chapters/01/3/Plotting_the_Classics
-  title: '1.3 Plotting the Classics'
-redirect_from:
-  - 'chapters/01/2/why-data-science'
+title: 'Why Data Science?'
+permalink: '/chapters/01/2/why-data-science'
+prev_page:
+  url: /chapters/01/1/2/statistical-techniques
+  title: 'Statistical Techniques'
+next_page:
+  url: /chapters/01/3/Plotting_the_Classics
+  title: 'Plotting the Classics'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Why Data Science?
 =================

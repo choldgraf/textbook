@@ -1,14 +1,13 @@
 ---
-title: '1.1.2 Statistical Techniques'
-permalink: 'chapters/01/1/2/statistical-techniques'
-previouschapter:
-  url: chapters/01/1/1/computational-tools
-  title: '1.1.1 Computational Tools'
-nextchapter:
-  url: chapters/01/2/why-data-science
-  title: '1.2 Why Data Science?'
-redirect_from:
-  - 'chapters/01/1/2/statistical-techniques'
+title: 'Statistical Techniques'
+permalink: '/chapters/01/1/2/statistical-techniques'
+prev_page:
+  url: /chapters/01/1/1/computational-tools
+  title: 'Computational Tools'
+next_page:
+  url: /chapters/01/2/why-data-science
+  title: 'Why Data Science?'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Statistical Techniques
 ----------------------

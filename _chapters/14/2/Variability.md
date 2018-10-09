@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/14/2/Variability.ipynb
-title: '14.2 Variability'
-permalink: 'chapters/14/2/Variability'
-previouschapter:
-  url: chapters/14/1/Properties_of_the_Mean
-  title: '14.1 Properties of the Mean'
-nextchapter:
-  url: chapters/14/3/SD_and_the_Normal_Curve
-  title: '14.3 The SD and the Normal Curve'
-redirect_from:
-  - 'chapters/14/2/variability'
+interact_link: chapters/14/2/Variability.ipynb
+title: 'Variability'
+permalink: '/chapters/14/2/Variability'
+prev_page:
+  url: /chapters/14/1/Properties_of_the_Mean
+  title: 'Properties of the Mean'
+next_page:
+  url: /chapters/14/3/SD_and_the_Normal_Curve
+  title: 'The SD and the Normal Curve'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Variability
@@ -21,12 +20,15 @@ We will start by describing how to calculate the measure. Then we will see why i
 For simplicity, we will begin our calcuations in the context of a simple array `any_numbers` consisting of just four values. As you will see, our method will extend easily to any other array of values.
 
 
+
 {:.input_area}
 ```python
 any_numbers = make_array(1, 2, 2, 10)
 ```
 
+
 The goal is to measure roughly how far off the numbers are from their average. To do this, we first need the average: 
+
 
 
 {:.input_area}
@@ -36,6 +38,7 @@ The goal is to measure roughly how far off the numbers are from their average. T
 mean = np.mean(any_numbers)
 mean
 ```
+
 
 
 
@@ -50,6 +53,7 @@ mean
 Next, let's find out how far each value is from the mean. These are called the *deviations from the average*. A "deviation from average" is just a value minus the average. The table `calculation_steps` displays the results.
 
 
+
 {:.input_area}
 ```python
 # Step 2. The deviations from average.
@@ -61,6 +65,7 @@ calculation_steps = Table().with_columns(
         )
 calculation_steps
 ```
+
 
 
 
@@ -96,10 +101,12 @@ Some of the deviations are negative; those correspond to values that are below a
 To calculate roughly how big the deviations are, it is natural to compute the mean of the deviations. But something interesting happens when all the deviations are added together:
 
 
+
 {:.input_area}
 ```python
 sum(deviations)
 ```
+
 
 
 
@@ -116,10 +123,12 @@ The positive deviations exactly cancel out the negative ones. This is true of al
 Since the sum of the deviations is 0, the mean of the deviations will be 0 as well:
 
 
+
 {:.input_area}
 ```python
 np.mean(deviations)
 ```
+
 
 
 
@@ -138,6 +147,7 @@ There are two time-honored ways of losing signs: the absolute value, and the squ
 So let's eliminate the signs by squaring all the deviations. Then we will take the mean of the squares:
 
 
+
 {:.input_area}
 ```python
 # Step 3. The squared deviations from average
@@ -148,6 +158,7 @@ calculation_steps = calculation_steps.with_column(
     )
 calculation_steps
 ```
+
 
 
 
@@ -179,6 +190,7 @@ calculation_steps
 
 
 
+
 {:.input_area}
 ```python
 # Step 4. Variance = the mean squared deviation from average
@@ -186,6 +198,7 @@ calculation_steps
 variance = np.mean(squared_deviations)
 variance
 ```
+
 
 
 
@@ -204,6 +217,7 @@ While the variance does give us an idea of spread, it is not on the same scale a
 So we return to the original scale by taking the positive square root of the variance:
 
 
+
 {:.input_area}
 ```python
 # Step 5.
@@ -213,6 +227,7 @@ So we return to the original scale by taking the positive square root of the var
 sd = variance ** 0.5
 sd
 ```
+
 
 
 
@@ -233,10 +248,12 @@ The quantity that we have just computed is called the *standard deviation* of th
 **Computation.** The five steps described above result in the SD. You can also use the function ``np.std`` to compute the SD of values in an array:
 
 
+
 {:.input_area}
 ```python
 np.std(any_numbers)
 ```
+
 
 
 
@@ -253,11 +270,13 @@ np.std(any_numbers)
 To see what we can learn from the SD, let's move to a more interesting dataset than `any_numbers`. The table `nba13` contains data on the players in the National Basketball Association (NBA) in 2013. For each player, the table records the position at which the player usually played, his height in inches, his weight in pounds, and his age in years.
 
 
+
 {:.input_area}
 ```python
 nba13 = Table.read_table(path_data + 'nba2013.csv')
 nba13
 ```
+
 
 
 
@@ -310,10 +329,12 @@ nba13
 Here is a histogram of the players' heights.
 
 
+
 {:.input_area}
 ```python
 nba13.select('Height').hist(bins=np.arange(68, 88, 1))
 ```
+
 
 
 ![png](../../../images/chapters/14/2/Variability_21_0.png)
@@ -322,11 +343,13 @@ nba13.select('Height').hist(bins=np.arange(68, 88, 1))
 It is no surprise that NBA players are tall! Their average height is just over 79 inches (6'7"), about 10 inches taller than the average height of men in the United States.
 
 
+
 {:.input_area}
 ```python
 mean_height = np.mean(nba13.column('Height'))
 mean_height
 ```
+
 
 
 
@@ -341,11 +364,13 @@ mean_height
 About how far off are the players' heights from the average? This is measured by the SD of the heights, which is about 3.45 inches.
 
 
+
 {:.input_area}
 ```python
 sd_height = np.std(nba13.column('Height'))
 sd_height
 ```
+
 
 
 
@@ -360,10 +385,12 @@ sd_height
 The towering center Hasheem Thabeet of the Oklahoma City Thunder was the tallest player at a height of 87 inches.
 
 
+
 {:.input_area}
 ```python
 nba13.sort('Height', descending=True).show(3)
 ```
+
 
 
 <div markdown="0">
@@ -392,10 +419,12 @@ nba13.sort('Height', descending=True).show(3)
 Thabeet was about 8 inches above the average height.
 
 
+
 {:.input_area}
 ```python
 87 - mean_height
 ```
+
 
 
 
@@ -410,10 +439,12 @@ Thabeet was about 8 inches above the average height.
 That's a deviation from average, and it is about 2.3 times the standard deviation:
 
 
+
 {:.input_area}
 ```python
 (87 - mean_height)/sd_height
 ```
+
 
 
 
@@ -430,10 +461,12 @@ In other words, the height of the tallest player was about 2.3 SDs above average
 At 69 inches tall, Isaiah Thomas was one of the two shortest NBA players in 2013. His height was about 2.9 SDs below average.
 
 
+
 {:.input_area}
 ```python
 nba13.sort('Height').show(3)
 ```
+
 
 
 <div markdown="0">
@@ -460,10 +493,12 @@ nba13.sort('Height').show(3)
 
 
 
+
 {:.input_area}
 ```python
 (69 - mean_height)/sd_height
 ```
+
 
 
 
@@ -488,13 +523,16 @@ We have already seen that *all* of the heights of the NBA players were in the ra
 What about the ages? Here is a histogram of the distribution, along with the mean and SD of the ages.
 
 
+
 {:.input_area}
 ```python
 nba13.select('Age in 2013').hist(bins=np.arange(15, 45, 1))
 ```
 
 
+
 ![png](../../../images/chapters/14/2/Variability_38_0.png)
+
 
 
 
@@ -505,6 +543,7 @@ mean_age = np.mean(ages)
 sd_age = np.std(ages)
 mean_age, sd_age
 ```
+
 
 
 
@@ -523,10 +562,12 @@ How far off were the ages from the average? Just as we did with the heights, let
 Juwan Howard was the oldest player, at 40. 
 
 
+
 {:.input_area}
 ```python
 nba13.sort('Age in 2013', descending=True).show(3)
 ```
+
 
 
 <div markdown="0">
@@ -555,10 +596,12 @@ nba13.sort('Age in 2013', descending=True).show(3)
 Howard's age was about 3.2 SDs above average.
 
 
+
 {:.input_area}
 ```python
 (40 - mean_age)/sd_age
 ```
+
 
 
 
@@ -573,10 +616,12 @@ Howard's age was about 3.2 SDs above average.
 The youngest was 15-year-old Jarvis Varnado, who won the NBA Championship that year with the Miami Heat. His age was about 2.6 SDs below average.
 
 
+
 {:.input_area}
 ```python
 nba13.sort('Age in 2013').show(3)
 ```
+
 
 
 <div markdown="0">
@@ -603,10 +648,12 @@ nba13.sort('Age in 2013').show(3)
 
 
 
+
 {:.input_area}
 ```python
 (15 - mean_age)/sd_age
 ```
+
 
 
 
@@ -654,6 +701,7 @@ $$
 As we will see, standard units are frequently used in data analysis. So it is useful to define a function that converts an array of numbers to standard units.
 
 
+
 {:.input_area}
 ```python
 def standard_units(numbers_array):
@@ -661,8 +709,10 @@ def standard_units(numbers_array):
     return (numbers_array - np.mean(numbers_array))/np.std(numbers_array)    
 ```
 
+
 ### Example
 As we saw in an earlier section, the table `united` contains a column `Delay` consisting of the departure delay times, in minutes, of over thousands of United Airlines flights in the summer of 2015. We will create a new column called `Delay (Standard Units)` by applying the function `standard_units` to the column of delay times. This allows us to see all the delay times in minutes as well as their corresponding values in standard units. 
+
 
 
 {:.input_area}
@@ -673,6 +723,7 @@ united = united.with_column(
 )
 united
 ```
+
 
 
 
@@ -727,10 +778,12 @@ The standard units that we can see are consistent with what we expect based on C
 But something rather alarming happens when we sort the delay times from highest to lowest. The standard units that we can see are extremely high!
 
 
+
 {:.input_area}
 ```python
 united.sort('Delay', descending=True)
 ```
+
 
 
 
@@ -785,11 +838,13 @@ What this shows is that it is possible for data to be many SDs above average (an
 However, the proportion of these extreme values is small, and Chebychev's bounds still hold true. For example, let us calculate the percent of delay times that are in the range "average $\pm$ 3 SDs". This is the same as the percent of times for which the standard units are in the range (-3, 3). That is about 98%, as computed below, consistent with Chebychev's bound of "at least 89%". 
 
 
+
 {:.input_area}
 ```python
 within_3_sd = united.where('Delay (Standard Units)', are.between(-3, 3))
 within_3_sd.num_rows/united.num_rows
 ```
+
 
 
 
@@ -804,11 +859,13 @@ within_3_sd.num_rows/united.num_rows
 The histogram of delay times is shown below, with the horizontal axis in standard units. By the table above, the right hand tail continues all the way out to $z=14.27$ standard units (580 minutes). The area of the histogram outside the range $z=-3$ to $z=3$ is about 2%, put together in tiny little bits that are mostly invisible in the histogram.
 
 
+
 {:.input_area}
 ```python
 united.hist('Delay (Standard Units)', bins=np.arange(-5, 15.5, 0.5))
 plots.xticks(np.arange(-6, 17, 3));
 ```
+
 
 
 ![png](../../../images/chapters/14/2/Variability_58_0.png)

@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/11/3/Decisions_and_Uncertainty.ipynb
-title: '11.3 Decisions and Uncertainty'
-permalink: 'chapters/11/3/Decisions_and_Uncertainty'
-previouschapter:
-  url: chapters/11/2/Multiple_Categories
-  title: '11.2 Multiple Categories'
-nextchapter:
-  url: chapters/12/Comparing_Two_Samples
-  title: '12. Comparing Two Samples'
-redirect_from:
-  - 'chapters/11/3/decisions-and-uncertainty'
+interact_link: chapters/11/3/Decisions_and_Uncertainty.ipynb
+title: 'Decisions and Uncertainty'
+permalink: '/chapters/11/3/Decisions_and_Uncertainty'
+prev_page:
+  url: /chapters/11/2/Multiple_Categories
+  title: 'Multiple Categories'
+next_page:
+  url: /chapters/12/Comparing_Two_Samples
+  title: 'Comparing Two Samples'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Decisions and Uncertainty
@@ -57,10 +56,12 @@ In the case of the pea plants, a sample percent of around 75% will be consistent
 The **observed value of the test statistic** is the value of the statistic you get from the data in the study, not a simulated value. Among Mendel's 929 plants, 705 had purple flowers. The observed value of the test statistic was therefore
 
 
+
 {:.input_area}
 ```python
 abs ( 100 * (705 / 929) - 75)
 ```
+
 
 
 
@@ -120,11 +121,13 @@ Let's take a look at the data.
 The table `scores` contains the section number and midterm score for each student in the class. The midterm scores were integers in the range 0 through 25; 0 means that the student didn't take the test.
 
 
+
 {:.input_area}
 ```python
 scores = Table.read_table(path_data + 'scores_by_section.csv')
 scores
 ```
+
 
 
 
@@ -177,11 +180,13 @@ scores
 To find the average score in each section, we will use `group`.
 
 
+
 {:.input_area}
 ```python
 section_averages = scores.group('Section', np.average)
 section_averages.show()
 ```
+
 
 
 <div markdown="0">
@@ -238,10 +243,12 @@ The average score of Section 3 is 13.667, which does look low compared to the ot
 To answer this, we can select a section at random from the class and find its average. To select a section at random to we need to know how big Section 3 is, which we can by once again using `group`.
 
 
+
 {:.input_area}
 ```python
 scores.group('Section')
 ```
+
 
 
 
@@ -300,12 +307,14 @@ First we have to select 27 scores at random without replacement. Since the data 
 Remember that by default, `sample` draws with replacement. The optional argument `with_replacement = False` produces a random sample drawn without replacement.
 
 
+
 {:.input_area}
 ```python
 scores_only = scores.drop('Section')
 sampled_scores = scores_only.sample(27, with_replacement=False)
 sampled_scores
 ```
+
 
 
 
@@ -358,10 +367,12 @@ sampled_scores
 The average of these 27 randomly selected scores is
 
 
+
 {:.input_area}
 ```python
 np.average(sampled_scores.column('Midterm'))
 ```
+
 
 
 
@@ -378,6 +389,7 @@ That's the average of 27 randomly selected scores. The cell below collects the c
 Now we can simulate the random sample average by repeating the calculation multple times.
 
 
+
 {:.input_area}
 ```python
 averages = make_array()
@@ -388,9 +400,11 @@ for i in np.arange(repetitions):
     averages = np.append(averages, np.average(sampled_scores.column('Midterm')))
 ```
 
+
 Here is the histogram of the simulated averages. It shows the distribution of what the Section 3 average might have been, if Section 3 had been selected at random from the class. 
 
 The observed Section 3 average score of 13.667 is shown as a red dot on the horizontal axis. You can ignore the last line of code; it just draws the dot.
+
 
 
 {:.input_area}
@@ -401,6 +415,7 @@ sample_averages.hist()
 observed_statistic = 13.667
 plots.scatter(observed_statistic, 0, color='red', s=30);
 ```
+
 
 
 ![png](../../../images/chapters/11/3/Decisions_and_Uncertainty_21_0.png)
@@ -420,10 +435,12 @@ The conventions are based on the area in the tail, starting at the observed stat
 Remember that in a histogram, area represents percent. To find the area in the tail, we have to find the percent of sample averages that were less than or equal to the average score of Section 3, where the red dot is. The array `averages` contains the averages for all 10,000 repetitions of the random sampling, and `section_3_average` is 13.667, the average score of Section 3.
 
 
+
 {:.input_area}
 ```python
 np.count_nonzero(averages <= section_3_average)/repetitions
 ```
+
 
 
 

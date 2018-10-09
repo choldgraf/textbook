@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/17/2/Training_and_Testing.ipynb
-title: '17.2 Training and Testing'
-permalink: 'chapters/17/2/Training_and_Testing'
-previouschapter:
-  url: chapters/17/1/Nearest_Neighbors
-  title: '17.1 Nearest Neighbors'
-nextchapter:
-  url: chapters/17/3/Rows_of_Tables
-  title: '17.3 Rows of Tables'
-redirect_from:
-  - 'chapters/17/2/training-and-testing'
+interact_link: chapters/17/2/Training_and_Testing.ipynb
+title: 'Training and Testing'
+permalink: '/chapters/17/2/Training_and_Testing'
+prev_page:
+  url: /chapters/17/1/Nearest_Neighbors
+  title: 'Nearest Neighbors'
+next_page:
+  url: /chapters/17/3/Rows_of_Tables
+  title: 'Rows of Tables'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Training and Testing
@@ -31,10 +30,12 @@ But let's be careful ... there will be pitfalls ahead if we take this path. An e
 Suppose we use a 1-nearest neighbor classifier to predict whether a patient has chronic kidney disease, based on glucose and white blood cell count.
 
 
+
 {:.input_area}
 ```python
 ckd.scatter('White Blood Cell Count', 'Glucose', colors='Color')
 ```
+
 
 
 ![png](../../../images/chapters/17/2/Training_and_Testing_2_0.png)
@@ -71,6 +72,7 @@ How to generate the training and testing sets? You've guessed it – we'll selec
 There are 158 individuals in `ckd`. Let's use a random half of them for training and the other half for testing. To do this, we'll shuffle all the rows, take the first 79 as the training set, and the remaining 79 for testing.
 
 
+
 {:.input_area}
 ```python
 shuffled_ckd = ckd.sample(with_replacement=False)
@@ -78,7 +80,9 @@ training = shuffled_ckd.take(np.arange(79))
 testing = shuffled_ckd.take(np.arange(79, 158))
 ```
 
+
 Now let's construct our classifier based on the points in the training sample:
+
 
 
 {:.input_area}
@@ -87,6 +91,7 @@ training.scatter('White Blood Cell Count', 'Glucose', colors='Color')
 plt.xlim(-2, 6)
 plt.ylim(-2, 6);
 ```
+
 
 
 ![png](../../../images/chapters/17/2/Training_and_Testing_8_0.png)

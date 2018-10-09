@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/15/Prediction.ipynb
-title: '15. Prediction'
-permalink: 'chapters/15/Prediction'
-previouschapter:
-  url: chapters/14/6/Choosing_a_Sample_Size
-  title: '14.6 Choosing a Sample Size'
-nextchapter:
-  url: chapters/15/1/Correlation
-  title: '15.1 Correlation'
-redirect_from:
-  - 'chapters/15/prediction'
+interact_link: chapters/15/Prediction.ipynb
+title: 'Prediction'
+permalink: '/chapters/15/Prediction'
+prev_page:
+  url: /chapters/14/6/Choosing_a_Sample_Size
+  title: 'Choosing a Sample Size'
+next_page:
+  url: /chapters/15/1/Correlation
+  title: 'Correlation'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Prediction
@@ -19,6 +18,7 @@ An important aspect of data science is to find out what data can tell us about t
 To answer such questions, data scientists have developed methods for making *predictions*. In this chapter we will study one of the most commonly used ways of predicting the value of one variable based on the value of another.
 
 The foundations of the method were laid by [Sir Francis Galton](https://en.wikipedia.org/wiki/Francis_Galton). As we saw in Section 7.1, Galton studied how physical characteristics are passed down from one generation to the next. Among his best known work is the prediction of the heights of adults based on the heights of their parents. We have studied the dataset that Galton collected for this. The table `heights` contains his data on the midparent height and child's height (all in inches) for a population of 934 adult "children".
+
 
 
 {:.input_area}
@@ -32,10 +32,13 @@ heights = Table().with_columns(
 ```
 
 
+
+
 {:.input_area}
 ```python
 heights
 ```
+
 
 
 
@@ -86,10 +89,12 @@ heights
 
 
 
+
 {:.input_area}
 ```python
 heights.scatter('MidParent')
 ```
+
 
 
 ![png](../../images/chapters/15/Prediction_4_0.png)
@@ -98,6 +103,7 @@ heights.scatter('MidParent')
 The primary reason for collecting the data was to be able to predict the adult height of a child born to parents similar to those in the dataset. We made these predictions in Section 7.1, after noticing the positive association between the two variables. 
 
 Our approach was to base the prediction on all the points that correspond to a midparent height of around the midparent height of the new person. To do this, we wrote a function called `predict_child` which takes a midparent height as its argument and returns the average height of all the children who had midparent heights within half an inch of the argument.
+
 
 
 {:.input_area}
@@ -114,7 +120,9 @@ def predict_child(mpht):
     return close_points.column('Child').mean()                       
 ```
 
+
 We applied the function to the column of `Midparent` heights, visualized our results.
+
 
 
 {:.input_area}
@@ -127,12 +135,15 @@ heights_with_predictions = heights.with_column(
 ```
 
 
+
+
 {:.input_area}
 ```python
 # Draw the original scatter plot along with the predicted values
 
 heights_with_predictions.scatter('MidParent')
 ```
+
 
 
 ![png](../../images/chapters/15/Prediction_9_0.png)

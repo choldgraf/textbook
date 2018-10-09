@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/09/5/Finding_Probabilities.ipynb
-title: '9.5 Finding Probabilities'
-permalink: 'chapters/09/5/Finding_Probabilities'
-previouschapter:
-  url: chapters/09/4/Monty_Hall_Problem
-  title: '9.4 The Monty Hall Problem'
-nextchapter:
-  url: chapters/10/Sampling_and_Empirical_Distributions
-  title: '10. Sampling and Empirical Distributions'
-redirect_from:
-  - 'chapters/09/5/finding-probabilities'
+interact_link: chapters/09/5/Finding_Probabilities.ipynb
+title: 'Finding Probabilities'
+permalink: '/chapters/09/5/Finding_Probabilities'
+prev_page:
+  url: /chapters/09/4/Monty_Hall_Problem
+  title: 'The Monty Hall Problem'
+next_page:
+  url: /chapters/10/Sampling_and_Empirical_Distributions
+  title: 'Sampling and Empirical Distributions'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Finding Probabilities
@@ -163,6 +162,7 @@ $$
 The table below shows these probabilities as the number of rolls increases from 1 to 50.
 
 
+
 {:.input_area}
 ```python
 rolls = np.arange(1, 51, 1)
@@ -172,6 +172,7 @@ results = Table().with_columns(
 )
 results
 ```
+
 
 
 
@@ -224,10 +225,12 @@ results
 The chance that a 6 appears at least once rises rapidly as the number of rolls increases.
 
 
+
 {:.input_area}
 ```python
 results.scatter('Rolls')
 ```
+
 
 
 ![png](../../../images/chapters/09/5/Finding_Probabilities_14_0.png)
@@ -236,10 +239,12 @@ results.scatter('Rolls')
 In 50 rolls, you are almost certain to get at least one 6.
 
 
+
 {:.input_area}
 ```python
 results.where('Rolls', are.equal_to(50))
 ```
+
 
 
 

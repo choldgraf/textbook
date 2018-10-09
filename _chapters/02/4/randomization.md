@@ -1,14 +1,13 @@
 ---
-title: '2.4 Randomization'
-permalink: 'chapters/02/4/randomization'
-previouschapter:
-  url: chapters/02/3/establishing-causality
-  title: '2.3 Establishing Causality'
-nextchapter:
-  url: chapters/02/5/endnote
-  title: '2.5 Endnote'
-redirect_from:
-  - 'chapters/02/4/randomization'
+title: 'Randomization'
+permalink: '/chapters/02/4/randomization'
+prev_page:
+  url: /chapters/02/3/establishing-causality
+  title: 'Establishing Causality'
+next_page:
+  url: /chapters/02/5/endnote
+  title: 'Endnote'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Randomization
 --------------

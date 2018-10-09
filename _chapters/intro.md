@@ -1,15 +1,13 @@
 ---
-title: '0. Introduction'
-permalink: 'chapters/intro'
-previouschapter:
-  url:
-  title: ''
-nextchapter:
-  url: chapters/01/what-is-data-science
-  title: '1. Data Science'
-redirect_from:
-  - 'chapters/intro'
-  - '/'
+title: 'Introduction'
+permalink: '/chapters/intro'
+prev_page:
+  url: /
+  title: 'Home'
+next_page:
+  url: /chapters/01/what-is-data-science
+  title: 'Data Science'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Computational and Inferential Thinking
 ======================================
@@ -26,7 +24,7 @@ This is the textbook for the [Foundations of Data Science class at UC Berkeley][
 [View this textbook online on GitHub Pages.][ghpages]
 
 Old versions of this textbook:
-	[Fall 2017](https://ds8.gitbooks.io/textbook/content/)
+	[Fall 2017](http://inferentialthinking.com/v/fa17)
 
 [data8]: http://data8.org/
 [ghpages]: https://inferentialthinking.com

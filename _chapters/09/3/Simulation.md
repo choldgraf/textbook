@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/09/3/Simulation.ipynb
-title: '9.3 Simulation'
-permalink: 'chapters/09/3/Simulation'
-previouschapter:
-  url: chapters/09/2/Iteration
-  title: '9.2 Iteration'
-nextchapter:
-  url: chapters/09/4/Monty_Hall_Problem
-  title: '9.4 The Monty Hall Problem'
-redirect_from:
-  - 'chapters/09/3/simulation'
+interact_link: chapters/09/3/Simulation.ipynb
+title: 'Simulation'
+permalink: '/chapters/09/3/Simulation'
+prev_page:
+  url: /chapters/09/2/Iteration
+  title: 'Iteration'
+next_page:
+  url: /chapters/09/4/Monty_Hall_Problem
+  title: 'The Monty Hall Problem'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Simulation
@@ -54,14 +53,17 @@ The quantity we are going to simulate is the number of heads in 100 tosses.
 We have to figure out how to make one set of 100 tosses and count the number of heads. Let's start by creating a coin.
 
 
+
 {:.input_area}
 ```python
 coin = make_array('Heads', 'Tails')
 ```
 
+
 In our earlier example we used `np.random.choice` and a `for` loop to generate multiple tosses. But sets of coin tosses are needed so often in data science that `np.random.choice` simulates them for us if we include a second argument that is the number of times to toss.
 
 Here are the results of 10 tosses.
+
 
 
 {:.input_area}
@@ -69,6 +71,7 @@ Here are the results of 10 tosses.
 ten_tosses = np.random.choice(coin, 10)
 ten_tosses
 ```
+
 
 
 
@@ -84,10 +87,12 @@ array(['Tails', 'Heads', 'Heads', 'Tails', 'Tails', 'Heads', 'Tails',
 We can count the number of heads by using `np.count_nonzero` as before:
 
 
+
 {:.input_area}
 ```python
 np.count_nonzero(ten_tosses == 'Heads')
 ```
+
 
 
 
@@ -102,12 +107,14 @@ np.count_nonzero(ten_tosses == 'Heads')
 Our goal is to simulate the number of heads in 100 tosses, not 10. To do that we can just repeat the same code, replacing 10 by 100.
 
 
+
 {:.input_area}
 ```python
 outcomes = np.random.choice(coin, 100)
 num_heads = np.count_nonzero(outcomes == 'Heads')
 num_heads
 ```
+
 
 
 
@@ -127,6 +134,7 @@ That's a lot of tossing! It's good that we have Python to do it for us.
 
 ### Step 4: Coding the Simulation
 We are ready to write the code to execute the entire simulation.
+
 
 
 {:.input_area}
@@ -151,13 +159,16 @@ for i in repetitions_sequence:
 # That's it! The simulation is done.
 ```
 
+
 Check that the array `heads` contains 10,000 entries, one for each repetition of the experiment.
+
 
 
 {:.input_area}
 ```python
 len(heads)
 ```
+
 
 
 
@@ -172,6 +183,7 @@ len(heads)
 To get a sense of the variability in the number of heads in 100 tosses, we can collect the results in a table and draw a histogram.
 
 
+
 {:.input_area}
 ```python
 simulation_results = Table().with_column(
@@ -181,10 +193,13 @@ simulation_results = Table().with_column(
 ```
 
 
+
+
 {:.input_area}
 ```python
 simulation_results
 ```
+
 
 
 
@@ -235,10 +250,12 @@ simulation_results
 
 
 
+
 {:.input_area}
 ```python
 simulation_results.hist('Number of Heads', bins = np.arange(30.5, 69.6, 1))
 ```
+
 
 
 ![png](../../../images/chapters/09/3/Simulation_16_0.png)
@@ -258,6 +275,7 @@ This is an instance of a more general phenomenon about the variability in coin t
 We wrote the code for the simulation to show each of the steps in detail. Here are the same steps written in a more compact form. You can see that the code starts out the same way as before, but then some steps are combined.
 
 
+
 {:.input_area}
 ```python
 heads = make_array()
@@ -270,10 +288,13 @@ for i in np.arange(num_repetitions):
 ```
 
 
+
+
 {:.input_area}
 ```python
 heads
 ```
+
 
 
 
@@ -293,11 +314,13 @@ We can explore this by simulating the sum of two rolls of a die. We will run the
 Step 2 is the one in which we simulate one pair of rolls and add up the number of spots.
 
 
+
 {:.input_area}
 ```python
 die = np.arange(1, 7)
 sum(np.random.choice(die, 2))
 ```
+
 
 
 
@@ -312,6 +335,7 @@ sum(np.random.choice(die, 2))
 That simulates one value of the sum of two rolls. We are now all set to run the simulation according to the steps that are now familiar.
 
 
+
 {:.input_area}
 ```python
 moves = make_array()
@@ -323,7 +347,9 @@ for i in np.arange(num_repetitions):
     moves = np.append(moves, one_move)
 ```
 
+
 Here is a histogram of the results.
+
 
 
 {:.input_area}
@@ -335,6 +361,7 @@ results = Table().with_column(
 
 results.hist('Sum of Two Rolls', bins = np.arange(1.5, 12.6, 1))
 ```
+
 
 
 ![png](../../../images/chapters/09/3/Simulation_26_0.png)

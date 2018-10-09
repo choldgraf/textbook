@@ -1,21 +1,21 @@
 ---
-interact_link: notebooks/05/3/More_on_Arrays.ipynb
-title: '5.3 More on Arrays'
-permalink: 'chapters/05/3/More_on_Arrays'
-previouschapter:
-  url: chapters/05/2/Ranges
-  title: '5.2 Ranges'
-nextchapter:
-  url: chapters/06/Tables
-  title: '6. Tables'
-redirect_from:
-  - 'chapters/05/3/more-on-arrays'
+interact_link: chapters/05/3/More_on_Arrays.ipynb
+title: 'More on Arrays'
+permalink: '/chapters/05/3/More_on_Arrays'
+prev_page:
+  url: /chapters/05/2/Ranges
+  title: 'Ranges'
+next_page:
+  url: /chapters/06/Tables
+  title: 'Tables'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 # More on Arrays
 It's often necessary to compute something that involves data from more than one array. If two arrays are of the same size, Python makes it easy to do calculations involving both arrays.
 
 For our first example, we return once more to the temperature data.  This time, we create arrays of average daily [high](http://berkeleyearth.lbl.gov/auto/Regional/TMAX/Text/global-land-TMAX-Trend.txt) and [low](http://berkeleyearth.lbl.gov/auto/Regional/TMIN/Text/global-land-TMIN-Trend.txt) temperatures for the decades surrounding 1850, 1900, 1950, and 2000.
+
 
 
 {:.input_area}
@@ -31,10 +31,12 @@ highs
 
 
 
+
 {:.output_data_text}
 ```
 array([ 13.6  ,  14.387,  14.585,  15.164])
 ```
+
 
 
 
@@ -46,6 +48,7 @@ lows = make_array(baseline_low - 0.872, baseline_low - 0.629,
                   baseline_low - 0.126, baseline_low + 0.728)
 lows
 ```
+
 
 
 
@@ -62,6 +65,7 @@ Suppose we'd like to compute the average daily *range* of temperatures for each 
 We could write this laboriously using `.item`:
 
 
+
 {:.input_area}
 ```python
 make_array(
@@ -71,6 +75,7 @@ make_array(
     highs.item(3) - lows.item(3)
 )
 ```
+
 
 
 
@@ -85,10 +90,12 @@ array([ 11.472,  12.016,  11.711,  11.436])
 As when we converted an array of temperatures from Celsius to Fahrenheit, Python provides a much cleaner way to write this:
 
 
+
 {:.input_area}
 ```python
 highs - lows
 ```
+
 
 
 
@@ -125,6 +132,7 @@ $$\pi \approx 2 \cdot \left( \frac{2}{1} \cdot \frac{4}{3} \cdot \frac{6}{5} \cd
 We're now ready to do the calculation. We start by creating an array of even numbers 2, 4, 6, and so on upto 1,000,000. Then we create two lists of odd numbers: 1, 3, 5, 7, ... upto 999,999, and 3, 5, 7, ... upto 1,000,001.
 
 
+
 {:.input_area}
 ```python
 even = np.arange(2, 1000001, 2)
@@ -132,13 +140,16 @@ one_below_even = even - 1
 one_above_even = even + 1
 ```
 
+
 Remember that `np.prod` multiplies all the elements of an array together. Now we can calculate Wallis' product, to a good approximation.
+
 
 
 {:.input_area}
 ```python
 2 * np.prod(even/one_below_even) * np.prod(even/one_above_even)
 ```
+
 
 
 

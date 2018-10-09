@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/13/Estimation.ipynb
-title: '13. Estimation'
-permalink: 'chapters/13/Estimation'
-previouschapter:
-  url: chapters/12/3/Causality
-  title: '12.3 Causality'
-nextchapter:
-  url: chapters/13/1/Percentiles
-  title: '13.1 Percentiles'
-redirect_from:
-  - 'chapters/13/estimation'
+interact_link: chapters/13/Estimation.ipynb
+title: 'Estimation'
+permalink: '/chapters/13/Estimation'
+prev_page:
+  url: /chapters/12/3/Causality
+  title: 'Causality'
+next_page:
+  url: /chapters/13/1/Percentiles
+  title: 'Percentiles'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Estimation

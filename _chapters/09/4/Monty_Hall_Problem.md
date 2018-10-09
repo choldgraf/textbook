@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/09/4/Monty_Hall_Problem.ipynb
-title: '9.4 The Monty Hall Problem'
-permalink: 'chapters/09/4/Monty_Hall_Problem'
-previouschapter:
-  url: chapters/09/3/Simulation
-  title: '9.3 Simulation'
-nextchapter:
-  url: chapters/09/5/Finding_Probabilities
-  title: '9.5 Finding Probabilities'
-redirect_from:
-  - 'chapters/09/4/monty-hall-problem'
+interact_link: chapters/09/4/Monty_Hall_Problem.ipynb
+title: 'The Monty Hall Problem'
+permalink: '/chapters/09/4/Monty_Hall_Problem'
+prev_page:
+  url: /chapters/09/3/Simulation
+  title: 'Simulation'
+next_page:
+  url: /chapters/09/5/Finding_Probabilities
+  title: 'Finding Probabilities'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### The Monty Hall Problem
@@ -60,17 +59,20 @@ The bulk of our work consists of simulating one play of the game. This involves 
 We start by setting up two useful arrays – `doors` and `goats` – that will allow us to distinguish the three doors and the two goats.
 
 
+
 {:.input_area}
 ```python
 doors = make_array('Car', 'Goat 1', 'Goat 2')
 goats = make_array('Goat 1', 'Goat 2')
 ```
 
+
 #### Identifying Goats
 
 We are going to have to recognize whether a door has a goat behind it or not. We can just label each door with what's behind it; the contestant can't see what we are doing! 
 
 The function `is_goat` takes a door label and returns a Boolean signifying whether or not it is a goat.
+
 
 
 {:.input_area}
@@ -86,7 +88,9 @@ def is_goat(door_name):
 
 ```
 
+
 Let's check that this function can indeed tell goats from cars.
+
 
 
 {:.input_area}
@@ -97,10 +101,12 @@ is_goat('Goat 1')
 
 
 
+
 {:.output_data_text}
 ```
 True
 ```
+
 
 
 
@@ -113,6 +119,7 @@ is_goat('Goat 2')
 
 
 
+
 {:.output_data_text}
 ```
 True
@@ -121,10 +128,12 @@ True
 
 
 
+
 {:.input_area}
 ```python
 is_goat('Car')
 ```
+
 
 
 
@@ -143,6 +152,7 @@ If the contestant's original choice is a door with a goat, Monty must throw out 
 It is clear, therefore, that the function `other_one` defined in an earlier section will be useful. It takes a string and a two-element array; if the string is equal to one of the elements, it returns the other one.
 
 
+
 {:.input_area}
 ```python
 def other_one(x, a_b):
@@ -154,7 +164,9 @@ def other_one(x, a_b):
         return 'Input Not Valid'
 ```
 
+
 If the contestant's original choice is a goat, then the outcome of the game could be one of the following two:
+
 
 
 {:.input_area}
@@ -162,6 +174,7 @@ If the contestant's original choice is a goat, then the outcome of the game coul
 original = 'Goat 1'
 make_array(original, other_one(original, goats), 'Car')
 ```
+
 
 
 
@@ -174,11 +187,13 @@ array(['Goat 1', 'Goat 2', 'Car'], dtype='<U6')
 
 
 
+
 {:.input_area}
 ```python
 original = 'Goat 2'
 make_array(original, other_one(original, goats), 'Car')
 ```
+
 
 
 
@@ -193,12 +208,14 @@ array(['Goat 2', 'Goat 1', 'Car'], dtype='<U6')
 If the original choice happens to be the car, then let's assume Monty throws out one of the two goats at random, and the other goat is behind the remaining door.
 
 
+
 {:.input_area}
 ```python
 original = 'Car'
 throw_out = np.random.choice(goats)
 make_array(original, throw_out, other_one(throw_out, goats))
 ```
+
 
 
 
@@ -223,6 +240,7 @@ The contestant's original choice will be a door chosen at random from among the 
 To check whether the original choice is a goat or not, we first write a little function named `is_goat`.
 
 
+
 {:.input_area}
 ```python
 def monty_hall():
@@ -243,13 +261,16 @@ def monty_hall():
         return make_array(original, throw_out, other_one(throw_out, goats))
 ```
 
+
 Let's play the game a few times! Here is one outcome. You should run the cell several times to see how the outcome changes.
+
 
 
 {:.input_area}
 ```python
 monty_hall()
 ```
+
 
 
 
@@ -266,6 +287,7 @@ To gauge the frequency with which the different outcomes occur, we have to play 
 
 ### Step 4: Coding the Simulation
 It's time to run the simulation. We will start by defining three empty arrays, one each for the original choice, what Monty throws out, and what remains. 
+
 
 
 {:.input_area}
@@ -285,11 +307,13 @@ for i in np.arange(num_repetitions):
     remains = np.append(remains, result.item(2))
 ```
 
+
 The simulation is done. As always, the majority of the work is in generating the simulated outcome of one repetition.
 
 ### Visualization
 
 We can now put all the results into one table for ease of visualization.
+
 
 
 {:.input_area}
@@ -301,6 +325,7 @@ results = Table().with_columns(
 )
 results
 ```
+
 
 
 
@@ -353,10 +378,12 @@ results
 To see whether the contestant should stick with her original choice or switch, let's see how frequently the car is behind each of her two options.
 
 
+
 {:.input_area}
 ```python
 results.group('Original Door Choice')
 ```
+
 
 
 
@@ -385,10 +412,12 @@ results.group('Original Door Choice')
 
 
 
+
 {:.input_area}
 ```python
 results.group('Remaining Door')
 ```
+
 
 
 
@@ -421,6 +450,7 @@ As our solution said, the car is behind the remaining door two-thirds of the tim
 To see this graphically, we can join the two tables above and draw overlaid bar charts.
 
 
+
 {:.input_area}
 ```python
 results_o = results.group('Original Door Choice')
@@ -429,6 +459,7 @@ joined = results_o.join('Original Door Choice', results_r, 'Remaining Door')
 combined = joined.relabeled(0, 'Item').relabeled(1, 'Original Door').relabeled(2, 'Remaining Door')
 combined
 ```
+
 
 
 
@@ -457,10 +488,12 @@ combined
 
 
 
+
 {:.input_area}
 ```python
 combined.barh(0)
 ```
+
 
 
 ![png](../../../images/chapters/09/4/Monty_Hall_Problem_32_0.png)

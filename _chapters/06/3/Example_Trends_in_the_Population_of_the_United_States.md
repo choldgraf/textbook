@@ -1,20 +1,20 @@
 ---
-interact_link: notebooks/06/3/Example_Trends_in_the_Population_of_the_United_States.ipynb
-title: '6.3 Example: Population Trends'
-permalink: 'chapters/06/3/Example_Trends_in_the_Population_of_the_United_States'
-previouschapter:
-  url: chapters/06/2/Selecting_Rows
-  title: '6.2 Selecting Rows'
-nextchapter:
-  url: chapters/06/4/Example_Gender_Ratio_in_the_US_Population
-  title: '6.4 Example: Trends in Gender'
-redirect_from:
-  - 'chapters/06/3/example-trends-in-the-population-of-the-united-states'
+interact_link: chapters/06/3/Example_Trends_in_the_Population_of_the_United_States.ipynb
+title: 'Example: Population Trends'
+permalink: '/chapters/06/3/Example_Trends_in_the_Population_of_the_United_States'
+prev_page:
+  url: /chapters/06/2/Selecting_Rows
+  title: 'Selecting Rows'
+next_page:
+  url: /chapters/06/4/Example_Gender_Ratio_in_the_US_Population
+  title: 'Example: Trends in Gender'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 # Example: Population Trends
 
 We are now ready to work with large tables of data. The file below contains "Annual Estimates of the Resident Population by Single Year of Age and Sex for the United States." Notice that `read_table` can read data directly from a URL.
+
 
 
 {:.input_area}
@@ -28,6 +28,7 @@ data = 'http://www2.census.gov/programs-surveys/popest/datasets/2010-2015/nation
 full_census_table = Table.read_table(data)
 full_census_table
 ```
+
 
 
 
@@ -84,11 +85,13 @@ a [description of the table](http://www2.census.gov/programs-surveys/popest/data
 Typically, a public table will contain more information than necessary for a particular investigation or analysis. In this case, let us suppose that we are only interested in the population changes from 2010 to 2014. Let us `select` the relevant columns.
 
 
+
 {:.input_area}
 ```python
 partial_census_table = full_census_table.select('SEX', 'AGE', 'POPESTIMATE2010', 'POPESTIMATE2014')
 partial_census_table
 ```
+
 
 
 
@@ -141,11 +144,13 @@ partial_census_table
 We can also simplify the labels of the selected columns.
 
 
+
 {:.input_area}
 ```python
 us_pop = partial_census_table.relabeled('POPESTIMATE2010', '2010').relabeled('POPESTIMATE2014', '2014')
 us_pop
 ```
+
 
 
 
@@ -198,10 +203,12 @@ us_pop
 We now have a table that is easy to work with. Each column of the table is an array of the same length, and so columns can be combined using arithmetic. Here is the change in population between 2010 and 2014.
 
 
+
 {:.input_area}
 ```python
 us_pop.column('2014') - us_pop.column('2010')
 ```
+
 
 
 
@@ -216,6 +223,7 @@ array([  -1555,   -8112, -131198, ...,    6443,   12950, 4693244])
 Let us augment `us_pop` with a column that contains these changes, both in absolute terms and as percents relative to the value in 2010.
 
 
+
 {:.input_area}
 ```python
 change = us_pop.column('2014') - us_pop.column('2010')
@@ -225,6 +233,7 @@ census = us_pop.with_columns(
 )
 census.set_format('Percent Change', PercentFormatter)
 ```
+
 
 
 
@@ -277,10 +286,12 @@ census.set_format('Percent Change', PercentFormatter)
 **Sorting the data.** Let us sort the table in decreasing order of the absolute change in population.
 
 
+
 {:.input_area}
 ```python
 census.sort('Change', descending=True)
 ```
+
 
 
 

@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/12/3/Causality.ipynb
-title: '12.3 Causality'
-permalink: 'chapters/12/3/Causality'
-previouschapter:
-  url: chapters/12/2/Deflategate
-  title: '12.2 Deflategate'
-nextchapter:
-  url: chapters/13/Estimation
-  title: '13. Estimation'
-redirect_from:
-  - 'chapters/12/3/causality'
+interact_link: chapters/12/3/Causality.ipynb
+title: 'Causality'
+permalink: '/chapters/12/3/Causality'
+prev_page:
+  url: /chapters/12/2/Deflategate
+  title: 'Deflategate'
+next_page:
+  url: /chapters/13/Estimation
+  title: 'Estimation'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Causality
@@ -28,11 +27,13 @@ Thirty one patients with low-back pain were randomized into treatment and contro
 Eight weeks after the start of the study, nine of the 15 in the treatment group and two of the 16 in the control group had pain relief (according to a precise definition used by the researchers). These data are in the table `bta` and appear to show that the treatment has a clear benefit.
 
 
+
 {:.input_area}
 ```python
 bta = Table.read_table(path_data + 'bta.csv')
 bta.show()
 ```
+
 
 
 <div markdown="0">
@@ -144,10 +145,12 @@ bta.show()
 Remember that counting is the same as adding zeros and ones. The sum of 1's in the control group is the number of control group patients who had pain relief. So the *average* of the number of 1's is the *proportion* of control group patients who had pain relief.
 
 
+
 {:.input_area}
 ```python
 bta.group('Group', np.mean)
 ```
+
 
 
 
@@ -183,7 +186,7 @@ To account for this possibility, let's start by carefully setting up the chance 
 ### Potential Outcomes
 Before the patients are randomized into the two groups, our minds instinctively imagine two possible outcomes for each patient: the outcome that the patient would have if assigned to the treatment group, and the outcome that the same patient would have if assigned to the control group. These are called the two *potential outcomes* of the patient.
 
-Thus there are 31 potential treatment outcomes and 31 potential control ouctomes. The question is about the distributions of these two sets of 31 outcomes each. Are they the same, or are they different?
+Thus there are 31 potential treatment outcomes and 31 potential control outcomes. The question is about the distributions of these two sets of 31 outcomes each. Are they the same, or are they different?
 
 We can't answer this just yet, because we don't get to see all 31 values in each group. We just get to see a randomly selected 16 of the potential control outcomes, and the treatment outcomes of *the remaining* 15 patients. 
 
@@ -198,11 +201,13 @@ After the randomization, we get to see the right half of a randomly selected set
 The table `observed_outcomes` collects the information about every patient's potential outcomes, leaving the unobserved half of each "ticket" blank.  (It's just another way of thinking about the `bta` table, carrying the same information.)
 
 
+
 {:.input_area}
 ```python
 observed_outcomes = Table.read_table(path_data + "observed_outcomes.csv")
 observed_outcomes.show()
 ```
+
 
 
 <div markdown="0">
@@ -332,10 +337,12 @@ Large values of the test statistic will favor the alternative hypothesis over th
 Since the two group proportions were 0.6 and 0.125, the observed value of the test statistic is $\big{\vert} 0.6 - 0.125 \big{\vert} = 0.475$. 
 
 
+
 {:.input_area}
 ```python
 bta.group('Group', np.average)
 ```
+
 
 
 
@@ -361,12 +368,14 @@ bta.group('Group', np.average)
 
 
 
+
 {:.input_area}
 ```python
 observed_proportions = bta.group('Group', np.average).column(1)
 observed_distance = abs(observed_proportions.item(0) - observed_proportions.item(1))
 observed_distance
 ```
+
 
 
 
@@ -385,10 +394,13 @@ We can simulate results under the null hypothesis, to see how our test statistic
 The simulation follows exactly the same process we used in the previous section. We start by randomly permuting the `results` column and assigning "control" and "treatment" labels to the permuted results. 
 
 
+
 {:.input_area}
 ```python
 shuffled_results = bta.sample(with_replacement=False).column(1)
 ```
+
+
 
 
 {:.input_area}
@@ -396,6 +408,7 @@ shuffled_results = bta.sample(with_replacement=False).column(1)
 bta_with_shuffled_results = bta.with_column('Shuffled Results', shuffled_results)
 bta_with_shuffled_results.show()
 ```
+
 
 
 <div markdown="0">
@@ -507,10 +520,12 @@ bta_with_shuffled_results.show()
 We then get the group means of the shuffled results:
 
 
+
 {:.input_area}
 ```python
 bta_with_shuffled_results.group('Group', np.average)
 ```
+
 
 
 
@@ -540,12 +555,14 @@ The group proportions in the "shuffled" column look quite different from those i
 We can use the simulated proportions to calculate the simulated value of the test statistic. By doing this repeatedly, we will get a sense of how the statistic varies under the null hypothesis.
 
 
+
 {:.input_area}
 ```python
 proportions = bta_with_shuffled_results.group('Group', np.average).column(2)
 simulated_distance = abs(proportions.item(0) - proportions.item(1))
 simulated_distance
 ```
+
 
 
 
@@ -559,6 +576,7 @@ simulated_distance
 
 ### Permutation Test
 You can see that we are doing exactly what we did in our previous examples of the permutation test. Here is the function we defined earlier to generate the simulated differences under the null hypothesis. It simply collects the code above and puts it in the body of a `for` loop.
+
 
 
 {:.input_area}
@@ -580,7 +598,9 @@ def permuted_sample_average_difference(table, label, group_label, repetitions):
     return differences   
 ```
 
+
 We will call this function to generate an array of differences between proportions in randomly selected "control" and "treatment" groups.
+
 
 
 {:.input_area}
@@ -589,7 +609,9 @@ repetitions = 20000
 differences = permuted_sample_average_difference(bta, 'Result', 'Group', repetitions)
 ```
 
+
 Our statistic is the distance between the two proportions, that is, the absolute value of the difference.
+
 
 
 {:.input_area}
@@ -597,10 +619,12 @@ Our statistic is the distance between the two proportions, that is, the absolute
 distances = np.abs(differences)
 ```
 
+
 ### Conclusion of the Test
 The array `distances` contains 20,000 values of our test statistic simulated under the null hypothesis. 
 
-To find the P-value of the test, remember that large values of the test statitsic favor the alternative hypothesis. So the empirical P-value is the proportion of simulated statistics that were equal to or larger than the observed statistic.
+To find the P-value of the test, remember that large values of the test statistic favor the alternative hypothesis. So the empirical P-value is the proportion of simulated statistics that were equal to or larger than the observed statistic.
+
 
 
 {:.input_area}
@@ -612,6 +636,7 @@ empirical_P
 
 
 
+
 {:.output_data_text}
 ```
 0.00955
@@ -619,9 +644,10 @@ empirical_P
 
 
 
-This is a small P-value. The observed statistc, shown as the red dot below, is in the tail of the empirical histogram of the test statistic generated under the null hypothesis.
+This is a small P-value. The observed statistic, shown as the red dot below, is in the tail of the empirical histogram of the test statistic generated under the null hypothesis.
 
 The result is statistically significant. The test favors the alternative hypothesis more than the null. The evidence supports the hypothesis that the treatment is doing something.
+
 
 
 {:.input_area}
@@ -632,6 +658,7 @@ plots.title('Prediction Under the Null Hypothesis')
 print('Observed Distance', observed_distance)
 print('Empirical P-value:', round(empirical_P, 4) *100, '%')
 ```
+
 
 {:.output_stream}
 ```

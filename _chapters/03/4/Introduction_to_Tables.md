@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/03/4/Introduction_to_Tables.ipynb
-title: '3.4 Introduction to Tables'
-permalink: 'chapters/03/4/Introduction_to_Tables'
-previouschapter:
-  url: chapters/03/3/Calls
-  title: '3.3 Call Expressions'
-nextchapter:
-  url: chapters/04/Data_Types
+interact_link: chapters/03/4/Introduction_to_Tables.ipynb
+title: 'Introduction to Tables'
+permalink: '/chapters/03/4/Introduction_to_Tables'
+prev_page:
+  url: /chapters/03/3/Calls
+  title: 'Call Expressions'
+next_page:
+  url: /chapters/04/Data_Types
   title: '4. Data Types'
-redirect_from:
-  - 'chapters/03/4/introduction-to-tables'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 # Introduction to Tables
@@ -25,10 +24,12 @@ We will study tables in great detail in the next several chapters. For now, we w
 The table `cones` has been imported for us; later we will see how, but here we will just work with it. First, let's take a look at it.
 
 
+
 {:.input_area}
 ```python
 cones
 ```
+
 
 
 
@@ -76,10 +77,12 @@ A table method is just like a function, but it must operate on a table. So the c
 For example, if you want to see just the first two rows of a table, you can use the table method `show`.
 
 
+
 {:.input_area}
 ```python
 cones.show(2)
 ```
+
 
 
 <div markdown="0">
@@ -108,10 +111,12 @@ You can replace 2 by any number of rows. If you ask for more than six, you will 
 The method `select` creates a new table consisting of only the specified columns.
 
 
+
 {:.input_area}
 ```python
 cones.select('Flavor')
 ```
+
 
 
 
@@ -151,10 +156,12 @@ cones.select('Flavor')
 This leaves the original table unchanged.
 
 
+
 {:.input_area}
 ```python
 cones
 ```
+
 
 
 
@@ -194,10 +201,12 @@ cones
 You can select more than one column, by separating the column labels by commas.
 
 
+
 {:.input_area}
 ```python
 cones.select('Flavor', 'Price')
 ```
+
 
 
 
@@ -237,10 +246,12 @@ cones.select('Flavor', 'Price')
 You can also *drop* columns you don't want. The table above can be created by dropping the `Color` column.
 
 
+
 {:.input_area}
 ```python
 cones.drop('Color')
 ```
+
 
 
 
@@ -280,12 +291,14 @@ cones.drop('Color')
 You can name this new table and look at it again by just typing its name.
 
 
+
 {:.input_area}
 ```python
 no_colors = cones.drop('Color')
 
 no_colors
 ```
+
 
 
 
@@ -329,10 +342,12 @@ Like `select`, the `drop` method creates a smaller table and leaves the original
 The `sort` method creates a new table by arranging the rows of the original table in ascending order of the values in the specified column. Here the `cones` table has been sorted in ascending order of the price of the cones.
 
 
+
 {:.input_area}
 ```python
 cones.sort('Price')
 ```
+
 
 
 
@@ -374,10 +389,12 @@ To sort in descending order, you can use an *optional* argument to `sort`. As th
 By default, `sort` sorts in increasing order of the values in the specified column. To sort in decreasing order, use the optional argument `descending=True`.
 
 
+
 {:.input_area}
 ```python
 cones.sort('Price', descending=True)
 ```
+
 
 
 
@@ -422,10 +439,12 @@ The `where` method creates a new table consisting only of the rows that satisfy 
 The code in the cell below creates a table consisting only of the rows corresponding to chocolate cones.
 
 
+
 {:.input_area}
 ```python
 cones.where('Flavor', 'chocolate')
 ```
+
 
 
 
@@ -458,10 +477,12 @@ The arguments, separated by a comma, are the label of the column and the value w
 It is important to provide the value exactly. For example, if we specify `Chocolate` instead of `chocolate`, then `where` correctly finds no rows where the flavor is `Chocolate`.
 
 
+
 {:.input_area}
 ```python
 cones.where('Flavor', 'Chocolate')
 ```
+
 
 
 
@@ -500,10 +521,12 @@ The code for the positions is PG (Point Guard), SG (Shooting Guard), PF (Power F
 The first row shows that Paul Millsap, Power Forward for the Atlanta Hawks, had a salary of almost $\$18.7$ million in 2015-2016.
 
 
+
 {:.input_area}
 ```python
 nba
 ```
+
 
 
 
@@ -556,10 +579,12 @@ nba
 Fans of Stephen Curry can find his row by using `where`.
 
 
+
 {:.input_area}
 ```python
 nba.where('PLAYER', 'Stephen Curry')
 ```
+
 
 
 
@@ -584,11 +609,13 @@ nba.where('PLAYER', 'Stephen Curry')
 We can also create a new table called `warriors` consisting of just the data for the Golden State Warriors.
 
 
+
 {:.input_area}
 ```python
 warriors = nba.where('TEAM', 'Golden State Warriors')
 warriors
 ```
+
 
 
 
@@ -641,10 +668,12 @@ warriors
 By default, the first 10 lines of a table are displayed. You can use `show` to display more or fewer. To display the entire table, use `show` with no argument in the parentheses.
 
 
+
 {:.input_area}
 ```python
 warriors.show()
 ```
+
 
 
 <div markdown="0">
@@ -705,10 +734,12 @@ warriors.show()
 The `nba` table is sorted in alphabetical order of the team names. To see how the players were paid in 2015-2016, it is useful to sort the data by salary. Remember that by default, the sorting is in increasing order.
 
 
+
 {:.input_area}
 ```python
 nba.sort('SALARY')
 ```
+
 
 
 
@@ -763,10 +794,12 @@ These figures are somewhat difficult to compare as some of these players changed
 The CNN report is about the other end of the salary scale – the players who are among the highest paid in the world. To identify these players we can sort in descending order of salary and look at the top few rows.
 
 
+
 {:.input_area}
 ```python
 nba.sort('SALARY', descending=True)
 ```
+
 
 
 

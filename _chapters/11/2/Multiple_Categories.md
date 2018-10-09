@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/11/2/Multiple_Categories.ipynb
-title: '11.2 Multiple Categories'
-permalink: 'chapters/11/2/Multiple_Categories'
-previouschapter:
-  url: chapters/11/1/Assessing_Models
-  title: '11.1 Assessing Models'
-nextchapter:
-  url: chapters/11/3/Decisions_and_Uncertainty
-  title: '11.3 Decisions and Uncertainty'
-redirect_from:
-  - 'chapters/11/2/multiple-categories'
+interact_link: chapters/11/2/Multiple_Categories.ipynb
+title: 'Multiple Categories'
+permalink: '/chapters/11/2/Multiple_Categories'
+prev_page:
+  url: /chapters/11/1/Assessing_Models
+  title: 'Assessing Models'
+next_page:
+  url: /chapters/11/3/Decisions_and_Uncertainty
+  title: 'Decisions and Uncertainty'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Multiple Categories
@@ -36,6 +35,7 @@ The focus of the study by the ACLU of Northern California was the ethnic composi
 The data are tabulated below in a table called ``jury``. For each ethnicity, the first value is the proportion of all eligible juror candidates of that ethnicity. The second value is the proportion of people of that ethnicity among those who appeared for the process of selection into the jury.
 
 
+
 {:.input_area}
 ```python
 jury = Table().with_columns(
@@ -46,6 +46,7 @@ jury = Table().with_columns(
 
 jury
 ```
+
 
 
 
@@ -82,10 +83,12 @@ jury
 Some ethnicities are overrepresented and some are underrepresented on the jury panels in the study. A bar chart is helpful for visualizing the differences.
 
 
+
 {:.input_area}
 ```python
 jury.barh('Ethnicity')
 ```
+
 
 
 ![png](../../../images/chapters/11/2/Multiple_Categories_6_0.png)
@@ -101,6 +104,7 @@ We can answer these questions by using `sample_proportions` and augmenting the `
 In the cell below, we sample at random 1453 times from the distribution of eligible jurors, and display the distribution of the random sample along with the distributions of the eligible jurors and the panel in the data.
 
 
+
 {:.input_area}
 ```python
 eligible_population = jury.column('Eligible')
@@ -108,6 +112,7 @@ sample_distribution = sample_proportions(1453, eligible_population)
 panels_and_sample = jury.with_column('Random Sample', sample_distribution)
 panels_and_sample
 ```
+
 
 
 
@@ -146,10 +151,12 @@ The distribution of the random sample is quite close to the distribution of the 
 As always, it helps to visualize.
 
 
+
 {:.input_area}
 ```python
 panels_and_sample.barh('Ethnicity')
 ```
+
 
 
 ![png](../../../images/chapters/11/2/Multiple_Categories_10_0.png)
@@ -163,10 +170,12 @@ To assess whether this observation is particular to one random sample or more ge
 We know how to measure how different two numbers are – if the numbers are $x$ and $y$, the distance between them is $\vert x-y \vert$. Now we have to quantify the distance between two distributions. For example, we have to measure the distance between the blue and gold distributions below.
 
 
+
 {:.input_area}
 ```python
 jury.barh('Ethnicity')
 ```
+
 
 
 ![png](../../../images/chapters/11/2/Multiple_Categories_14_0.png)
@@ -175,6 +184,7 @@ jury.barh('Ethnicity')
 For this we will compute a quantity called the *total variation distance* between two distributions. The calculation is as an extension of the calculation of the distance between two numbers.
 
 To compute the total variation distance, we first take the difference between the two proportions in each category.
+
 
 
 {:.input_area}
@@ -186,6 +196,7 @@ jury_with_diffs = jury.with_column(
 )
 jury_with_diffs
 ```
+
 
 
 
@@ -226,6 +237,7 @@ This is numerical evidence of the fact that in the bar chart, the gold bars exce
 To avoid the cancellation, we drop the negative signs and then add all the entries. But this gives us two times the total of the positive entries (equivalently, two times the total of the negative entries, with the sign removed). So we divide the sum by 2.
 
 
+
 {:.input_area}
 ```python
 jury_with_diffs = jury_with_diffs.with_column(
@@ -234,6 +246,7 @@ jury_with_diffs = jury_with_diffs.with_column(
 
 jury_with_diffs
 ```
+
 
 
 
@@ -268,10 +281,12 @@ jury_with_diffs
 
 
 
+
 {:.input_area}
 ```python
 jury_with_diffs.column('Absolute Difference').sum()/2
 ```
+
 
 
 
@@ -297,19 +312,23 @@ Since we are going to be computing total variation distance repeatedly, we will 
 The function `total_variation_distance` returns the TVD between distributions in two arrays.
 
 
+
 {:.input_area}
 ```python
 def total_variation_distance(distribution_1, distribution_2):
     return sum(np.abs(distribution_1 - distribution_2)) / 2
 ```
 
+
 This function will help us calculate our statistic in each repetition of the simulation. But first, let's check that it gives the right answer when we use it to compute the distance between the blue (eligible) and gold (panels) distributions above.
+
 
 
 {:.input_area}
 ```python
 total_variation_distance(jury.column('Panels'), jury.column('Eligible'))
 ```
+
 
 
 
@@ -326,11 +345,13 @@ This agrees with the value that we computed directly without using the function.
 In the cell below we use the function to compute the TVD between the distributions of the eligible jurors and one random sample. This is the code for simulating one value of our statistic. Recall that `eligible_population` is the array containing the distribution of the eligible jurors.
 
 
+
 {:.input_area}
 ```python
 sample_distribution = sample_proportions(1453, eligible_population)
 total_variation_distance(sample_distribution, eligible_population)
 ```
+
 
 
 
@@ -352,6 +373,7 @@ The total variation distance between the distributions of the random sample and 
 The code below simulates the statistic based on a large number of replications of the random sampling process, following our usual sequence of steps for simulation. The body of the `for` loop repeats the code we used to simulate one value of the statistics, and then appends the simulated value to the collection array `tvds`.
 
 
+
 {:.input_area}
 ```python
 # Simulate total variation distance between
@@ -370,13 +392,16 @@ for i in np.arange(repetitions):
     tvds = np.append(tvds, new_tvd)
 ```
 
+
 The empirical histogram of the simulated distances shows that drawing 1453 jurors at random from the pool of eligible candidates results in a distribution that rarely deviates from the eligible jurors' race distribution by more than about 0.05.
+
 
 
 {:.input_area}
 ```python
 Table().with_column('TVD', tvds).hist(bins=np.arange(0, 0.2, 0.005))
 ```
+
 
 
 ![png](../../../images/chapters/11/2/Multiple_Categories_31_0.png)

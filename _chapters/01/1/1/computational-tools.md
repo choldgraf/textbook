@@ -1,14 +1,13 @@
 ---
-title: '1.1.1 Computational Tools'
-permalink: 'chapters/01/1/1/computational-tools'
-previouschapter:
-  url: chapters/01/1/intro
-  title: '1.1 Introduction'
-nextchapter:
-  url: chapters/01/1/2/statistical-techniques
-  title: '1.1.2 Statistical Techniques'
-redirect_from:
-  - 'chapters/01/1/1/computational-tools'
+title: 'Computational Tools'
+permalink: '/chapters/01/1/1/computational-tools'
+prev_page:
+  url: /chapters/01/1/intro
+  title: 'Introduction'
+next_page:
+  url: /chapters/01/1/2/statistical-techniques
+  title: 'Statistical Techniques'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Computational Tools
 -------------------

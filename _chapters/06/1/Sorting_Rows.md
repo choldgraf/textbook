@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/06/1/Sorting_Rows.ipynb
-title: '6.1 Sorting Rows'
-permalink: 'chapters/06/1/Sorting_Rows'
-previouschapter:
-  url: chapters/06/Tables
-  title: '6. Tables'
-nextchapter:
-  url: chapters/06/2/Selecting_Rows
-  title: '6.2 Selecting Rows'
-redirect_from:
-  - 'chapters/06/1/sorting-rows'
+interact_link: chapters/06/1/Sorting_Rows.ipynb
+title: 'Sorting Rows'
+permalink: '/chapters/06/1/Sorting_Rows'
+prev_page:
+  url: /chapters/06/Tables
+  title: 'Tables'
+next_page:
+  url: /chapters/06/2/Selecting_Rows
+  title: 'Selecting Rows'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 # Sorting Rows
@@ -30,12 +29,14 @@ The code for the positions is PG (Point Guard), SG (Shooting Guard), PF (Power F
 The first row shows that Paul Millsap, Power Forward for the Atlanta Hawks, had a salary of almost $\$18.7$ million in 2015-2016.
 
 
+
 {:.input_area}
 ```python
 # This table can be found online: https://www.statcrunch.com/app/index.php?dataid=1843341
 nba_salaries = Table.read_table(path_data + 'nba_salaries.csv')
 nba_salaries
 ```
+
 
 
 
@@ -88,10 +89,12 @@ nba_salaries
 The table contains 417 rows, one for each player. Only 10 of the rows are displayed. The `show` method allows us to specify the number of rows, with the default (no specification) being all the rows of the table.
 
 
+
 {:.input_area}
 ```python
 nba_salaries.show(3)
 ```
+
 
 
 <div markdown="0">
@@ -120,10 +123,12 @@ nba_salaries.show(3)
 Glance through about 20 rows or so, and you will see that the rows are in alphabetical order by team name. It's also possible to list the same rows in alphabetical order by player name using the `sort` method. The argument to `sort` is a column label or index.
 
 
+
 {:.input_area}
 ```python
 nba_salaries.sort('PLAYER').show(5)
 ```
+
 
 
 <div markdown="0">
@@ -162,11 +167,13 @@ To do this, we will first simplify the label of the column of salaries (just for
 This arranges all the rows of the table in *increasing* order of salary, with the lowest salary appearing first. The output is a new table with the same columns as the original but with the rows rearranged.
 
 
+
 {:.input_area}
 ```python
 nba = nba_salaries.relabeled("'15-'16 SALARY", 'SALARY')
 nba.sort('SALARY')
 ```
+
 
 
 
@@ -223,10 +230,12 @@ The CNN report is about the other end of the salary scale – the players who ar
 To order the rows of the table in *decreasing* order of salary, we must use `sort` with the option `descending=True`.
 
 
+
 {:.input_area}
 ```python
 nba.sort('SALARY', descending=True)
 ```
+
 
 
 
@@ -283,10 +292,12 @@ Kobe Bryant, in his final season with the Lakers, was the highest paid at a sala
 The `descending=True` portion of this call expression is called a *named argument*. When a function or method is called, each argument has both a position and a name. Both are evident from the help text of a function or method.
 
 
+
 {:.input_area}
 ```python
 help(nba.sort)
 ```
+
 
 {:.output_stream}
 ```

@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/18/2/Making_Decisions.ipynb
-title: '18.2 Making Decisions'
-permalink: 'chapters/18/2/Making_Decisions'
-previouschapter:
-  url: chapters/18/1/More_Likely_than_Not_Binary_Classifier
-  title: '18.1 A "More Likely Than Not" Binary Classifier'
-nextchapter:
-  url: 
+interact_link: chapters/18/2/Making_Decisions.ipynb
+title: 'Making Decisions'
+permalink: '/chapters/18/2/Making_Decisions'
+prev_page:
+  url: /chapters/18/1/More_Likely_than_Not_Binary_Classifier
+  title: 'A "More Likely Than Not" Binary Classifier'
+next_page:
+  url: /
   title: ''
-redirect_from:
-  - 'chapters/18/2/making-decisions'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Making Decisions
@@ -39,10 +38,12 @@ So **suppose a person is picked at random from the population** and tested. If t
 We can answer this by applying Bayes' Rule and using our "more likely than not" classifier. Given that the person has tested Positive, the chance that he or she has the disease is the proportion in the top branch, relative to the total proportion in the Test Positive branches.
 
 
+
 {:.input_area}
 ```python
 (0.004 * 0.99)/(0.004 * 0.99  +  0.996*0.005 )
 ```
+
 
 
 
@@ -65,10 +66,12 @@ The function `population` returns a table of outcomes for 100,000 patients, with
 We will call `population` with 0.004 as the argument, and then pivot to cross-classify each of the 100,000 people.
 
 
+
 {:.input_area}
 ```python
 population(0.004).pivot('Test Result', 'True Condition')
 ```
+
 
 
 
@@ -98,10 +101,12 @@ The cells of the table have the right counts. For example, according to the desc
 Among the Positives, the proportion that have the disease is:
 
 
+
 {:.input_area}
 ```python
 396/(396 + 498)
 ```
+
 
 
 
@@ -146,10 +151,12 @@ Suppose the doctor's subjective opinion is that there is a 5% chance that the pa
 Given that the patient tests Positive, the chance that he or she has the disease is given by Bayes' Rule.
 
 
+
 {:.input_area}
 ```python
 (0.05 * 0.99)/(0.05 * 0.99  +  0.95 * 0.005)
 ```
+
 
 
 
@@ -171,10 +178,12 @@ Though the doctor's opinion is subjective, we can generate an artificial populat
 We can use `population(0.05)` and `pivot` to construct the corresponding population and look at the counts in the four cells.
 
 
+
 {:.input_area}
 ```python
 population(0.05).pivot('Test Result', 'True Condition')
 ```
+
 
 
 
@@ -202,10 +211,12 @@ population(0.05).pivot('Test Result', 'True Condition')
 In this artificially created population of 100,000 people, 5000 people (5%) have the disease, and 99% of them test Positive, leading to 4950 true Positives. Compare this with 475 false Positives: among the Positives, the proportion that have the disease is the same as what we got by Bayes' Rule.
 
 
+
 {:.input_area}
 ```python
 4950/(4950 + 475)
 ```
+
 
 
 
@@ -220,6 +231,7 @@ In this artificially created population of 100,000 people, 5000 people (5%) have
 Because we can generate a population that has the right proportions, we can also use simulation to confirm that our answer is reasonable. The table `pop_05` contains a population of 100,000 people generated with the doctor's prior disease probability of 5% and the error rates of the test. We take a simple random sample of size 10,000 from the population, and extract the table `positive` consisting only of those in the sample that had Positive test results.
 
 
+
 {:.input_area}
 ```python
 pop_05 = population(0.05)
@@ -229,13 +241,16 @@ sample = pop_05.sample(10000, with_replacement=False)
 positive = sample.where('Test Result', are.equal_to('Positive'))
 ```
 
+
 Among these Positive results, what proportion were true Positives? That's the proportion of Positives that had the disease:
+
 
 
 {:.input_area}
 ```python
 positive.where('True Condition', are.equal_to('Disease')).num_rows/positive.num_rows
 ```
+
 
 
 

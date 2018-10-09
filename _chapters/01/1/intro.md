@@ -1,14 +1,13 @@
 ---
-title: '1.1 Introduction'
-permalink: 'chapters/01/1/intro'
-previouschapter:
-  url: chapters/01/what-is-data-science
-  title: '1. Data Science'
-nextchapter:
-  url: chapters/01/1/1/computational-tools
-  title: '1.1.1 Computational Tools'
-redirect_from:
-  - 'chapters/01/1/intro'
+title: 'Introduction'
+permalink: '/chapters/01/1/intro'
+prev_page:
+  url: /chapters/01/what-is-data-science
+  title: 'Data Science'
+next_page:
+  url: /chapters/01/1/1/computational-tools
+  title: 'Computational Tools'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Chapter 1: Introduction
 =======================

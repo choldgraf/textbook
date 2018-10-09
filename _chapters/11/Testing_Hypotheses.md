@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/11/Testing_Hypotheses.ipynb
-title: '11. Testing Hypotheses'
-permalink: 'chapters/11/Testing_Hypotheses'
-previouschapter:
-  url: chapters/10/3/Empirical_Distribution_of_a_Statistic
-  title: '10.3 Empirical Distibution of a Statistic'
-nextchapter:
-  url: chapters/11/1/Assessing_Models
-  title: '11.1 Assessing Models'
-redirect_from:
-  - 'chapters/11/testing-hypotheses'
+interact_link: chapters/11/Testing_Hypotheses.ipynb
+title: 'Testing Hypotheses'
+permalink: '/chapters/11/Testing_Hypotheses'
+prev_page:
+  url: /chapters/10/3/Empirical_Distribution_of_a_Statistic
+  title: 'Empirical Distibution of a Statistic'
+next_page:
+  url: /chapters/11/1/Assessing_Models
+  title: 'Assessing Models'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Testing Hypotheses

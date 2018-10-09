@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/14/5/Variability_of_the_Sample_Mean.ipynb
-title: '14.5 The Variability of the Sample Mean'
-permalink: 'chapters/14/5/Variability_of_the_Sample_Mean'
-previouschapter:
-  url: chapters/14/4/Central_Limit_Theorem
-  title: '14.4 The Central Limit Theorem'
-nextchapter:
-  url: chapters/14/6/Choosing_a_Sample_Size
-  title: '14.6 Choosing a Sample Size'
-redirect_from:
-  - 'chapters/14/5/variability-of-the-sample-mean'
+interact_link: chapters/14/5/Variability_of_the_Sample_Mean.ipynb
+title: 'The Variability of the Sample Mean'
+permalink: '/chapters/14/5/Variability_of_the_Sample_Mean'
+prev_page:
+  url: /chapters/14/4/Central_Limit_Theorem
+  title: 'The Central Limit Theorem'
+next_page:
+  url: /chapters/14/6/Choosing_a_Sample_Size
+  title: 'Choosing a Sample Size'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### The Variability of the Sample Mean
@@ -20,6 +19,7 @@ In our simulations, we also noticed that the means of larger samples tend to be 
 Let's start with our table of flight delays. The mean delay is about 16.7 minutes, and the distribution of delays is skewed to the right.
 
 
+
 {:.input_area}
 ```python
 united = Table.read_table(path_data + 'united_summer2015.csv')
@@ -27,11 +27,14 @@ delay = united.select('Delay')
 ```
 
 
+
+
 {:.input_area}
 ```python
 pop_mean = np.mean(delay.column('Delay'))
 pop_mean
 ```
+
 
 
 
@@ -46,6 +49,7 @@ pop_mean
 Now let's take random samples and look at the probability distribution of the sample mean. As usual, we will use simulation to get an empirical approximation to this distribution.
 
 We will define a function `simulate_sample_mean` to do this, because we are going to vary the sample size later. The arguments are the name of the table, the label of the column containing the variable, the sample size, and the number of simulations.
+
 
 
 {:.input_area}
@@ -74,7 +78,9 @@ def simulate_sample_mean(table, label, sample_size, repetitions):
     print("SD of sample means:", np.std(means))
 ```
 
+
 Let us simulate the mean of a random sample of 100 delays, then of 400 delays, and finally of 625 delays. We will perform 10,000 repetitions of each of these process. The `xlim` and `ylim` lines set the axes consistently in all the plots for ease of comparison. You can just ignore those two lines of code in each cell.
+
 
 
 {:.input_area}
@@ -83,6 +89,7 @@ simulate_sample_mean(delay, 'Delay', 100, 10000)
 plots.xlim(5, 35)
 plots.ylim(0, 0.25);
 ```
+
 
 {:.output_stream}
 ```
@@ -99,12 +106,14 @@ SD of sample means: 3.8997187931829136
 
 
 
+
 {:.input_area}
 ```python
 simulate_sample_mean(delay, 'Delay', 400, 10000)
 plots.xlim(5, 35)
 plots.ylim(0, 0.25);
 ```
+
 
 {:.output_stream}
 ```
@@ -121,12 +130,14 @@ SD of sample means: 1.9777759739145762
 
 
 
+
 {:.input_area}
 ```python
 simulate_sample_mean(delay, 'Delay', 625, 10000)
 plots.xlim(5, 35)
 plots.ylim(0, 0.25);
 ```
+
 
 {:.output_stream}
 ```
@@ -153,11 +164,13 @@ You can also see that the histograms get narrower, and hence taller, as the samp
 The SD of the population of all delays is about 40 minutes.
 
 
+
 {:.input_area}
 ```python
 pop_sd = np.std(delay.column('Delay'))
 pop_sd
 ```
+
 
 
 
@@ -178,6 +191,7 @@ It seems like a good idea to compare the SD of the empirical distribution of the
 Here are the numerical values. For each sample size in the first column, 10,000 random samples of that size were drawn, and the 10,000 sample means were calculated. The second column contains the SD of those 10,000 sample means. The third column contains the result of the calculation "population SD divided by the square root of the sample size."
 
 The cell takes a while to run, as it's a large simulation. But you'll soon see that it's worth the wait.
+
 
 
 {:.input_area}
@@ -201,10 +215,13 @@ sd_comparison = Table().with_columns(
 ```
 
 
+
+
 {:.input_area}
 ```python
 sd_comparison
 ```
+
 
 
 
@@ -257,10 +274,12 @@ sd_comparison
 The values in the second and third columns are very close. If we plot each of those columns with the sample size on the horizontal axis, the two graphs are essentially indistinguishable.
 
 
+
 {:.input_area}
 ```python
 sd_comparison.plot('Sample Size n')
 ```
+
 
 
 ![png](../../../images/chapters/14/5/Variability_of_the_Sample_Mean_18_0.png)

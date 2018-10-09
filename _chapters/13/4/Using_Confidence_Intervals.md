@@ -1,16 +1,16 @@
 ---
-interact_link: notebooks/13/4/Using_Confidence_Intervals.ipynb
-title: '13.4 Using Confidence Intervals'
-permalink: 'chapters/13/4/Using_Confidence_Intervals'
-previouschapter:
-  url: chapters/13/3/Confidence_Intervals
-  title: '13.3 Confidence Intervals'
-nextchapter:
-  url: chapters/14/Why_the_Mean_Matters
-  title: '14. Why the Mean Matters'
-redirect_from:
-  - 'chapters/13/4/using-confidence-intervals'
+interact_link: chapters/13/4/Using_Confidence_Intervals.ipynb
+title: 'Using Confidence Intervals'
+permalink: '/chapters/13/4/Using_Confidence_Intervals'
+prev_page:
+  url: /chapters/13/3/Confidence_Intervals
+  title: 'Confidence Intervals'
+next_page:
+  url: /chapters/14/Why_the_Mean_Matters
+  title: 'Why the Mean Matters'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
+
 
 
 {:.input_area}
@@ -34,6 +34,8 @@ def bootstrap_median(original_sample, label, replications):
 ```
 
 
+
+
 {:.input_area}
 ```python
 def bootstrap_mean(original_sample, label, replications):
@@ -53,6 +55,8 @@ def bootstrap_mean(original_sample, label, replications):
         
     return means
 ```
+
+
 
 
 {:.input_area}
@@ -76,10 +80,12 @@ def bootstrap_proportion(original_sample, label, replications):
     return proportions
 ```
 
+
 ### Using Confidence Intervals
 A confidence interval has a single purpose – to estimate an unknown parameter based on data in a random sample. In the last section, we said that the interval (36%, 42%) was an approximate 95% confidence interval for the percent of smokers among mothers in the population. That was a formal way of saying that by our estimate, the percent of smokers among the mothers in the population was somewhere between 36% and 42%, and that our process of estimation is correct about 95% of the time.
 
 It is important to resist the impulse to use confidence intervals for other purposes. For example, recall that we calculated the interval (26.9 years, 27.6 years) as an approximate 95% confidence interval for the average age of mothers in the population. A dismayingly common misuse of the interval is to conclude that about 95% of the women were between 26.9 years and 27.6 years old. You don't need to know much about confidence intervals to see that this can't be right – you wouldn't expect 95% of mothers to all be within a few months of each other in age. Indeed, the histogram of the sampled ages shows quite a bit of variation.
+
 
 
 {:.input_area}
@@ -88,10 +94,13 @@ baby = Table.read_table(path_data + 'baby.csv')
 ```
 
 
+
+
 {:.input_area}
 ```python
 baby.select('Maternal Age').hist()
 ```
+
 
 
 ![png](../../../images/chapters/13/4/Using_Confidence_Intervals_5_0.png)
@@ -131,16 +140,20 @@ This table ``hodgkins`` contains data on the effect that the treatment had on th
 - The same score of the health of the lungs, 15 months after treatment
 
 
+
 {:.input_area}
 ```python
 hodgkins = Table.read_table(path_data + 'hodgkins.csv')
 ```
 
 
+
+
 {:.input_area}
 ```python
 hodgkins
 ```
+
 
 
 
@@ -195,6 +208,7 @@ We will compare the baseline and 15-month scores. As each row corresponds to one
 At a glance, you can see that the 15-month scores tend to be lower than the baseline scores – the sampled patients' lungs seem to be doing worse 15 months after the treatment. This is confirmed by the mostly positive values in the column `drop`, the amount by which the score dropped from baseline to 15 months.
 
 
+
 {:.input_area}
 ```python
 hodgkins = hodgkins.with_column(
@@ -203,10 +217,13 @@ hodgkins = hodgkins.with_column(
 ```
 
 
+
+
 {:.input_area}
 ```python
 hodgkins
 ```
+
 
 
 
@@ -257,13 +274,16 @@ hodgkins
 
 
 
+
 {:.input_area}
 ```python
 hodgkins.select('drop').hist(bins=np.arange(-20, 81, 20))
 ```
 
 
+
 ![png](../../../images/chapters/13/4/Using_Confidence_Intervals_16_0.png)
+
 
 
 
@@ -271,6 +291,7 @@ hodgkins.select('drop').hist(bins=np.arange(-20, 81, 20))
 ```python
 np.mean(hodgkins.column('drop'))
 ```
+
 
 
 
@@ -293,6 +314,7 @@ To answer this, we can set up two hypotheses:
 To test this hypothesis with a 1% cutoff for the P-value, let's construct an approximate 99% confidence interval for the average drop in the population.
 
 
+
 {:.input_area}
 ```python
 bstrap_means = bootstrap_mean(hodgkins, 'drop', 10000)
@@ -306,10 +328,12 @@ make_array(left, right)
 
 
 
+
 {:.output_data_text}
 ```
 array([17.22636364, 40.54045455])
 ```
+
 
 
 
@@ -322,6 +346,7 @@ resampled_means = Table().with_column(
 resampled_means.hist()
 plots.plot(make_array(left, right), make_array(0, 0), color='yellow', lw=8);
 ```
+
 
 
 ![png](../../../images/chapters/13/4/Using_Confidence_Intervals_20_0.png)

@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/15/1/Correlation.ipynb
-title: '15.1 Correlation'
-permalink: 'chapters/15/1/Correlation'
-previouschapter:
-  url: chapters/15/Prediction
-  title: '15. Prediction'
-nextchapter:
-  url: chapters/15/2/Regression_Line
-  title: '15.2 The Regression Line'
-redirect_from:
-  - 'chapters/15/1/correlation'
+interact_link: chapters/15/1/Correlation.ipynb
+title: 'Correlation'
+permalink: '/chapters/15/1/Correlation'
+prev_page:
+  url: /chapters/15/Prediction
+  title: 'Prediction'
+next_page:
+  url: /chapters/15/2/Regression_Line
+  title: 'The Regression Line'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Correlation
@@ -26,16 +25,20 @@ The table `hybrid` contains data on hybrid passenger cars sold in the United Sta
 - `class`: the model's class.
 
 
+
 {:.input_area}
 ```python
 hybrid = Table.read_table(path_data + 'hybrid.csv')
 ```
 
 
+
+
 {:.input_area}
 ```python
 hybrid
 ```
+
 
 
 
@@ -88,10 +91,12 @@ hybrid
 The graph below is a scatter plot of `msrp` *versus* `acceleration`. That means `msrp` is plotted on the vertical axis and `accelaration` on the horizontal.
 
 
+
 {:.input_area}
 ```python
 hybrid.scatter('acceleration', 'msrp')
 ```
+
 
 
 ![png](../../../images/chapters/15/1/Correlation_5_0.png)
@@ -102,10 +107,12 @@ Notice the positive association. The scatter of points is sloping upwards, indic
 The scatter diagram of MSRP versus mileage shows a negative association. Hybrid cars with higher mileage tended to cost less, on average. This seems surprising till you consider that cars that accelerate fast tend to be less fuel efficient and have lower mileage. As the previous scatter plot showed, those were also the cars that tended to cost more. 
 
 
+
 {:.input_area}
 ```python
 hybrid.scatter('mpg', 'msrp')
 ```
+
 
 
 ![png](../../../images/chapters/15/1/Correlation_7_0.png)
@@ -116,6 +123,7 @@ Along with the negative association, the scatter diagram of price versus efficie
 If we restrict the data just to the SUV class, however, the association between price and efficiency is still negative but the relation appears to be more linear. The relation between the price and acceleration of SUV's also shows a linear trend, but with a positive slope.
 
 
+
 {:.input_area}
 ```python
 suv = hybrid.where('class', 'SUV')
@@ -123,7 +131,9 @@ suv.scatter('mpg', 'msrp')
 ```
 
 
+
 ![png](../../../images/chapters/15/1/Correlation_9_0.png)
+
 
 
 
@@ -131,6 +141,7 @@ suv.scatter('mpg', 'msrp')
 ```python
 suv.scatter('acceleration', 'msrp')
 ```
+
 
 
 ![png](../../../images/chapters/15/1/Correlation_10_0.png)
@@ -143,6 +154,7 @@ Indeed, we could plot all the variables in standard units and the plots would lo
 Recall that in an earlier section we defined the function `standard_units` to convert an array of numbers to standard units.
 
 
+
 {:.input_area}
 ```python
 def standard_units(any_numbers):
@@ -150,7 +162,9 @@ def standard_units(any_numbers):
     return (any_numbers - np.mean(any_numbers))/np.std(any_numbers)  
 ```
 
+
 We can use this function to re-draw the two scatter diagrams for SUVs, with all the variables measured in standard units.
+
 
 
 {:.input_area}
@@ -164,7 +178,9 @@ plots.ylim(-3, 3);
 ```
 
 
+
 ![png](../../../images/chapters/15/1/Correlation_14_0.png)
+
 
 
 
@@ -177,6 +193,7 @@ Table().with_columns(
 plots.xlim(-3, 3)
 plots.ylim(-3, 3);
 ```
+
 
 
 ![png](../../../images/chapters/15/1/Correlation_15_0.png)
@@ -205,13 +222,16 @@ Call ``r_scatter`` a few times, with different values of $r$ as the argument, an
 When $r=1$ the scatter plot is perfectly linear and slopes upward. When $r=-1$, the scatter plot is perfectly linear and slopes downward. When $r=0$, the scatter plot is a formless cloud around the horizontal axis, and the variables are said to be *uncorrelated*.
 
 
+
 {:.input_area}
 ```python
 r_scatter(0.9)
 ```
 
 
+
 ![png](../../../images/chapters/15/1/Correlation_19_0.png)
+
 
 
 
@@ -221,7 +241,9 @@ r_scatter(0.25)
 ```
 
 
+
 ![png](../../../images/chapters/15/1/Correlation_20_0.png)
+
 
 
 
@@ -231,7 +253,9 @@ r_scatter(0)
 ```
 
 
+
 ![png](../../../images/chapters/15/1/Correlation_21_0.png)
+
 
 
 
@@ -239,6 +263,7 @@ r_scatter(0)
 ```python
 r_scatter(-0.55)
 ```
+
 
 
 ![png](../../../images/chapters/15/1/Correlation_22_0.png)
@@ -255,6 +280,7 @@ The formula for $r$ is not apparent from our observations so far. It has a mathe
 Here are the steps in the calculation. We will apply the steps to a simple table of values of $x$ and $y$.
 
 
+
 {:.input_area}
 ```python
 x = np.arange(1, 7, 1)
@@ -265,6 +291,7 @@ t = Table().with_columns(
     )
 t
 ```
+
 
 
 
@@ -304,16 +331,19 @@ t
 Based on the scatter diagram, we expect that $r$ will be positive but not equal to 1.
 
 
+
 {:.input_area}
 ```python
 t.scatter(0, 1, s=30, color='red')
 ```
 
 
+
 ![png](../../../images/chapters/15/1/Correlation_26_0.png)
 
 
 **Step 1.** Convert each variable to standard units.
+
 
 
 {:.input_area}
@@ -324,6 +354,7 @@ t_su = t.with_columns(
     )
 t_su
 ```
+
 
 
 
@@ -363,11 +394,13 @@ t_su
 **Step 2.** Multiply each pair of standard units.
 
 
+
 {:.input_area}
 ```python
 t_product = t_su.with_column('product of standard units', t_su.column(2) * t_su.column(3))
 t_product
 ```
+
 
 
 
@@ -407,6 +440,7 @@ t_product
 **Step 3.** $r$ is the average of the products computed in Step 2.
 
 
+
 {:.input_area}
 ```python
 # r is the average of the products of standard units
@@ -414,6 +448,7 @@ t_product
 r = np.mean(t_product.column(4))
 r
 ```
+
 
 
 
@@ -436,10 +471,12 @@ The calculation shows that:
 - $r$ is unaffected by switching the axes. Algebraically, this is because the product of standard units does not depend on which variable is called $x$ and which $y$. Geometrically, switching axes reflects the scatter plot about the line $y=x$, but does not change the amount of clustering nor the sign of the association.
 
 
+
 {:.input_area}
 ```python
 t.scatter('y', 'x', s=30, color='red')
 ```
+
 
 
 ![png](../../../images/chapters/15/1/Correlation_35_0.png)
@@ -449,19 +486,23 @@ t.scatter('y', 'x', s=30, color='red')
 We are going to be calculating correlations repeatedly, so it will help to define a function that computes it by performing all the steps described above. Let's define a function ``correlation`` that takes a table and the labels of two columns in the table. The function returns $r$, the mean of the products of those column values in standard units.
 
 
+
 {:.input_area}
 ```python
 def correlation(t, x, y):
     return np.mean(standard_units(t.column(x))*standard_units(t.column(y)))
 ```
 
+
 Let's call the function on the ``x`` and ``y`` columns of ``t``. The function returns the same answer to the correlation between $x$ and $y$ as we got by direct application of the formula for $r$. 
+
 
 
 {:.input_area}
 ```python
 correlation(t, 'x', 'y')
 ```
+
 
 
 
@@ -476,10 +517,12 @@ correlation(t, 'x', 'y')
 As we noticed, the order in which the variables are specified doesn't matter.
 
 
+
 {:.input_area}
 ```python
 correlation(t, 'y', 'x')
 ```
+
 
 
 
@@ -494,10 +537,12 @@ correlation(t, 'y', 'x')
 Calling ``correlation`` on columns of the table ``suv`` gives us the correlation between price and mileage as well as the correlation between price and acceleration.
 
 
+
 {:.input_area}
 ```python
 correlation(suv, 'mpg', 'msrp')
 ```
+
 
 
 
@@ -510,10 +555,12 @@ correlation(suv, 'mpg', 'msrp')
 
 
 
+
 {:.input_area}
 ```python
 correlation(suv, 'acceleration', 'msrp')
 ```
+
 
 
 
@@ -540,6 +587,7 @@ Correlation only measures association. Correlation does not imply causation. Tho
 Correlation measures only one kind of association – linear. Variables that have strong non-linear association might have very low correlation. Here is an example of variables that have a perfect quadratic relation $y = x^2$ but have correlation equal to 0.
 
 
+
 {:.input_area}
 ```python
 new_x = np.arange(-4, 4.1, 0.5)
@@ -551,7 +599,9 @@ nonlinear.scatter('x', 'y', s=30, color='r')
 ```
 
 
+
 ![png](../../../images/chapters/15/1/Correlation_49_0.png)
+
 
 
 
@@ -559,6 +609,7 @@ nonlinear.scatter('x', 'y', s=30, color='r')
 ```python
 correlation(nonlinear, 'x', 'y')
 ```
+
 
 
 
@@ -574,6 +625,7 @@ correlation(nonlinear, 'x', 'y')
 Outliers can have a big effect on correlation. Here is an example where a scatter plot for which $r$ is equal to 1 is turned into a plot for which $r$ is equal to 0, by the addition of just one outlying point.
 
 
+
 {:.input_area}
 ```python
 line = Table().with_columns(
@@ -584,7 +636,9 @@ line.scatter('x', 'y', s=30, color='r')
 ```
 
 
+
 ![png](../../../images/chapters/15/1/Correlation_52_0.png)
+
 
 
 
@@ -596,10 +650,12 @@ correlation(line, 'x', 'y')
 
 
 
+
 {:.output_data_text}
 ```
 1.0
 ```
+
 
 
 
@@ -614,7 +670,9 @@ outlier.scatter('x', 'y', s=30, color='r')
 ```
 
 
+
 ![png](../../../images/chapters/15/1/Correlation_54_0.png)
+
 
 
 
@@ -622,6 +680,7 @@ outlier.scatter('x', 'y', s=30, color='r')
 ```python
 correlation(outlier, 'x', 'y')
 ```
+
 
 
 
@@ -637,11 +696,13 @@ correlation(outlier, 'x', 'y')
 Correlations based on aggregated data can be misleading. As an example, here are data on the Critical Reading and Math SAT scores in 2014. There is one point for each of the 50 states and one for Washington, D.C. The column ``Participation Rate`` contains the percent of high school seniors who took the test. The next three columns show the average score in the state on each portion of the test, and the final column is the average of the total scores on the test.
 
 
+
 {:.input_area}
 ```python
 sat2014 = Table.read_table(path_data + 'sat2014.csv').sort('State')
 sat2014
 ```
+
 
 
 
@@ -694,13 +755,16 @@ sat2014
 The scatter diagram of Math scores versus Critical Reading scores is very tightly clustered around a straight line; the correlation is close to 0.985. 
 
 
+
 {:.input_area}
 ```python
 sat2014.scatter('Critical Reading', 'Math')
 ```
 
 
+
 ![png](../../../images/chapters/15/1/Correlation_59_0.png)
+
 
 
 
@@ -708,6 +772,7 @@ sat2014.scatter('Critical Reading', 'Math')
 ```python
 correlation(sat2014, 'Critical Reading', 'Math')
 ```
+
 
 
 

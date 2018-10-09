@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/13/1/Percentiles.ipynb
-title: '13.1 Percentiles'
-permalink: 'chapters/13/1/Percentiles'
-previouschapter:
-  url: chapters/13/Estimation
-  title: '13. Estimation'
-nextchapter:
-  url: chapters/13/2/Bootstrap
-  title: '13.2 The Bootstrap'
-redirect_from:
-  - 'chapters/13/1/percentiles'
+interact_link: chapters/13/1/Percentiles.ipynb
+title: 'Percentiles'
+permalink: '/chapters/13/1/Percentiles'
+prev_page:
+  url: /chapters/13/Estimation
+  title: 'Estimation'
+next_page:
+  url: /chapters/13/2/Bootstrap
+  title: 'The Bootstrap'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Percentiles
@@ -29,18 +28,22 @@ Before giving a general definition of all percentiles, we will define the 80th p
 For example, let's consider the sizes of the five largest continents – Africa, Antarctica, Asia, North America, and South America – rounded to the nearest million square miles.
 
 
+
 {:.input_area}
 ```python
 sizes = make_array(12, 17, 6, 9, 7)
 ```
 
+
 The 80th percentile is the smallest value that is at least as large as 80% of the elements of `sizes`, that is, four-fifths of the five elements. That's 12:
+
 
 
 {:.input_area}
 ```python
 np.sort(sizes)
 ```
+
 
 
 
@@ -60,10 +63,12 @@ Analogously, the 70th percentile is the smallest value in the collection that is
 The `percentile` function takes two arguments: a rank between 0 and 100, and a array. It returns the corresponding percentile of the array.
 
 
+
 {:.input_area}
 ```python
 percentile(70, sizes)
 ```
+
 
 
 
@@ -91,11 +96,13 @@ In practical terms, suppose there are $n$ elements in the collection. To find th
 The table `scores_and_sections` contains one row for each student in a class of 359 students. The columns are the student's discussion section and midterm score. 
 
 
+
 {:.input_area}
 ```python
 scores_and_sections = Table.read_table(path_data + 'scores_by_section.csv')
 scores_and_sections
 ```
+
 
 
 
@@ -146,10 +153,12 @@ scores_and_sections
 
 
 
+
 {:.input_area}
 ```python
 scores_and_sections.select('Midterm').hist(bins=np.arange(-0.5, 25.6, 1))
 ```
+
 
 
 ![png](../../../images/chapters/13/1/Percentiles_11_0.png)
@@ -158,16 +167,20 @@ scores_and_sections.select('Midterm').hist(bins=np.arange(-0.5, 25.6, 1))
 What was the 85th percentile of the scores? To use the `percentile` function, create an array `scores` containing the midterm scores, and find the 85th percentile:
 
 
+
 {:.input_area}
 ```python
 scores = scores_and_sections.column(1)
 ```
 
 
+
+
 {:.input_area}
 ```python
 percentile(85, scores)
 ```
+
 
 
 
@@ -184,18 +197,22 @@ According to the percentile function, the 85th percentile was 22. To check that 
 First, put the scores in increasing order:
 
 
+
 {:.input_area}
 ```python
 sorted_scores = np.sort(scores_and_sections.column(1))
 ```
 
+
 There are 359 scores in the array. So next, find 85% of 359, which is 305.15. 
+
 
 
 {:.input_area}
 ```python
 0.85 * 359
 ```
+
 
 
 
@@ -210,12 +227,14 @@ There are 359 scores in the array. So next, find 85% of 359, which is 305.15.
 That's not an integer. By our definition, the 85th percentile is the 306th element of `sorted_scores`, which, by Python's indexing convention, is item 305 of the array.
 
 
+
 {:.input_area}
 ```python
 # The 306th element of the sorted array
 
 sorted_scores.item(305)
 ```
+
 
 
 
@@ -235,10 +254,12 @@ The *first quartile* of a numercial collection is the 25th percentile. The termi
 For our `scores` data, those values are:
 
 
+
 {:.input_area}
 ```python
 percentile(25, scores)
 ```
+
 
 
 
@@ -251,10 +272,12 @@ percentile(25, scores)
 
 
 
+
 {:.input_area}
 ```python
 percentile(50, scores)
 ```
+
 
 
 
@@ -267,10 +290,12 @@ percentile(50, scores)
 
 
 
+
 {:.input_area}
 ```python
 percentile(75, scores)
 ```
+
 
 
 

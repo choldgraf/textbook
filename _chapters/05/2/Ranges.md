@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/05/2/Ranges.ipynb
-title: '5.2 Ranges'
-permalink: 'chapters/05/2/Ranges'
-previouschapter:
-  url: chapters/05/1/Arrays
-  title: '5.1 Arrays'
-nextchapter:
-  url: chapters/05/3/More_on_Arrays
-  title: '5.3 More on Arrays'
-redirect_from:
-  - 'chapters/05/2/ranges'
+interact_link: chapters/05/2/Ranges.ipynb
+title: 'Ranges'
+permalink: '/chapters/05/2/Ranges'
+prev_page:
+  url: /chapters/05/1/Arrays
+  title: 'Arrays'
+next_page:
+  url: /chapters/05/3/More_on_Arrays
+  title: 'More on Arrays'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 # Ranges
@@ -26,10 +25,12 @@ A range always includes its `start` value, but does not include its `end` value.
     np.arange(end): An array starting with 0 of increasing consecutive integers, stopping before end.
 
 
+
 {:.input_area}
 ```python
 np.arange(5)
 ```
+
 
 
 
@@ -47,10 +48,12 @@ Notice how the array starts at 0 and goes only up to 4, not to the end value of 
     np.arange(start, end): An array of consecutive increasing integers from start, stopping before end.
 
 
+
 {:.input_area}
 ```python
 np.arange(3, 9)
 ```
+
 
 
 
@@ -66,10 +69,12 @@ array([3, 4, 5, 6, 7, 8])
     np.arange(start, end, step): A range with a difference of step between each pair of consecutive values, starting from start and stopping before end.
 
 
+
 {:.input_area}
 ```python
 np.arange(3, 30, 5)
 ```
+
 
 
 
@@ -86,10 +91,12 @@ This array starts at 3, then takes a step of 5 to get to 8, then another step of
 When you specify a step, the start, end, and step can all be either positive or negative and may be whole numbers or fractions. 
 
 
+
 {:.input_area}
 ```python
 np.arange(1.5, -2, -0.5)
 ```
+
 
 
 
@@ -119,11 +126,13 @@ $$4 \cdot \left( \left(1 + \frac{1}{5} + \frac{1}{9} + \dots + \frac{1}{9997} \r
 The positive terms in the sum have 1, 5, 9, and so on in the denominators. The array `by_four_to_20` contains these numbers up to 17:
 
 
+
 {:.input_area}
 ```python
 by_four_to_20 = np.arange(1, 20, 4)
 by_four_to_20
 ```
+
 
 
 
@@ -138,11 +147,13 @@ array([ 1,  5,  9, 13, 17])
 To get an accurate approximation to $\pi$, we'll use the much longer array `positive_term_denominators`.
 
 
+
 {:.input_area}
 ```python
 positive_term_denominators = np.arange(1, 10000, 4)
 positive_term_denominators
 ```
+
 
 
 
@@ -157,12 +168,15 @@ array([   1,    5,    9, ..., 9989, 9993, 9997])
 The positive terms we actually want to add together are just 1 over these denominators:
 
 
+
 {:.input_area}
 ```python
 positive_terms = 1 / positive_term_denominators
 ```
 
+
 The negative terms have 3, 7, 11, and so on on in their denominators. This array is just 2 added to `positive_term_denominators`.
+
 
 
 {:.input_area}
@@ -170,13 +184,16 @@ The negative terms have 3, 7, 11, and so on on in their denominators. This array
 negative_terms = 1 / (positive_term_denominators + 2)
 ```
 
+
 The overall sum is
+
 
 
 {:.input_area}
 ```python
 4 * ( sum(positive_terms) - sum(negative_terms) )
 ```
+
 
 
 

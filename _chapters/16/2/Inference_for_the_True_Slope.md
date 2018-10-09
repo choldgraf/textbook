@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/16/2/Inference_for_the_True_Slope.ipynb
-title: '16.2 Inference for the True Slope'
-permalink: 'chapters/16/2/Inference_for_the_True_Slope'
-previouschapter:
-  url: chapters/16/1/Regression_Model
-  title: '16.1 A Regression Model'
-nextchapter:
-  url: chapters/16/3/Prediction_Intervals
-  title: '16.3 Prediction Intervals'
-redirect_from:
-  - 'chapters/16/2/inference-for-the-true-slope'
+interact_link: chapters/16/2/Inference_for_the_True_Slope.ipynb
+title: 'Inference for the True Slope'
+permalink: '/chapters/16/2/Inference_for_the_True_Slope'
+prev_page:
+  url: /chapters/16/1/Regression_Model
+  title: 'A Regression Model'
+next_page:
+  url: /chapters/16/3/Prediction_Intervals
+  title: 'Prediction Intervals'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Inference for the True Slope
@@ -19,13 +18,16 @@ Our simulations show that if the regression model holds and the sample size is l
 We will use our familiar sample of mothers and their newborn babies to develop a method of estimating the slope of the true line. First, let's see if we believe that the regression model is an appropriate set of assumptions for describing the relation between birth weight and the number of gestational days.
 
 
+
 {:.input_area}
 ```python
 scatter_fit(baby, 'Gestational Days', 'Birth Weight')
 ```
 
 
+
 ![png](../../../images/chapters/16/2/Inference_for_the_True_Slope_1_0.png)
+
 
 
 
@@ -33,6 +35,7 @@ scatter_fit(baby, 'Gestational Days', 'Birth Weight')
 ```python
 correlation(baby, 'Gestational Days', 'Birth Weight')
 ```
+
 
 
 
@@ -49,10 +52,12 @@ By and large, the scatter looks fairly evenly distributed around the line, thoug
 Does this reflect the fact that the true line has a positive slope? To answer this question, let us see if we can estimate the true slope. We certainly have one estimate of it: the slope of our regression line. That's about 0.47 ounces per day.
 
 
+
 {:.input_area}
 ```python
 slope(baby, 'Gestational Days', 'Birth Weight')
 ```
+
 
 
 
@@ -80,6 +85,7 @@ Here is the original scatter diagram from the sample, and four replications of t
 We can bootstrap the scatter plot a large number of times, and draw a regression line through each bootstrapped plot. Each of those lines has a slope. We can simply collect all the slopes and draw their empirical histogram. Recall that by default, the `sample` method draws at random with replacement, the same number of times as the number of rows in the table. That is, `sample` generates a bootstrap sample by default.
 
 
+
 {:.input_area}
 ```python
 slopes = make_array()
@@ -91,10 +97,12 @@ Table().with_column('Bootstrap Slopes', slopes).hist(bins=20)
 ```
 
 
+
 ![png](../../../images/chapters/16/2/Inference_for_the_True_Slope_8_0.png)
 
 
 We can then construct an approximate 95% confidence interval for the slope of the true line, using the bootstrap percentile method. The confidence interval extends from the 2.5th percentile to the 97.5th percentile of the 5000 bootstrapped slopes.
+
 
 
 {:.input_area}
@@ -103,6 +111,7 @@ left = percentile(2.5, slopes)
 right = percentile(97.5, slopes)
 left, right
 ```
+
 
 
 
@@ -119,6 +128,7 @@ An approximate 95% confidence interval for the true slope extends from about 0.3
 ### A Function to Bootstrap the Slope
 
 Let us collect all the steps of our method of estimating the slope and define a function `bootstrap_slope` that carries them out. Its arguments are the name of the table and the labels of the predictor and response variables, and the desired number of bootstrap replications. In each replication, the function bootstraps the original scatter plot and calculates the slope of the resulting regression line. It then draws the histogram of all the generated slopes and prints the interval consisting of the "middle 95%" of the slopes. 
+
 
 
 {:.input_area}
@@ -149,13 +159,16 @@ def bootstrap_slope(table, x, y, repetitions):
     print(left, right)
 ```
 
+
 When we call `bootstrap_slope` to find a confidence interval for the true slope when the response variable is birth weight and the predictor is gestational days, we get an interval very close to the one we obtained earlier: approximately 0.38 ounces per day to 0.56 ounces per day.
+
 
 
 {:.input_area}
 ```python
 bootstrap_slope(baby, 'Gestational Days', 'Birth Weight', 5000)
 ```
+
 
 {:.output_stream}
 ```
@@ -176,13 +189,16 @@ For example, let's examine the relation between birth weight and the mother's he
 The regression model seems reasonable, based on the scatter plot, but the correlation is not high. It's just about 0.2.
 
 
+
 {:.input_area}
 ```python
 scatter_fit(baby, 'Maternal Height', 'Birth Weight')
 ```
 
 
+
 ![png](../../../images/chapters/16/2/Inference_for_the_True_Slope_17_0.png)
+
 
 
 
@@ -190,6 +206,7 @@ scatter_fit(baby, 'Maternal Height', 'Birth Weight')
 ```python
 correlation(baby, 'Maternal Height', 'Birth Weight')
 ```
+
 
 
 
@@ -204,10 +221,12 @@ correlation(baby, 'Maternal Height', 'Birth Weight')
 As before, we can use `bootstrap_slope` to estimate the slope of the true line in the regression model.
 
 
+
 {:.input_area}
 ```python
 bootstrap_slope(baby, 'Maternal Height', 'Birth Weight', 5000)
 ```
+
 
 {:.output_stream}
 ```
@@ -234,10 +253,12 @@ Here is a simulation that illustrates why this question arises. We will once aga
 Remember that the arguments to the function ``draw_and_compare`` are the slope and the intercept of the true line, and the number of points to be generated.
 
 
+
 {:.input_area}
 ```python
 draw_and_compare(0, 10, 25)
 ```
+
 
 
 ![png](../../../images/chapters/16/2/Inference_for_the_True_Slope_23_0.png)
@@ -260,10 +281,12 @@ If the confidence interval for the true slope does contain 0, then we don't have
 Let's use this method in an example. Suppose we try to estimate the birth weight of the baby based on the mother's age. Based on the sample, the slope of the regression line for estimating birth weight based on maternal age is positive, about 0.08 ounces per year. 
 
 
+
 {:.input_area}
 ```python
 slope(baby, 'Maternal Age', 'Birth Weight')
 ```
+
 
 
 
@@ -278,10 +301,12 @@ slope(baby, 'Maternal Age', 'Birth Weight')
 Though the slope is positive, it's pretty small. The regression line is so close to flat that it raises the question of whether the true line is flat.
 
 
+
 {:.input_area}
 ```python
 scatter_fit(baby, 'Maternal Age', 'Birth Weight')
 ```
+
 
 
 ![png](../../../images/chapters/16/2/Inference_for_the_True_Slope_29_0.png)
@@ -290,10 +315,12 @@ scatter_fit(baby, 'Maternal Age', 'Birth Weight')
 We can use `bootstrap_slope` to estimate the slope of the true line. The calculation shows that an approximate 95% bootstrap confidence interval for the true slope has a negative left end point and a positive right end point – in other words, the interval contains 0. 
 
 
+
 {:.input_area}
 ```python
 bootstrap_slope(baby, 'Maternal Age', 'Birth Weight', 5000)
 ```
+
 
 {:.output_stream}
 ```

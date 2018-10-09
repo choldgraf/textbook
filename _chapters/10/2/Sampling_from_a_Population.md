@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/10/2/Sampling_from_a_Population.ipynb
-title: '10.2 Sampling from a Population'
-permalink: 'chapters/10/2/Sampling_from_a_Population'
-previouschapter:
-  url: chapters/10/1/Empirical_Distributions
-  title: '10.1 Empirical Distributions'
-nextchapter:
-  url: chapters/10/3/Empirical_Distribution_of_a_Statistic
-  title: '10.3 Empirical Distibution of a Statistic'
-redirect_from:
-  - 'chapters/10/2/sampling-from-a-population'
+interact_link: chapters/10/2/Sampling_from_a_Population.ipynb
+title: 'Sampling from a Population'
+permalink: '/chapters/10/2/Sampling_from_a_Population'
+prev_page:
+  url: /chapters/10/1/Empirical_Distributions
+  title: 'Empirical Distributions'
+next_page:
+  url: /chapters/10/3/Empirical_Distribution_of_a_Statistic
+  title: 'Empirical Distibution of a Statistic'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Sampling from a Population
@@ -21,11 +20,13 @@ As an example, we will study a population of flight delay times. The table `unit
 There are 13,825 rows, each corresponding to a flight. The columns are the date of the flight, the flight number, the destination airport code, and the departure delay time in minutes. Some delay times are negative; those flights left early.
 
 
+
 {:.input_area}
 ```python
 united = Table.read_table(path_data + 'united_summer2015.csv')
 united
 ```
+
 
 
 
@@ -78,10 +79,12 @@ united
 One flight departed 16 minutes early, and one was 580 minutes late. The other delay times were almost all between -10 minutes and 200 minutes, as the histogram below shows.
 
 
+
 {:.input_area}
 ```python
 united.column('Delay').min()
 ```
+
 
 
 
@@ -94,10 +97,12 @@ united.column('Delay').min()
 
 
 
+
 {:.input_area}
 ```python
 united.column('Delay').max()
 ```
+
 
 
 
@@ -110,11 +115,13 @@ united.column('Delay').max()
 
 
 
+
 {:.input_area}
 ```python
 delay_bins = np.append(np.arange(-20, 301, 10), 600)
 united.select('Delay').hist(bins = delay_bins, unit = 'minute')
 ```
+
 
 
 ![png](../../../images/chapters/10/2/Sampling_from_a_Population_5_0.png)
@@ -123,10 +130,12 @@ united.select('Delay').hist(bins = delay_bins, unit = 'minute')
 For the purposes of this section, it is enough to zoom in on the bulk of the data and ignore the 0.8% of flights that had delays of more than 200 minutes. This restriction is just for visual convenience; the table still retains all the data.
 
 
+
 {:.input_area}
 ```python
 united.where('Delay', are.above(200)).num_rows/united.num_rows
 ```
+
 
 
 
@@ -139,11 +148,13 @@ united.where('Delay', are.above(200)).num_rows/united.num_rows
 
 
 
+
 {:.input_area}
 ```python
 delay_bins = np.arange(-20, 201, 10)
 united.select('Delay').hist(bins = delay_bins, unit = 'minute')
 ```
+
 
 
 ![png](../../../images/chapters/10/2/Sampling_from_a_Population_8_0.png)
@@ -152,10 +163,12 @@ united.select('Delay').hist(bins = delay_bins, unit = 'minute')
 The height of the [0, 10) bar is just under 3% per minute, which means that just under 30% of the flights had delays between 0 and 10 minutes. That is confirmed by counting rows: 
 
 
+
 {:.input_area}
 ```python
 united.where('Delay', are.between(0, 10)).num_rows/united.num_rows
 ```
+
 
 
 
@@ -172,13 +185,16 @@ united.where('Delay', are.between(0, 10)).num_rows/united.num_rows
 Let us now think of the 13,825 flights as a population, and draw random samples from it with replacement. It is helpful to package our analysis code into a function. The function `empirical_hist_delay` takes the sample size as its argument and draws an empiricial histogram of the results.
 
 
+
 {:.input_area}
 ```python
 def empirical_hist_delay(n):
     united.sample(n).select('Delay').hist(bins = delay_bins, unit = 'minute')
 ```
 
+
 As we saw with the dice, as the sample size increases, the empirical histogram of the sample more closely resembles the histogram of the population. Compare these histograms to the population histogram above.
+
 
 
 {:.input_area}
@@ -187,7 +203,9 @@ empirical_hist_delay(10)
 ```
 
 
+
 ![png](../../../images/chapters/10/2/Sampling_from_a_Population_14_0.png)
+
 
 
 
@@ -197,16 +215,19 @@ empirical_hist_delay(100)
 ```
 
 
+
 ![png](../../../images/chapters/10/2/Sampling_from_a_Population_15_0.png)
 
 
 The most consistently visible discrepancies are among the values that are rare in the population. In our example, those values are in the the right hand tail of the distribution. But as the sample size increases, even those values begin to appear in the sample in roughly the correct proportions.
 
 
+
 {:.input_area}
 ```python
 empirical_hist_delay(1000)
 ```
+
 
 
 ![png](../../../images/chapters/10/2/Sampling_from_a_Population_17_0.png)

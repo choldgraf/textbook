@@ -1,14 +1,13 @@
 ---
-title: '2.2 Snow’s “Grand Experiment”'
-permalink: 'chapters/02/2/snow-s-grand-experiment'
-previouschapter:
-  url: chapters/02/1/observation-and-visualization-john-snow-and-the-broad-street-pump
-  title: '2.1 John Snow and the Broad Street Pump'
-nextchapter:
-  url: chapters/02/3/establishing-causality
-  title: '2.3 Establishing Causality'
-redirect_from:
-  - 'chapters/02/2/snow-s-grand-experiment'
+title: 'Snow’s “Grand Experiment”'
+permalink: '/chapters/02/2/snow-s-grand-experiment'
+prev_page:
+  url: /chapters/02/1/observation-and-visualization-john-snow-and-the-broad-street-pump
+  title: 'John Snow and the Broad Street Pump'
+next_page:
+  url: /chapters/02/3/establishing-causality
+  title: 'Establishing Causality'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Snow’s “Grand Experiment”
 -------------------------

@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/15/4/Least_Squares_Regression.ipynb
-title: '15.4 Least Squares Regression'
-permalink: 'chapters/15/4/Least_Squares_Regression'
-previouschapter:
-  url: chapters/15/3/Method_of_Least_Squares
-  title: '15.3 The Method of Least Squares'
-nextchapter:
-  url: chapters/15/5/Visual_Diagnostics
-  title: '15.5 Visual Diagnostics'
-redirect_from:
-  - 'chapters/15/4/least-squares-regression'
+interact_link: chapters/15/4/Least_Squares_Regression.ipynb
+title: 'Least Squares Regression'
+permalink: '/chapters/15/4/Least_Squares_Regression'
+prev_page:
+  url: /chapters/15/3/Method_of_Least_Squares
+  title: 'The Method of Least Squares'
+next_page:
+  url: /chapters/15/5/Visual_Diagnostics
+  title: 'Visual Diagnostics'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Least Squares Regression
@@ -18,16 +17,20 @@ In an earlier section, we developed formulas for the slope and intercept of the 
 We saw this in the example about Little Women, but let's confirm it in an example where the scatter plot clearly isn't football shaped. For the data, we are once again indebted to the rich [data archive of Prof. Larry Winner](http://www.stat.ufl.edu/~winner/datasets.html) of the University of Florida. A [2013 study](http://digitalcommons.wku.edu/ijes/vol6/iss2/10/) in the International Journal of Exercise Science studied collegiate shot put athletes and examined the relation between strength and shot put distance. The population consists of 28 female collegiate athletes. Strength was measured by the the biggest amount (in kilograms) that the athlete lifted in the "1RM power clean" in the pre-season. The distance (in meters) was the athlete's personal best.
 
 
+
 {:.input_area}
 ```python
 shotput = Table.read_table(path_data + 'shotput.csv')
 ```
 
 
+
+
 {:.input_area}
 ```python
 shotput
 ```
+
 
 
 
@@ -78,10 +81,12 @@ shotput
 
 
 
+
 {:.input_area}
 ```python
 shotput.scatter('Weight Lifted')
 ```
+
 
 
 ![png](../../../images/chapters/15/4/Least_Squares_Regression_3_0.png)
@@ -92,10 +97,12 @@ That's not a football shaped scatter plot. In fact, it seems to have a slight no
 Our formulas for the slope and intercept of the regression line, derived for football shaped scatter plots, give the following values.
 
 
+
 {:.input_area}
 ```python
 slope(shotput, 'Weight Lifted', 'Shot Put Distance')
 ```
+
 
 
 
@@ -108,10 +115,12 @@ slope(shotput, 'Weight Lifted', 'Shot Put Distance')
 
 
 
+
 {:.input_area}
 ```python
 intercept(shotput, 'Weight Lifted', 'Shot Put Distance')
 ```
+
 
 
 
@@ -128,6 +137,7 @@ Does it still make sense to use these formulas even though the scatter plot isn'
 We will define the function `shotput_linear_mse` to take an arbirtary slope and intercept as arguments and return the corresponding mse. Then `minimize` applied to `shotput_linear_mse` will return the best slope and intercept.
 
 
+
 {:.input_area}
 ```python
 def shotput_linear_mse(any_slope, any_intercept):
@@ -138,10 +148,13 @@ def shotput_linear_mse(any_slope, any_intercept):
 ```
 
 
+
+
 {:.input_area}
 ```python
 minimize(shotput_linear_mse)
 ```
+
 
 
 
@@ -168,11 +181,13 @@ $$
 $$
 
 
+
 {:.input_area}
 ```python
 fitted = fit(shotput, 'Weight Lifted', 'Shot Put Distance')
 shotput.with_column('Best Straight Line', fitted).scatter('Weight Lifted')
 ```
+
 
 
 ![png](../../../images/chapters/15/4/Least_Squares_Regression_11_0.png)
@@ -197,6 +212,7 @@ To find the best quadratic function to predict distance based on weight lifted, 
 The function is called `shotput_quadratic_mse`. Notice that the definition is analogous to that of `lw_mse`, except that the fitted values are based on a quadratic function instead of linear.
 
 
+
 {:.input_area}
 ```python
 def shotput_quadratic_mse(a, b, c):
@@ -206,7 +222,9 @@ def shotput_quadratic_mse(a, b, c):
     return np.mean((y - fitted) ** 2)
 ```
 
+
 We can now use `minimize` just as before to find the constants that minimize the mean squared error. 
+
 
 
 {:.input_area}
@@ -214,6 +232,7 @@ We can now use `minimize` just as before to find the constants that minimize the
 best = minimize(shotput_quadratic_mse)
 best
 ```
+
 
 
 
@@ -232,10 +251,12 @@ $$
 meters. For example, if the athlete can lift 100 kilograms, the predicted distance is 16.33 meters. On the scatter plot, that's near the center of a vertical strip around 100 kilograms.
 
 
+
 {:.input_area}
 ```python
 (-0.00104)*(100**2) + 0.2827*100 - 1.5318
 ```
+
 
 
 
@@ -250,6 +271,7 @@ meters. For example, if the athlete can lift 100 kilograms, the predicted distan
 Here are the predictions for all the values of `Weight Lifted`. You can see that they go through the center of the scatter plot, to a rough approximation.
 
 
+
 {:.input_area}
 ```python
 x = shotput.column(0)
@@ -257,10 +279,13 @@ shotput_fit = best.item(0)*(x**2) + best.item(1)*x + best.item(2)
 ```
 
 
+
+
 {:.input_area}
 ```python
 shotput.with_column('Best Quadratic Curve', shotput_fit).scatter(0)
 ```
+
 
 
 ![png](../../../images/chapters/15/4/Least_Squares_Regression_21_0.png)

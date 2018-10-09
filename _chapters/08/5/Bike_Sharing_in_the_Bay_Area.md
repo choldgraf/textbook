@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/08/5/Bike_Sharing_in_the_Bay_Area.ipynb
-title: '8.5 Bike Sharing in the Bay Area'
-permalink: 'chapters/08/5/Bike_Sharing_in_the_Bay_Area'
-previouschapter:
-  url: chapters/08/4/Joining_Tables_by_Columns
-  title: '8.4 Joining Tables by Columns'
-nextchapter:
-  url: chapters/09/Randomness
-  title: '9. Randomness'
-redirect_from:
-  - 'chapters/08/5/bike-sharing-in-the-bay-area'
+interact_link: chapters/08/5/Bike_Sharing_in_the_Bay_Area.ipynb
+title: 'Bike Sharing in the Bay Area'
+permalink: '/chapters/08/5/Bike_Sharing_in_the_Bay_Area'
+prev_page:
+  url: /chapters/08/4/Joining_Tables_by_Columns
+  title: 'Joining Tables by Columns'
+next_page:
+  url: /chapters/09/Randomness
+  title: 'Randomness'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Bike Sharing in the Bay Area
@@ -27,11 +26,13 @@ The [Bay Area Bike Share](http://www.bayareabikeshare.com/) service published a 
 - Subscriber type and zip code
 
 
+
 {:.input_area}
 ```python
 trips = Table.read_table(path_data + 'trip.csv')
 trips
 ```
+
 
 
 
@@ -86,11 +87,13 @@ We'll focus only on the *free trips*, which are trips that last less than 1800 s
 The histogram below shows that most of the trips took around 10 minutes (600 seconds) or so. Very few took near 30 minutes (1800 seconds), possibly because people try to return the bikes before the cutoff time so as not to have to pay.
 
 
+
 {:.input_area}
 ```python
 commute = trips.where('Duration', are.below(1800))
 commute.hist('Duration', unit='Second')
 ```
+
 
 
 ![png](../../../images/chapters/08/5/Bike_Sharing_in_the_Bay_Area_3_0.png)
@@ -99,10 +102,12 @@ commute.hist('Duration', unit='Second')
 We can get more detail by specifying a larger number of bins. But the overall shape doesn't change much.
 
 
+
 {:.input_area}
 ```python
 commute.hist('Duration', bins=60, unit='Second')
 ```
+
 
 
 ![png](../../../images/chapters/08/5/Bike_Sharing_in_the_Bay_Area_5_0.png)
@@ -113,11 +118,13 @@ commute.hist('Duration', bins=60, unit='Second')
 We can use `group` to identify the most highly used Start Station:
 
 
+
 {:.input_area}
 ```python
 starts = commute.group('Start Station').sort('count', descending=True)
 starts
 ```
+
 
 
 
@@ -172,10 +179,12 @@ The largest number of trips started at the Caltrain Station on Townsend and 4th 
 The `group` method can also be used to classify the rentals by both Start Station and End Station.
 
 
+
 {:.input_area}
 ```python
 commute.group(['Start Station', 'End Station'])
 ```
+
 
 
 
@@ -232,10 +241,12 @@ The `pivot` method does the same classification but displays its results in a co
 There is a train station as well as a Bay Area Rapid Transit (BART) station near Beale at Market, explaining the high number of trips that start and end there.
 
 
+
 {:.input_area}
 ```python
 commute.pivot('Start Station', 'End Station')
 ```
+
 
 
 
@@ -288,10 +299,12 @@ commute.pivot('Start Station', 'End Station')
 We can also use `pivot` to find the shortest time of the rides between Start and End Stations. Here `pivot` has been given `Duration` as the optional `values` argument, and `min` as the function which to perform on the values in each cell.
 
 
+
 {:.input_area}
 ```python
 commute.pivot('Start Station', 'End Station', 'Duration', min)
 ```
+
 
 
 
@@ -347,11 +360,13 @@ Someone had a very quick trip (271 seconds, or about 4.5 minutes) from 2nd at Fo
 The table `stations` contains geographical information about each bike station, including latitude, longitude, and a "landmark" which is the name of the city where the station is located.
 
 
+
 {:.input_area}
 ```python
 stations = Table.read_table(path_data + 'station.csv')
 stations
 ```
+
 
 
 
@@ -404,10 +419,12 @@ stations
 We can draw a map of where the stations are located, using `Marker.map_table`. The function operates on a table, whose columns are (in order) latitude, longitude, and an optional identifier for each point.
 
 
+
 {:.input_area}
 ```python
 Marker.map_table(stations.select('lat', 'long', 'name'))
 ```
+
 
 
 
@@ -423,12 +440,14 @@ The map is created using [OpenStreetMap](http://www.openstreetmap.org/#map=5/51.
 You can also represent points on a map by colored circles. Here is such a map of the San Francisco bike stations.
 
 
+
 {:.input_area}
 ```python
 sf = stations.where('landmark', are.equal_to('San Francisco'))
 sf_map_data = sf.select('lat', 'long', 'name')
 Circle.map_table(sf_map_data, color='green', radius=200)
 ```
+
 
 
 
@@ -443,11 +462,13 @@ Circle.map_table(sf_map_data, color='green', radius=200)
 The bike stations are located in five different cities in the Bay Area. To distinguish the points by using a different color for each city, let's start by using group to identify all the cities and assign each one a color.
 
 
+
 {:.input_area}
 ```python
 cities = stations.group('landmark').relabeled('landmark', 'city')
 cities
 ```
+
 
 
 
@@ -482,11 +503,13 @@ cities
 
 
 
+
 {:.input_area}
 ```python
 colors = cities.with_column('color', make_array('blue', 'red', 'green', 'orange', 'purple'))
 colors
 ```
+
 
 
 
@@ -523,12 +546,14 @@ colors
 Now we can join `stations` and `colors` by `landmark`, and then select the columns we need to draw a map.
 
 
+
 {:.input_area}
 ```python
 joined = stations.join('landmark', colors, 'city')
 colored = joined.select('lat', 'long', 'name', 'color')
 Marker.map_table(colored)
 ```
+
 
 
 
@@ -544,11 +569,13 @@ Now the markers have five different colors for the five different cities.
 To see where most of the bike rentals originate, let's identify the start stations:
 
 
+
 {:.input_area}
 ```python
 starts = commute.group('Start Station').sort('count', descending=True)
 starts
 ```
+
 
 
 
@@ -601,11 +628,13 @@ starts
 We can include the geographical data needed to map these stations, by first joining `starts` with `stations`:
 
 
+
 {:.input_area}
 ```python
 station_starts = stations.join('name', starts, 'Start Station')
 station_starts
 ```
+
 
 
 
@@ -658,6 +687,7 @@ station_starts
 Now we extract just the data needed for drawing our map, adding a color and an area to each station. The area is 1000 times the count of the number of rentals starting at each station, where the constant 1000 was chosen so that the circles would appear at an appropriate scale on the map.
 
 
+
 {:.input_area}
 ```python
 starts_map_data = station_starts.select('lat', 'long', 'name').with_columns(
@@ -667,6 +697,7 @@ starts_map_data = station_starts.select('lat', 'long', 'name').with_columns(
 starts_map_data.show(3)
 Circle.map_table(starts_map_data)
 ```
+
 
 
 <div markdown="0">

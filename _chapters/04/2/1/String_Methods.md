@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/04/2/1/String_Methods.ipynb
-title: '4.2.1 String Methods'
-permalink: 'chapters/04/2/1/String_Methods'
-previouschapter:
-  url: chapters/04/2/Strings
-  title: '4.2 Strings'
-nextchapter:
-  url: chapters/04/3/Comparison
-  title: '4.3 Comparisons'
-redirect_from:
-  - 'chapters/04/2/1/string-methods'
+interact_link: chapters/04/2/1/String_Methods.ipynb
+title: 'String Methods'
+permalink: '/chapters/04/2/1/String_Methods'
+prev_page:
+  url: /chapters/04/2/Strings
+  title: 'Strings'
+next_page:
+  url: /chapters/04/3/Comparison
+  title: 'Comparisons'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 # String Methods
@@ -19,10 +18,12 @@ From an existing string, related strings can be constructed using string methods
 For example, the following method generates an uppercased version of a string.
 
 
+
 {:.input_area}
 ```python
 "loud".upper()
 ```
+
 
 
 
@@ -37,10 +38,12 @@ For example, the following method generates an uppercased version of a string.
 Perhaps the most important method is `replace`, which replaces all instances of a substring within the string. The `replace` method takes two arguments, the text to be replaced and its replacement.
 
 
+
 {:.input_area}
 ```python
 'hitchhiker'.replace('hi', 'ma')
 ```
+
 
 
 
@@ -55,6 +58,7 @@ Perhaps the most important method is `replace`, which replaces all instances of 
 String methods can also be invoked using variable names, as long as those names are bound to strings. So, for instance, the following two-step process generates the word "degrade" starting from "train" by first creating "ingrain" and then applying a second replacement.
 
 
+
 {:.input_area}
 ```python
 s = "train"
@@ -62,6 +66,7 @@ t = s.replace('t', 'ing')
 u = t.replace('in', 'de')
 u
 ```
+
 
 
 
@@ -76,10 +81,12 @@ u
 Note that the line `t = s.replace('t', 'ing')` doesn't change the string `s`, which is still "train".  The method call `s.replace('t', 'ing')` just has a value, which is the string "ingrain".
 
 
+
 {:.input_area}
 ```python
 s
 ```
+
 
 
 

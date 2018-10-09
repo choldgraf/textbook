@@ -1,14 +1,13 @@
 ---
-title: '2.3 Establishing Causality'
-permalink: 'chapters/02/3/establishing-causality'
-previouschapter:
-  url: chapters/02/2/snow-s-grand-experiment
-  title: '2.2 Snow’s “Grand Experiment”'
-nextchapter:
-  url: chapters/02/4/randomization
-  title: '2.4 Randomization'
-redirect_from:
-  - 'chapters/02/3/establishing-causality'
+title: 'Establishing Causality'
+permalink: '/chapters/02/3/establishing-causality'
+prev_page:
+  url: /chapters/02/2/snow-s-grand-experiment
+  title: 'Snow’s “Grand Experiment”'
+next_page:
+  url: /chapters/02/4/randomization
+  title: 'Randomization'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Establishing Causality
 ----------------------

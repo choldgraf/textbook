@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/18/Updating_Predictions.ipynb
+interact_link: chapters/18/Updating_Predictions.ipynb
 title: '18. Updating Predictions'
-permalink: 'chapters/18/Updating_Predictions'
-previouschapter:
-  url: chapters/17/6/Multiple_Regression
-  title: '17.6 Multiple Regression'
-nextchapter:
-  url: chapters/18/1/More_Likely_than_Not_Binary_Classifier
-  title: '18.1 A "More Likely Than Not" Binary Classifier'
-redirect_from:
-  - 'chapters/18/updating-predictions'
+permalink: '/chapters/18/Updating_Predictions'
+prev_page:
+  url: /chapters/17/6/Multiple_Regression
+  title: 'Multiple Regression'
+next_page:
+  url: /chapters/18/1/More_Likely_than_Not_Binary_Classifier
+  title: 'A "More Likely Than Not" Binary Classifier'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Updating Predictions

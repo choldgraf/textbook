@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/08/4/Joining_Tables_by_Columns.ipynb
-title: '8.4 Joining Tables by Columns'
-permalink: 'chapters/08/4/Joining_Tables_by_Columns'
-previouschapter:
-  url: chapters/08/3/Cross-Classifying_by_More_than_One_Variable
-  title: '8.3 Cross-Classifying'
-nextchapter:
-  url: chapters/08/5/Bike_Sharing_in_the_Bay_Area
-  title: '8.5 Bike Sharing in the Bay Area'
-redirect_from:
-  - 'chapters/08/4/joining-tables-by-columns'
+interact_link: chapters/08/4/Joining_Tables_by_Columns.ipynb
+title: 'Joining Tables by Columns'
+permalink: '/chapters/08/4/Joining_Tables_by_Columns'
+prev_page:
+  url: /chapters/08/3/Cross-Classifying_by_More_than_One_Variable
+  title: 'Cross-Classifying'
+next_page:
+  url: /chapters/08/5/Bike_Sharing_in_the_Bay_Area
+  title: 'Bike Sharing in the Bay Area'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Joining Tables by Columns
@@ -22,6 +21,7 @@ Let us do this in the context of a simple example, and then use the method with 
 The table `cones` is one we have encountered earlier. Now suppose each flavor of ice cream comes with a rating that is in a separate table.
 
 
+
 {:.input_area}
 ```python
 cones = Table().with_columns(
@@ -30,6 +30,7 @@ cones = Table().with_columns(
 )
 cones
 ```
+
 
 
 
@@ -64,6 +65,7 @@ cones
 
 
 
+
 {:.input_area}
 ```python
 ratings = Table().with_columns(
@@ -72,6 +74,7 @@ ratings = Table().with_columns(
 )
 ratings
 ```
+
 
 
 
@@ -104,11 +107,13 @@ Each of the tables has a column that contains ice cream flavors: `cones` has the
 The method `join` creates a new table in which each cone in the `cones` table is augmented with the Stars information in the `ratings` table.  For each cone in `cones`, `join` finds a row in `ratings` whose `Kind` matches the cone's `Flavor`. We have to tell `join` to use those columns for matching.
 
 
+
 {:.input_area}
 ```python
 rated = cones.join('Flavor', ratings, 'Kind')
 rated
 ```
+
 
 
 
@@ -151,10 +156,12 @@ In general, a call to `join` that augments a table (say `table1`) with informati
 The new table `rated` allows us to work out the price per star, which you can think of as an informal measure of value. Low values are good – they mean that you are paying less for each rating star.
 
 
+
 {:.input_area}
 ```python
 rated.with_column('$/Star', rated.column('Price') / rated.column('Stars')).sort(3)
 ```
+
 
 
 
@@ -193,10 +200,12 @@ Though strawberry has the lowest rating among the three flavors, the less expens
 **Side note.** Does the order we list the two tables matter? Let's try it.  As you see it, this changes the order that the columns appear in, and can potentially changes the order of the rows, but it doesn't make any fundamental difference.
 
 
+
 {:.input_area}
 ```python
 ratings.join('Kind', cones, 'Flavor')
 ```
+
 
 
 
@@ -233,6 +242,7 @@ ratings.join('Kind', cones, 'Flavor')
 Also note that the join will only contain information about items that appear in both tables. Let's see an example. Suppose there is a table of reviews of some ice cream cones, and we have found the average review for each flavor.
 
 
+
 {:.input_area}
 ```python
 reviews = Table().with_columns(
@@ -241,6 +251,7 @@ reviews = Table().with_columns(
 )
 reviews
 ```
+
 
 
 
@@ -272,11 +283,13 @@ reviews
 
 
 
+
 {:.input_area}
 ```python
 average_review = reviews.group('Flavor', np.average)
 average_review
 ```
+
 
 
 
@@ -304,10 +317,12 @@ average_review
 We can join `cones` and `average_review` by providing the labels of the columns by which to join.
 
 
+
 {:.input_area}
 ```python
 cones.join('Flavor', average_review, 'Flavor')
 ```
+
 
 
 

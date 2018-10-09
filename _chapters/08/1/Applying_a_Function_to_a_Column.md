@@ -1,20 +1,20 @@
 ---
-interact_link: notebooks/08/1/Applying_a_Function_to_a_Column.ipynb
-title: '8.1 Applying Functions to Columns'
-permalink: 'chapters/08/1/Applying_a_Function_to_a_Column'
-previouschapter:
-  url: chapters/08/Functions_and_Tables
-  title: '8. Functions and Tables'
-nextchapter:
-  url: chapters/08/2/Classifying_by_One_Variable
-  title: '8.2 Classifying by One Variable'
-redirect_from:
-  - 'chapters/08/1/applying-a-function-to-a-column'
+interact_link: chapters/08/1/Applying_a_Function_to_a_Column.ipynb
+title: 'Applying Functions to Columns'
+permalink: '/chapters/08/1/Applying_a_Function_to_a_Column'
+prev_page:
+  url: /chapters/08/Functions_and_Tables
+  title: 'Functions and Tables'
+next_page:
+  url: /chapters/08/2/Classifying_by_One_Variable
+  title: 'Classifying by One Variable'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Applying a Function to a Column
 
 We have seen many examples of creating new columns of tables by applying functions to existing columns or to other arrays. All of those functions took arrays as their arguments. But frequently we will want to convert the entries in a column by a function that doesn't take an array as its argument. For example, it might take just one number as its argument, as in the function `cut_off_at_100` defined below.
+
 
 
 {:.input_area}
@@ -25,10 +25,13 @@ def cut_off_at_100(x):
 ```
 
 
+
+
 {:.input_area}
 ```python
 cut_off_at_100(17)
 ```
+
 
 
 
@@ -41,10 +44,12 @@ cut_off_at_100(17)
 
 
 
+
 {:.input_area}
 ```python
 cut_off_at_100(117)
 ```
+
 
 
 
@@ -57,10 +62,12 @@ cut_off_at_100(117)
 
 
 
+
 {:.input_area}
 ```python
 cut_off_at_100(100)
 ```
+
 
 
 
@@ -81,6 +88,7 @@ To use this function on many ages at once, we will have to be able to *refer* to
 First, we create the table `ages` with a column for people and one for their ages. For example, person `C` is 52 years old.
 
 
+
 {:.input_area}
 ```python
 ages = Table().with_columns(
@@ -89,6 +97,7 @@ ages = Table().with_columns(
 )
 ages
 ```
+
 
 
 
@@ -130,10 +139,12 @@ ages
 To cut off each of the ages at 100, we will use the a new Table method. The `apply` method calls a function on each element of a column, forming a new array of return values. To indicate which function to call, just name it (without quotation marks or parentheses). The name of the column of input values is a string that must still appear within quotation marks.
 
 
+
 {:.input_area}
 ```python
 ages.apply(cut_off_at_100, 'Age')
 ```
+
 
 
 
@@ -150,12 +161,14 @@ What we have done here is `apply` the function `cut_off_at_100` to each value in
 This array, which has the same length as the original `Age` column of the `ages` table, can be used as the values in a new column called `Cut Off Age` alongside the existing `Person` and `Age` columns.
 
 
+
 {:.input_area}
 ```python
 ages.with_column(
     'Cut Off Age', ages.apply(cut_off_at_100, 'Age')
 )
 ```
+
 
 
 
@@ -200,10 +213,12 @@ In Python, every function, including `cut_off_at_100`, is also a value. It helps
 We can refer to any function by writing its name, without the parentheses or arguments necessary to actually call it. We did this when we called `apply` above.  When we write a function's name by itself as the last line in a cell, Python produces a text representation of the function, just like it would print out a number or a string value.
 
 
+
 {:.input_area}
 ```python
 cut_off_at_100
 ```
+
 
 
 
@@ -220,18 +235,22 @@ Notice that we did not write `"cut_off_at_100"` with quotes (which is just a pie
 Just like we can define new names for other values, we can define new names for functions.  For example, suppose we want to refer to our function as `cut_off` instead of `cut_off_at_100`.  We can just write this:
 
 
+
 {:.input_area}
 ```python
 cut_off = cut_off_at_100
 ```
 
+
 Now `cut_off` is a name for a function.  It's the same function as `cut_off_at_100`, so the printed value is exactly the same.
+
 
 
 {:.input_area}
 ```python
 cut_off
 ```
+
 
 
 
@@ -254,12 +273,14 @@ Charles Darwin's cousin [Sir Francis Galton](https://en.wikipedia.org/wiki/Franc
 The data below are Galton's carefully collected measurements on the heights of parents and their adult children. Each row corresponds to one adult child. The variables are a numerical code for the family, the heights (in inches) of the father and mother, a "midparent height" which is a weighted average [[1]](#footnotes) of the height of the two parents, the number of children in the family, as well as the child's birth rank (1 = oldest), gender, and height.
 
 
+
 {:.input_area}
 ```python
 # Galton's data on heights of parents and their adult children
 galton = Table.read_table(path_data + 'galton.csv')
 galton
 ```
+
 
 
 
@@ -314,11 +335,13 @@ A primary reason for collecting the data was to be able to predict the adult hei
 The table `heights` consists of just the midparent heights and child's heights. The scatter plot of the two variables shows a positive association, as we would expect for these variables.
 
 
+
 {:.input_area}
 ```python
 heights = galton.select(3, 7).relabeled(0, 'MidParent').relabeled(1, 'Child')
 heights
 ```
+
 
 
 
@@ -369,10 +392,12 @@ heights
 
 
 
+
 {:.input_area}
 ```python
 heights.scatter(0)
 ```
+
 
 
 ![png](../../../images/chapters/08/1/Applying_a_Function_to_a_Column_23_0.png)
@@ -389,6 +414,7 @@ We will take "close" to mean "within half an inch". The figure below shows all t
 Ignore the code, and just focus on understanding the mental process of arriving at that gold dot.
 
 
+
 {:.input_area}
 ```python
 heights.scatter('MidParent')
@@ -398,10 +424,12 @@ _ = plots.scatter(68, 66.24, color='gold', s=40)
 ```
 
 
+
 ![png](../../../images/chapters/08/1/Applying_a_Function_to_a_Column_25_0.png)
 
 
 In order to calculate exactly where the gold dot should be, we first need to indentify all the points in the strip. These correspond to the rows where `MidParent` is between 67.5 inches and 68.5 inches.
+
 
 
 {:.input_area}
@@ -409,6 +437,7 @@ In order to calculate exactly where the gold dot should be, we first need to ind
 close_to_68 = heights.where('MidParent', are.between(67.5, 68.5))
 close_to_68
 ```
+
 
 
 
@@ -461,10 +490,12 @@ close_to_68
 The predicted height of a child who has a midparent height of 68 inches is the average height of the children in these rows. That's 66.24 inches.
 
 
+
 {:.input_area}
 ```python
 close_to_68.column('Child').mean()
 ```
+
 
 
 
@@ -477,6 +508,7 @@ close_to_68.column('Child').mean()
 
 
 We now have a way to predict the height of a child given any value of the midparent height near those in our dataset. We can define a function `predict_child` that does this. The body of the function consists of the code in the two cells above, apart from choices of names.
+
 
 
 {:.input_area}
@@ -492,13 +524,16 @@ def predict_child(mpht):
     return close_points.column('Child').mean()                       
 ```
 
+
 Given a midparent height of 68 inches, the function `predict_child` returns the same prediction (66.24 inches) as we got earlier. The advantage of defining the function is that we can easily change the value of the predictor and get a new prediction.
+
 
 
 {:.input_area}
 ```python
 predict_child(68)
 ```
+
 
 
 
@@ -511,10 +546,12 @@ predict_child(68)
 
 
 
+
 {:.input_area}
 ```python
 predict_child(74)
 ```
+
 
 
 
@@ -529,6 +566,7 @@ predict_child(74)
 How good are these predictions? We can get a sense of this by comparing the predictions with the data that we already have. To do this, we first apply the function `predict_child` to the column of `Midparent` heights, and collect the results in a new column called `Prediction`.
 
 
+
 {:.input_area}
 ```python
 # Apply predict_child to all the midparent heights
@@ -539,10 +577,13 @@ heights_with_predictions = heights.with_column(
 ```
 
 
+
+
 {:.input_area}
 ```python
 heights_with_predictions
 ```
+
 
 
 
@@ -595,10 +636,12 @@ heights_with_predictions
 To see where the predictions lie relative to the observed data, we can draw overlaid scatter plots with `MidParent` as the common horizontal axis.
 
 
+
 {:.input_area}
 ```python
 heights_with_predictions.scatter('MidParent')
 ```
+
 
 
 ![png](../../../images/chapters/08/1/Applying_a_Function_to_a_Column_39_0.png)

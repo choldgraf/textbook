@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/06/Tables.ipynb
-title: '6. Tables'
-permalink: 'chapters/06/Tables'
-previouschapter:
-  url: chapters/05/3/More_on_Arrays
-  title: '5.3 More on Arrays'
-nextchapter:
-  url: chapters/06/1/Sorting_Rows
-  title: '6.1 Sorting Rows'
-redirect_from:
-  - 'chapters/06/tables'
+interact_link: chapters/06/Tables.ipynb
+title: 'Tables'
+permalink: '/chapters/06/Tables'
+prev_page:
+  url: /chapters/05/3/More_on_Arrays
+  title: 'More on Arrays'
+next_page:
+  url: /chapters/06/1/Sorting_Rows
+  title: 'Sorting Rows'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 # Tables
@@ -21,18 +20,22 @@ Tables are a fundamental object type for representing data sets. A table can be 
 In order to use tables, import all of the module called `datascience`, a module created for this text.
 
 
+
 {:.input_area}
 ```python
 from datascience import *
 ```
 
+
 Empty tables can be created using the `Table` function. An empty table is usefuly because it can be extended to contain new rows and columns.
+
 
 
 {:.input_area}
 ```python
 Table()
 ```
+
 
 
 
@@ -56,10 +59,12 @@ The `with_columns` method on a table constructs a new table with additional labe
 Below, we begin each example with an empty table that has no columns. 
 
 
+
 {:.input_area}
 ```python
 Table().with_columns('Number of petals', make_array(8, 34, 5))
 ```
+
 
 
 
@@ -90,6 +95,7 @@ Table().with_columns('Number of petals', make_array(8, 34, 5))
 To add two (or more) new columns, provide the label and array for each column. All columns must have the same length, or an error will occur.
 
 
+
 {:.input_area}
 ```python
 Table().with_columns(
@@ -97,6 +103,7 @@ Table().with_columns(
     'Name', make_array('lotus', 'sunflower', 'rose')
 )
 ```
+
 
 
 
@@ -127,6 +134,7 @@ Table().with_columns(
 We can give this table a name, and then extend the table with another column.
 
 
+
 {:.input_area}
 ```python
 flowers = Table().with_columns(
@@ -138,6 +146,7 @@ flowers.with_columns(
     'Color', make_array('pink', 'yellow', 'red')
 )
 ```
+
 
 
 
@@ -168,10 +177,12 @@ flowers.with_columns(
 The `with_columns` method creates a new table each time it is called, so the original table is not affected. For example, the table `flowers` still has only the two columns that it had when it was created.
 
 
+
 {:.input_area}
 ```python
 flowers
 ```
+
 
 
 
@@ -206,11 +217,13 @@ Often, tables are created from files that contain comma-separated values. Such f
 Below, we use the Table method `read_table` to read a CSV file that contains some of the data used by Minard in his graphic about Napoleon's Russian campaign. The data are placed in a table named `minard`.
 
 
+
 {:.input_area}
 ```python
 minard = Table.read_table(path_data + 'minard.csv')
 minard
 ```
+
 
 
 
@@ -260,10 +273,12 @@ We will use this small table to demonstrate some useful Table methods. We will t
 The method `num_columns` gives the number of columns in the table, and `num_rows` the number of rows.
 
 
+
 {:.input_area}
 ```python
 minard.num_columns
 ```
+
 
 
 
@@ -276,10 +291,12 @@ minard.num_columns
 
 
 
+
 {:.input_area}
 ```python
 minard.num_rows
 ```
+
 
 
 
@@ -295,10 +312,12 @@ minard.num_rows
 The method `labels` can be used to list the labels of all the columns. With `minard` we don't gain much by this, but it can be very useful for tables that are so large that not all columns are visible on the screen.
 
 
+
 {:.input_area}
 ```python
 minard.labels
 ```
+
 
 
 
@@ -313,10 +332,12 @@ minard.labels
 We can change column labels using the `relabeled` method. This creates a new table and leaves `minard` unchanged.
 
 
+
 {:.input_area}
 ```python
 minard.relabeled('City', 'City Name')
 ```
+
 
 
 
@@ -362,10 +383,12 @@ minard.relabeled('City', 'City Name')
 However, this method does not change the original table. 
 
 
+
 {:.input_area}
 ```python
 minard
 ```
+
 
 
 
@@ -411,11 +434,13 @@ minard
 A common pattern is to assign the original name `minard` to the new table, so that all future uses of `minard` will refer to the relabeled table.
 
 
+
 {:.input_area}
 ```python
 minard = minard.relabeled('City', 'City Name')
 minard
 ```
+
 
 
 
@@ -462,10 +487,12 @@ minard
 We can use a column's label to access the array of data in the column.
 
 
+
 {:.input_area}
 ```python
 minard.column('Survivors')
 ```
+
 
 
 
@@ -480,10 +507,12 @@ array([145000, 140000, 127100, 100000,  55000,  24000,  20000,  12000])
 The 5 columns are indexed 0, 1, 2, 3, and 4. The column `Survivors` can also be accessed by using its column index.
 
 
+
 {:.input_area}
 ```python
 minard.column(4)
 ```
+
 
 
 
@@ -498,10 +527,12 @@ array([145000, 140000, 127100, 100000,  55000,  24000,  20000,  12000])
 The 8 items in the array are indexed 0, 1, 2, and so on, up to 7. The items in the column can be accessed using `item`, as with any array.
 
 
+
 {:.input_area}
 ```python
 minard.column(4).item(0)
 ```
+
 
 
 
@@ -514,10 +545,12 @@ minard.column(4).item(0)
 
 
 
+
 {:.input_area}
 ```python
 minard.column(4).item(5)
 ```
+
 
 
 
@@ -533,6 +566,7 @@ minard.column(4).item(5)
 Because columns are arrays, we can use array operations on them to discover new information. For example, we can create a new column that contains the percent of all survivors at each city after Smolensk.
 
 
+
 {:.input_area}
 ```python
 initial = minard.column('Survivors').item(0)
@@ -541,6 +575,7 @@ minard = minard.with_columns(
 )
 minard
 ```
+
 
 
 
@@ -586,10 +621,12 @@ minard
 To make the proportions in the new columns appear as percents, we can use the method `set_format` with the option `PercentFormatter`. The `set_format` method takes `Formatter` objects, which exist for dates (`DateFormatter`), currencies (`CurrencyFormatter`), numbers, and percentages.
 
 
+
 {:.input_area}
 ```python
 minard.set_format('Percent Surviving', PercentFormatter)
 ```
+
 
 
 
@@ -636,10 +673,12 @@ minard.set_format('Percent Surviving', PercentFormatter)
 The method `select` creates a new table that contains only the specified columns.
 
 
+
 {:.input_area}
 ```python
 minard.select('Longitude', 'Latitude')
 ```
+
 
 
 
@@ -685,10 +724,12 @@ minard.select('Longitude', 'Latitude')
 The same selection can be made using column indices instead of labels.
 
 
+
 {:.input_area}
 ```python
 minard.select(0, 1)
 ```
+
 
 
 
@@ -734,10 +775,12 @@ minard.select(0, 1)
 The result of using `select` is a new table, even when you select just one column.
 
 
+
 {:.input_area}
 ```python
 minard.select('Survivors')
 ```
+
 
 
 
@@ -783,10 +826,12 @@ minard.select('Survivors')
 Notice that the result is a table, unlike the result of `column`, which is an array.
 
 
+
 {:.input_area}
 ```python
 minard.column('Survivors')
 ```
+
 
 
 
@@ -801,10 +846,12 @@ array([145000, 140000, 127100, 100000,  55000,  24000,  20000,  12000])
 Another way to create a new table consisting of a set of columns is to `drop` the columns you don't want.
 
 
+
 {:.input_area}
 ```python
 minard.drop('Longitude', 'Latitude', 'Direction')
 ```
+
 
 
 
@@ -850,10 +897,12 @@ minard.drop('Longitude', 'Latitude', 'Direction')
 Neither `select` nor `drop` change the original table. Instead, they create new smaller tables that share the same data. The fact that the original table is preserved is useful! You can generate multiple different tables that only consider certain columns without worrying that one analysis will affect the other.
 
 
+
 {:.input_area}
 ```python
 minard
 ```
+
 
 
 

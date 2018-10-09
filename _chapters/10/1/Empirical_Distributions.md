@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/10/1/Empirical_Distributions.ipynb
-title: '10.1 Empirical Distributions'
-permalink: 'chapters/10/1/Empirical_Distributions'
-previouschapter:
-  url: chapters/10/Sampling_and_Empirical_Distributions
-  title: '10. Sampling and Empirical Distributions'
-nextchapter:
-  url: chapters/10/2/Sampling_from_a_Population
-  title: '10.2 Sampling from a Population'
-redirect_from:
-  - 'chapters/10/1/empirical-distributions'
+interact_link: chapters/10/1/Empirical_Distributions.ipynb
+title: 'Empirical Distributions'
+permalink: '/chapters/10/1/Empirical_Distributions'
+prev_page:
+  url: /chapters/10/Sampling_and_Empirical_Distributions
+  title: 'Sampling and Empirical Distributions'
+next_page:
+  url: /chapters/10/2/Sampling_from_a_Population
+  title: 'Sampling from a Population'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Empirical Distributions
@@ -21,11 +20,13 @@ In this section we will generate data and see what the empirical distribution lo
 Our setting is a simple experiment: rolling a die multiple times and keeping track of which face appears. The table `die` contains the numbers of spots on the faces of a die. All the numbers appear exactly once, as we are assuming that the die is fair.
 
 
+
 {:.input_area}
 ```python
 die = Table().with_column('Face', np.arange(1, 7, 1))
 die
 ```
+
 
 
 
@@ -67,11 +68,13 @@ die
 The histogram below helps us visualize the fact that every face appears with probability 1/6. We say that the histogram shows the *distribution* of probabilities over all the possible faces. Since all the bars represent the same percent chance, the distribution is called *uniform on the integers 1 through 6.*
 
 
+
 {:.input_area}
 ```python
 die_bins = np.arange(0.5, 6.6, 1)
 die.hist(bins = die_bins)
 ```
+
 
 
 ![png](../../../images/chapters/10/1/Empirical_Distributions_3_0.png)
@@ -95,10 +98,12 @@ TThe Table method is called `sample`. It draws at random with replacement from t
 Here are the results of 10 rolls of a die.
 
 
+
 {:.input_area}
 ```python
 die.sample(10)
 ```
+
 
 
 
@@ -150,15 +155,18 @@ die.sample(10)
 We can use the same method to simulate as many rolls as we like, and then draw empirical histograms of the results. Because we are going to do this repeatedly, we define a function `empirical_hist_die` that takes as its argument the sample size; the function rolls the die as many times as its argument and then draws a histogram.
 
 
+
 {:.input_area}
 ```python
 def empirical_hist_die(n):
     die.sample(n).hist(bins = die_bins)
 ```
 
+
 ### Empirical Histograms
 
 Here is an empirical histogram of 10 rolls. It doesn't look very much like the probability histogram above. Run the cell a few times to see how it varies.
+
 
 
 {:.input_area}
@@ -167,10 +175,12 @@ empirical_hist_die(10)
 ```
 
 
+
 ![png](../../../images/chapters/10/1/Empirical_Distributions_10_0.png)
 
 
 When the sample size increases, the empirical histogram begins to look more like the histogram of theoretical probabilities.
+
 
 
 {:.input_area}
@@ -179,7 +189,9 @@ empirical_hist_die(100)
 ```
 
 
+
 ![png](../../../images/chapters/10/1/Empirical_Distributions_12_0.png)
+
 
 
 
@@ -189,14 +201,15 @@ empirical_hist_die(1000)
 ```
 
 
+
 ![png](../../../images/chapters/10/1/Empirical_Distributions_13_0.png)
 
 
-As we increase the number of rolls in the simulation, the area of each bar gets closer 16.67%, which is the area of each bar in the probability histogram.
-
-What we have observed in an instance of a general rule:
+As we increase the number of rolls in the simulation, the area of each bar gets closer to 16.67%, which is the area of each bar in the probability histogram.
 
 ### The Law of Averages
+
+What we have observed above is an instance of a general rule.
 
 If a chance experiment is repeated independently and under identical conditions, then, in the long run, the proportion of times that an event occurs gets closer and closer to the theoretical probability of the event.
 

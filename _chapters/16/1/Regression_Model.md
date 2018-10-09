@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/16/1/Regression_Model.ipynb
-title: '16.1 A Regression Model'
-permalink: 'chapters/16/1/Regression_Model'
-previouschapter:
-  url: chapters/16/Inference_for_Regression
-  title: '16. Inference for Regression'
-nextchapter:
-  url: chapters/16/2/Inference_for_the_True_Slope
-  title: '16.2 Inference for the True Slope'
-redirect_from:
-  - 'chapters/16/1/regression-model'
+interact_link: chapters/16/1/Regression_Model.ipynb
+title: 'A Regression Model'
+permalink: '/chapters/16/1/Regression_Model'
+prev_page:
+  url: /chapters/16/Inference_for_Regression
+  title: 'Inference for Regression'
+next_page:
+  url: /chapters/16/2/Inference_for_the_True_Slope
+  title: 'Inference for the True Slope'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### A Regression Model
@@ -34,6 +33,7 @@ To run the simulation, call the function `draw_and_compare` with three arguments
 Run the simulation a few times, with different values for the slope and intercept of the true line, and varying sample sizes. Because all the points are generated according to the model, you will see that the regression line is a good estimate of the true line if the sample size is moderately large.
 
 
+
 {:.input_area}
 ```python
 # The true line,
@@ -43,6 +43,7 @@ Run the simulation a few times, with different values for the slope and intercep
 
 draw_and_compare(4, -5, 10)
 ```
+
 
 
 ![png](../../../images/chapters/16/1/Regression_Model_2_0.png)

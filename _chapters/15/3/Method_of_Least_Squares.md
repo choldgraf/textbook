@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/15/3/Method_of_Least_Squares.ipynb
-title: '15.3 The Method of Least Squares'
-permalink: 'chapters/15/3/Method_of_Least_Squares'
-previouschapter:
-  url: chapters/15/2/Regression_Line
-  title: '15.2 The Regression Line'
-nextchapter:
-  url: chapters/15/4/Least_Squares_Regression
-  title: '15.4 Least Squares Regression'
-redirect_from:
-  - 'chapters/15/3/method-of-least-squares'
+interact_link: chapters/15/3/Method_of_Least_Squares.ipynb
+title: 'The Method of Least Squares'
+permalink: '/chapters/15/3/Method_of_Least_Squares'
+prev_page:
+  url: /chapters/15/2/Regression_Line
+  title: 'The Regression Line'
+next_page:
+  url: /chapters/15/4/Least_Squares_Regression
+  title: 'Least Squares Regression'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### The Method of Least Squares
@@ -22,12 +21,14 @@ In this section we will make this criterion precise and see if we can identify t
 Our first example is a dataset that has one row for every chapter of the novel "Little Women." The goal is to estimate the number of characters (that is, letters, spaces punctuation marks, and so on) based on the number of periods. Recall that we attempted to do this in the very first lecture of this course.
 
 
+
 {:.input_area}
 ```python
 little_women = Table.read_table(path_data + 'little_women.csv')
 little_women = little_women.move_to_start('Periods')
 little_women.show(3)
 ```
+
 
 
 <div markdown="0">
@@ -54,10 +55,12 @@ little_women.show(3)
 
 
 
+
 {:.input_area}
 ```python
 little_women.scatter('Periods', 'Characters')
 ```
+
 
 
 ![png](../../../images/chapters/15/3/Method_of_Least_Squares_3_0.png)
@@ -66,10 +69,12 @@ little_women.scatter('Periods', 'Characters')
 To explore the data, we will need to use the functions `correlation`, `slope`, `intercept`, and `fit` defined in the previous section.
 
 
+
 {:.input_area}
 ```python
 correlation(little_women, 'Periods', 'Characters')
 ```
+
 
 
 
@@ -88,6 +93,7 @@ The scatter plot is remarkably close to linear, and the correlation is more than
 The graph below shows the scatter plot and line that we developed in the previous section. We don't yet know if that's the best among all lines. We first have to say precisely what "best" means.
 
 
+
 {:.input_area}
 ```python
 lw_with_predictions = little_women.with_column('Linear Prediction', fit(little_women, 'Periods', 'Characters'))
@@ -95,10 +101,12 @@ lw_with_predictions.scatter('Periods')
 ```
 
 
+
 ![png](../../../images/chapters/15/3/Method_of_Least_Squares_8_0.png)
 
 
 Corresponding to each point on the scatter plot, there is an error of prediction calculated as the actual value minus the predicted value. It is the vertical distance between the point and the line, with a negative sign if the point is below the line.
+
 
 
 {:.input_area}
@@ -109,10 +117,13 @@ errors = actual - predicted
 ```
 
 
+
+
 {:.input_area}
 ```python
 lw_with_predictions.with_column('Error', errors)
 ```
+
 
 
 
@@ -165,11 +176,14 @@ lw_with_predictions.with_column('Error', errors)
 We can use `slope` and `intercept` to calculate the slope and intercept of the fitted line. The graph below shows the line (in light blue). The errors corresponding to four of the points are shown in red. There is nothing special about those four points. They were just chosen for clarity of the display. The function `lw_errors` takes a slope and an intercept (in that order) as its arguments and draws the figure. 
 
 
+
 {:.input_area}
 ```python
 lw_reg_slope = slope(little_women, 'Periods', 'Characters')
 lw_reg_intercept = intercept(little_women, 'Periods', 'Characters')
 ```
+
+
 
 
 {:.input_area}
@@ -178,6 +192,7 @@ print('Slope of Regression Line:    ', np.round(lw_reg_slope), 'characters per p
 print('Intercept of Regression Line:', np.round(lw_reg_intercept), 'characters')
 lw_errors(lw_reg_slope, lw_reg_intercept)
 ```
+
 
 {:.output_stream}
 ```
@@ -193,13 +208,16 @@ Intercept of Regression Line: 4745.0 characters
 Had we used a different line to create our estimates, the errors would have been different. The graph below shows how big the errors would be if we were to use another line for estimation. The second graph shows large errors obtained by using a line that is downright silly.
 
 
+
 {:.input_area}
 ```python
 lw_errors(50, 10000)
 ```
 
 
+
 ![png](../../../images/chapters/15/3/Method_of_Least_Squares_16_0.png)
+
 
 
 
@@ -207,6 +225,7 @@ lw_errors(50, 10000)
 ```python
 lw_errors(-100, 50000)
 ```
+
 
 
 ![png](../../../images/chapters/15/3/Method_of_Least_Squares_17_0.png)
@@ -233,6 +252,7 @@ Is there a "best" line? That is, is there a line that minimizes the root mean sq
 To answer this question, we will start by defining a function `lw_rmse` to compute the root mean squared error of any line through the Little Women scatter diagram. The function takes the slope and the intercept (in that order) as its arguments.
 
 
+
 {:.input_area}
 ```python
 def lw_rmse(slope, intercept):
@@ -245,10 +265,13 @@ def lw_rmse(slope, intercept):
 ```
 
 
+
+
 {:.input_area}
 ```python
 lw_rmse(50, 10000)
 ```
+
 
 {:.output_stream}
 ```
@@ -261,10 +284,12 @@ Root mean squared error: 4322.167831766537
 
 
 
+
 {:.input_area}
 ```python
 lw_rmse(-100, 50000)
 ```
+
 
 {:.output_stream}
 ```
@@ -279,10 +304,12 @@ Root mean squared error: 16710.11983735375
 Bad lines have big values of rmse, as expected. But the rmse is much smaller if we choose a slope and intercept close to those of the regression line.
 
 
+
 {:.input_area}
 ```python
 lw_rmse(90, 4000)
 ```
+
 
 {:.output_stream}
 ```
@@ -299,10 +326,12 @@ Here is the root mean squared error corresponding to the regression line. By a r
 - **The regression line is the unique straight line that minimizes the mean squared error of estimation among all straight lines.**
 
 
+
 {:.input_area}
 ```python
 lw_rmse(lw_reg_slope, lw_reg_intercept)
 ```
+
 
 {:.output_stream}
 ```
@@ -326,6 +355,7 @@ $$
 it will have an mse that depends on the slope $a$ and the intercept $b$. The function `lw_mse` takes the slope and intercept as its arguments and returns the corresponding mse.
 
 
+
 {:.input_area}
 ```python
 def lw_mse(any_slope, any_intercept):
@@ -335,13 +365,16 @@ def lw_mse(any_slope, any_intercept):
     return np.mean((y - fitted) ** 2)
 ```
 
+
 Let's check that `lw_mse` gets the right answer for the root mean squared error of the regression line. Remember that `lw_mse` returns the mean squared error, so we have to take the square root to get the rmse.
+
 
 
 {:.input_area}
 ```python
 lw_mse(lw_reg_slope, lw_reg_intercept)**0.5
 ```
+
 
 
 
@@ -356,10 +389,12 @@ lw_mse(lw_reg_slope, lw_reg_intercept)**0.5
 That's the same as the value we got by using `lw_rmse` earlier:
 
 
+
 {:.input_area}
 ```python
 lw_rmse(lw_reg_slope, lw_reg_intercept)
 ```
+
 
 {:.output_stream}
 ```
@@ -374,10 +409,12 @@ Root mean squared error: 2701.690785311856
 You can confirm that `lw_mse` returns the correct value for other slopes and intercepts too. For example, here is the rmse of the extremely bad line that we tried earlier.
 
 
+
 {:.input_area}
 ```python
 lw_mse(-100, 50000)**0.5
 ```
+
 
 
 
@@ -392,10 +429,12 @@ lw_mse(-100, 50000)**0.5
 And here is the rmse for a line that is close to the regression line.
 
 
+
 {:.input_area}
 ```python
 lw_mse(90, 4000)**0.5
 ```
+
 
 
 
@@ -416,11 +455,13 @@ The argument of `minimize` is a function that itself takes numerical arguments a
 The call `minimize(lw_mse)` returns an array consisting of the slope and the intercept that minimize the mse. These minimizing values are excellent approximations arrived at by intelligent trial-and-error, not exact values based on formulas.
 
 
+
 {:.input_area}
 ```python
 best = minimize(lw_mse)
 best
 ```
+
 
 
 
@@ -435,6 +476,7 @@ array([  86.97784117, 4744.78484535])
 These values are the same as the values we calculated earlier by using the `slope` and `intercept` functions. We see small deviations due to the inexact nature of `minimize`, but the values are essentially the same.
 
 
+
 {:.input_area}
 ```python
 print("slope from formula:        ", lw_reg_slope)
@@ -442,6 +484,7 @@ print("slope from minimize:       ", best.item(0))
 print("intercept from formula:    ", lw_reg_intercept)
 print("intercept from minimize:   ", best.item(1))
 ```
+
 
 {:.output_stream}
 ```

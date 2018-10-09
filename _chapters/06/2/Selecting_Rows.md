@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/06/2/Selecting_Rows.ipynb
-title: '6.2 Selecting Rows'
-permalink: 'chapters/06/2/Selecting_Rows'
-previouschapter:
-  url: chapters/06/1/Sorting_Rows
-  title: '6.1 Sorting Rows'
-nextchapter:
-  url: chapters/06/3/Example_Trends_in_the_Population_of_the_United_States
-  title: '6.3 Example: Population Trends'
-redirect_from:
-  - 'chapters/06/2/selecting-rows'
+interact_link: chapters/06/2/Selecting_Rows.ipynb
+title: 'Selecting Rows'
+permalink: '/chapters/06/2/Selecting_Rows'
+prev_page:
+  url: /chapters/06/1/Sorting_Rows
+  title: 'Sorting Rows'
+next_page:
+  url: /chapters/06/3/Example_Trends_in_the_Population_of_the_United_States
+  title: 'Example: Population Trends'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 # Selecting Rows
@@ -22,10 +21,12 @@ The Table method `take` does just that – it takes a specified set of rows. Its
 For example, if we wanted just the first row of `nba`, we could use `take` as follows.
 
 
+
 {:.input_area}
 ```python
 nba
 ```
+
 
 
 
@@ -76,10 +77,12 @@ nba
 
 
 
+
 {:.input_area}
 ```python
 nba.take(0)
 ```
+
 
 
 
@@ -106,10 +109,12 @@ This is a new table with just the single row that we specified.
 We could also get the fourth, fifth, and sixth rows by specifying a range of indices as the argument.
 
 
+
 {:.input_area}
 ```python
 nba.take(np.arange(3, 6))
 ```
+
 
 
 
@@ -140,10 +145,12 @@ nba.take(np.arange(3, 6))
 If we want a table of the top 5 highest paid players, we can first sort the list by salary and then `take` the first five rows:
 
 
+
 {:.input_area}
 ```python
 nba.sort('SALARY', descending=True).take(np.arange(5))
 ```
+
 
 
 
@@ -189,10 +196,12 @@ The second argument of `where` is a way of specifying the feature. A couple of e
 In the first example, we extract the data for all those who earned more than $\$10$ million.
 
 
+
 {:.input_area}
 ```python
 nba.where('SALARY', are.above(10))
 ```
+
 
 
 
@@ -247,10 +256,12 @@ The use of the argument `are.above(10)` ensured that each selected row had a val
 There are 69 rows in the new table, corresponding to the 69 players who made more than $10$ million dollars. Arranging these rows in order makes the data easier to analyze. DeMar DeRozan of the Toronto Raptors was the "poorest" of this group, at a salary of just over $10$ million dollars.
 
 
+
 {:.input_area}
 ```python
 nba.where('SALARY', are.above(10)).sort('SALARY')
 ```
+
 
 
 
@@ -303,10 +314,12 @@ nba.where('SALARY', are.above(10)).sort('SALARY')
 How much did Stephen Curry make? For the answer, we have to access the row where the value of `PLAYER` is equal to `Stephen Curry`. That is placed a table consisting of just one line:
 
 
+
 {:.input_area}
 ```python
 nba.where('PLAYER', are.equal_to('Stephen Curry'))
 ```
+
 
 
 
@@ -333,10 +346,12 @@ Curry made just under $\$11.4$ million dollars. That's a lot of money, but it's 
 In the code, `are` is used again, but this time with the *predicate* `equal_to` instead of `above`. Thus for example you can get a table of all the Warriors:
 
 
+
 {:.input_area}
 ```python
 nba.where('TEAM', are.equal_to('Golden State Warriors')).show()
 ```
+
 
 
 <div markdown="0">
@@ -399,10 +414,12 @@ This portion of the table is already sorted by salary, because the original tabl
 It is so common to ask for the rows for which some column is equal to some value that the `are.equal_to` call is optional. Instead, the `where` method can be called with only a column name and a value to achieve the same effect.
 
 
+
 {:.input_area}
 ```python
 nba.where('TEAM', 'Denver Nuggets') # equivalent to nba.where('TEAM', are.equal_to('Denver Nuggets'))
 ```
+
 
 
 
@@ -456,10 +473,12 @@ nba.where('TEAM', 'Denver Nuggets') # equivalent to nba.where('TEAM', are.equal_
 You can access rows that have multiple specified features, by using `where` repeatedly. For example, here is a way to extract all the Point Guards whose salaries were over $\$15$ million.
 
 
+
 {:.input_area}
 ```python
 nba.where('POSITION', 'PG').where('SALARY', are.above(15))
 ```
+
 
 
 
@@ -499,10 +518,12 @@ By now you will have realized that the general way to create a new table by sele
 `original_table_name.where(column_label_string, are.condition)`
 
 
+
 {:.input_area}
 ```python
 nba.where('SALARY', are.between(10, 10.3))
 ```
+
 
 
 
@@ -538,10 +559,12 @@ Notice that the table above includes Danny Green who made $\$10$ million, but *n
 If we specify a condition that isn't satisfied by any row, we get a table with column labels but no rows.
 
 
+
 {:.input_area}
 ```python
 nba.where('PLAYER', are.equal_to('Barack Obama'))
 ```
+
 
 
 
@@ -589,10 +612,12 @@ We end the section with a series of examples.
 The use of `are.containing` can help save some typing. For example, you can just specify `Warriors` instead of `Golden State Warriors`:
 
 
+
 {:.input_area}
 ```python
 nba.where('TEAM', are.containing('Warriors')).show()
 ```
+
 
 
 <div markdown="0">
@@ -653,10 +678,12 @@ nba.where('TEAM', are.containing('Warriors')).show()
 You can extract data for all the guards, both Point Guards and Shooting Guards:
 
 
+
 {:.input_area}
 ```python
 nba.where('POSITION', are.containing('G'))
 ```
+
 
 
 
@@ -709,11 +736,13 @@ nba.where('POSITION', are.containing('G'))
 You can get all the players who were not Cleveland Cavaliers and had a salary of no less than $\$20$ million:
 
 
+
 {:.input_area}
 ```python
 other_than_Cavs = nba.where('TEAM', are.not_equal_to('Cleveland Cavaliers'))
 other_than_Cavs.where('SALARY', are.not_below(20))
 ```
+
 
 
 
@@ -762,10 +791,12 @@ other_than_Cavs.where('SALARY', are.not_below(20))
 The same table can be created in many ways. Here is another, and no doubt you can think of more.
 
 
+
 {:.input_area}
 ```python
 other_than_Cavs.where('SALARY', are.above_or_equal_to(20))
 ```
+
 
 
 

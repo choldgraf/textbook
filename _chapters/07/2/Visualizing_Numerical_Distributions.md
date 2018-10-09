@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/07/2/Visualizing_Numerical_Distributions.ipynb
-title: '7.2 Numerical Distributions'
-permalink: 'chapters/07/2/Visualizing_Numerical_Distributions'
-previouschapter:
-  url: chapters/07/1/Visualizing_Categorical_Distributions
-  title: '7.1 Categorical Distributions'
-nextchapter:
-  url: chapters/07/3/Overlaid_Graphs
-  title: '7.3 Overlaid Graphs'
-redirect_from:
-  - 'chapters/07/2/visualizing-numerical-distributions'
+interact_link: chapters/07/2/Visualizing_Numerical_Distributions.ipynb
+title: 'Numerical Distributions'
+permalink: '/chapters/07/2/Visualizing_Numerical_Distributions'
+prev_page:
+  url: /chapters/07/1/Visualizing_Categorical_Distributions
+  title: 'Categorical Distributions'
+next_page:
+  url: /chapters/07/3/Overlaid_Graphs
+  title: 'Overlaid Graphs'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Visualizing Numerical Distributions
@@ -25,12 +24,14 @@ The first column contains the title of the movie. The second column contains the
 There are 200 movies on the list. Here are the top ten according to the unadjusted gross receipts in the column `Gross`.
 
 
+
 {:.input_area}
 ```python
 top = Table.read_table(path_data + 'top_movies.csv')
 # Make the numbers in the Gross and Gross (Adjusted) columns look nicer:
 top.set_format([2, 3], NumberFormatter)
 ```
+
 
 
 
@@ -44,34 +45,43 @@ top.set_format([2, 3], NumberFormatter)
     </thead>
     <tbody>
         <tr>
-            <td>Star Wars: The Force Awakens             </td> <td>Buena Vista (Disney)</td> <td>906,723,418</td> <td>906,723,400     </td> <td>2015</td>
+            <td>Star Wars: The Force Awakens             </td> <td>Buena Vista (Disney)</td> <td>906,723,418</td> <td>906,723,400     </td> <td>2,015</td>
         </tr>
+    </tbody>
         <tr>
-            <td>Avatar                                   </td> <td>Fox                 </td> <td>760,507,625</td> <td>846,120,800     </td> <td>2009</td>
+            <td>Avatar                                   </td> <td>Fox                 </td> <td>760,507,625</td> <td>846,120,800     </td> <td>2,009</td>
         </tr>
+    </tbody>
         <tr>
-            <td>Titanic                                  </td> <td>Paramount           </td> <td>658,672,302</td> <td>1,178,627,900   </td> <td>1997</td>
+            <td>Titanic                                  </td> <td>Paramount           </td> <td>658,672,302</td> <td>1,178,627,900   </td> <td>1,997</td>
         </tr>
+    </tbody>
         <tr>
-            <td>Jurassic World                           </td> <td>Universal           </td> <td>652,270,625</td> <td>687,728,000     </td> <td>2015</td>
+            <td>Jurassic World                           </td> <td>Universal           </td> <td>652,270,625</td> <td>687,728,000     </td> <td>2,015</td>
         </tr>
+    </tbody>
         <tr>
-            <td>Marvel's The Avengers                    </td> <td>Buena Vista (Disney)</td> <td>623,357,910</td> <td>668,866,600     </td> <td>2012</td>
+            <td>Marvel's The Avengers                    </td> <td>Buena Vista (Disney)</td> <td>623,357,910</td> <td>668,866,600     </td> <td>2,012</td>
         </tr>
+    </tbody>
         <tr>
-            <td>The Dark Knight                          </td> <td>Warner Bros.        </td> <td>534,858,444</td> <td>647,761,600     </td> <td>2008</td>
+            <td>The Dark Knight                          </td> <td>Warner Bros.        </td> <td>534,858,444</td> <td>647,761,600     </td> <td>2,008</td>
         </tr>
+    </tbody>
         <tr>
-            <td>Star Wars: Episode I - The Phantom Menace</td> <td>Fox                 </td> <td>474,544,677</td> <td>785,715,000     </td> <td>1999</td>
+            <td>Star Wars: Episode I - The Phantom Menace</td> <td>Fox                 </td> <td>474,544,677</td> <td>785,715,000     </td> <td>1,999</td>
         </tr>
+    </tbody>
         <tr>
-            <td>Star Wars                                </td> <td>Fox                 </td> <td>460,998,007</td> <td>1,549,640,500   </td> <td>1977</td>
+            <td>Star Wars                                </td> <td>Fox                 </td> <td>460,998,007</td> <td>1,549,640,500   </td> <td>1,977</td>
         </tr>
+    </tbody>
         <tr>
-            <td>Avengers: Age of Ultron                  </td> <td>Buena Vista (Disney)</td> <td>459,005,868</td> <td>465,684,200     </td> <td>2015</td>
+            <td>Avengers: Age of Ultron                  </td> <td>Buena Vista (Disney)</td> <td>459,005,868</td> <td>465,684,200     </td> <td>2,015</td>
         </tr>
+    </tbody>
         <tr>
-            <td>The Dark Knight Rises                    </td> <td>Warner Bros.        </td> <td>448,139,099</td> <td>500,961,700     </td> <td>2012</td>
+            <td>The Dark Knight Rises                    </td> <td>Warner Bros.        </td> <td>448,139,099</td> <td>500,961,700     </td> <td>2,012</td>
         </tr>
     </tbody>
 </table>
@@ -85,12 +95,14 @@ top.set_format([2, 3], NumberFormatter)
 In this section we will draw graphs of the distribution of the numerical variable in the column `Gross (Adjusted)`. For simplicity, let's create a smaller table that has the information that we need. And since three-digit numbers are easier to work with than nine-digit numbers, let's measure the `Adjusted Gross` receipts in millions of dollars. Note how `round` is used to retain only two decimal places.
 
 
+
 {:.input_area}
 ```python
 millions = top.select(0).with_column('Adjusted Gross', 
                                      np.round(top.column(3)/1e6, 2))
 millions
 ```
+
 
 
 
@@ -106,30 +118,39 @@ millions
         <tr>
             <td>Star Wars: The Force Awakens             </td> <td>906.72        </td>
         </tr>
+    </tbody>
         <tr>
             <td>Avatar                                   </td> <td>846.12        </td>
         </tr>
+    </tbody>
         <tr>
             <td>Titanic                                  </td> <td>1178.63       </td>
         </tr>
+    </tbody>
         <tr>
             <td>Jurassic World                           </td> <td>687.73        </td>
         </tr>
+    </tbody>
         <tr>
             <td>Marvel's The Avengers                    </td> <td>668.87        </td>
         </tr>
+    </tbody>
         <tr>
             <td>The Dark Knight                          </td> <td>647.76        </td>
         </tr>
+    </tbody>
         <tr>
             <td>Star Wars: Episode I - The Phantom Menace</td> <td>785.72        </td>
         </tr>
+    </tbody>
         <tr>
             <td>Star Wars                                </td> <td>1549.64       </td>
         </tr>
+    </tbody>
         <tr>
             <td>Avengers: Age of Ultron                  </td> <td>465.68        </td>
         </tr>
+    </tbody>
         <tr>
             <td>The Dark Knight Rises                    </td> <td>500.96        </td>
         </tr>
@@ -146,10 +167,12 @@ A *histogram* of a numerical dataset looks very much like a bar chart, though it
 The `hist` method generates a histogram of the values in a column. The optional `unit` argument is used in the labels on the two axes. The histogram shows the distribution of the adjusted gross amounts, in millions of 2016 dollars. 
 
 
+
 {:.input_area}
 ```python
 millions.hist('Adjusted Gross', unit="Million Dollars")
 ```
+
 
 
 ![png](../../../images/chapters/07/2/Visualizing_Numerical_Distributions_6_0.png)
@@ -170,10 +193,12 @@ It is a little harder to see exactly where the ends of the bins are situated. Fo
 The optional argument `bins` can be used with `hist` to specify the endpoints of the bins. It must consist of a sequence of numbers that starts with the left end of the first bin and ends with the right end of the last bin. We will start by setting the numbers in `bins` to be 300, 400, 500, and so on, ending with 2000.  
 
 
+
 {:.input_area}
 ```python
 millions.hist('Adjusted Gross', bins=np.arange(300,2001,100), unit="Million Dollars")
 ```
+
 
 
 ![png](../../../images/chapters/07/2/Visualizing_Numerical_Distributions_8_0.png)
@@ -188,11 +213,13 @@ A very small number of movies grossed 800 million dollars or more. This results 
 The counts of values in the bins can be computed from a table using the `bin` method, which takes a column label or index and an optional sequence or number of bins. The result is a tabular form of a histogram. The first column lists the left endpoints of the bins (but see the note about the final value, below). The second column contains the counts of all values in the `Adjusted Gross` column that are in the corresponding bin. That is, it counts all the `Adjusted Gross` values that are greater than or equal to the value in `bin`, but less than the next value in `bin`.
 
 
+
 {:.input_area}
 ```python
 bin_counts = millions.bin('Adjusted Gross', bins=np.arange(300,2001,100))
 bin_counts.show()
 ```
+
 
 
 <div markdown="0">
@@ -204,58 +231,75 @@ bin_counts.show()
     </thead>
     <tbody>
         <tr>
-            <td>300 </td> <td>81                  </td>
+            <td>300  </td> <td>81                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>400 </td> <td>52                  </td>
+            <td>400  </td> <td>52                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>500 </td> <td>28                  </td>
+            <td>500  </td> <td>28                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>600 </td> <td>16                  </td>
+            <td>600  </td> <td>16                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>700 </td> <td>7                   </td>
+            <td>700  </td> <td>7                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>800 </td> <td>5                   </td>
+            <td>800  </td> <td>5                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>900 </td> <td>3                   </td>
+            <td>900  </td> <td>3                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1000</td> <td>1                   </td>
+            <td>1,000</td> <td>1                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1100</td> <td>3                   </td>
+            <td>1,100</td> <td>3                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1200</td> <td>2                   </td>
+            <td>1,200</td> <td>2                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1300</td> <td>0                   </td>
+            <td>1,300</td> <td>0                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1400</td> <td>0                   </td>
+            <td>1,400</td> <td>0                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1500</td> <td>1                   </td>
+            <td>1,500</td> <td>1                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1600</td> <td>0                   </td>
+            <td>1,600</td> <td>0                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1700</td> <td>1                   </td>
+            <td>1,700</td> <td>1                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1800</td> <td>0                   </td>
+            <td>1,800</td> <td>0                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1900</td> <td>0                   </td>
+            <td>1,900</td> <td>0                   </td>
         </tr>
+    </tbody>
         <tr>
-            <td>2000</td> <td>0                   </td>
+            <td>2,000</td> <td>0                   </td>
         </tr>
     </tbody>
 </table>
@@ -267,10 +311,12 @@ Notice the `bin` value 2000 in the last row. That's not the left end-point of an
 Once values have been binned, the resulting counts can be used to generate a histogram using the `bin_column` named argument to specify which column contains the bin lower bounds.
 
 
+
 {:.input_area}
 ```python
 bin_counts.hist('Adjusted Gross count', bin_column='bin', unit='Million Dollars')
 ```
+
 
 
 ![png](../../../images/chapters/07/2/Visualizing_Numerical_Distributions_13_0.png)
@@ -283,6 +329,7 @@ The horizontal axis of a histogram is straightforward to read, once we have take
 Let's start by examining how to calculate the numbers on the vertical axis. If the calculation seems a little strange, have patience – the rest of the section will explain the reasoning.
 
 **Calculation.** The height of each bar is the percent of elements that fall into the corresponding bin, relative to the width of the bin. 
+
 
 
 {:.input_area}
@@ -300,6 +347,7 @@ heights
 
 
 
+
 <div markdown="0">
 <table border="1" class="dataframe">
     <thead>
@@ -309,34 +357,43 @@ heights
     </thead>
     <tbody>
         <tr>
-            <td>300 </td> <td>81   </td> <td>40.5   </td> <td>0.405 </td>
+            <td>300  </td> <td>81   </td> <td>40.5   </td> <td>0.405 </td>
         </tr>
+    </tbody>
         <tr>
-            <td>400 </td> <td>52   </td> <td>26     </td> <td>0.26  </td>
+            <td>400  </td> <td>52   </td> <td>26     </td> <td>0.26  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>500 </td> <td>28   </td> <td>14     </td> <td>0.14  </td>
+            <td>500  </td> <td>28   </td> <td>14     </td> <td>0.14  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>600 </td> <td>16   </td> <td>8      </td> <td>0.08  </td>
+            <td>600  </td> <td>16   </td> <td>8      </td> <td>0.08  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>700 </td> <td>7    </td> <td>3.5    </td> <td>0.035 </td>
+            <td>700  </td> <td>7    </td> <td>3.5    </td> <td>0.035 </td>
         </tr>
+    </tbody>
         <tr>
-            <td>800 </td> <td>5    </td> <td>2.5    </td> <td>0.025 </td>
+            <td>800  </td> <td>5    </td> <td>2.5    </td> <td>0.025 </td>
         </tr>
+    </tbody>
         <tr>
-            <td>900 </td> <td>3    </td> <td>1.5    </td> <td>0.015 </td>
+            <td>900  </td> <td>3    </td> <td>1.5    </td> <td>0.015 </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1000</td> <td>1    </td> <td>0.5    </td> <td>0.005 </td>
+            <td>1,000</td> <td>1    </td> <td>0.5    </td> <td>0.005 </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1100</td> <td>3    </td> <td>1.5    </td> <td>0.015 </td>
+            <td>1,100</td> <td>3    </td> <td>1.5    </td> <td>0.015 </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1200</td> <td>2    </td> <td>1      </td> <td>0.01  </td>
+            <td>1,200</td> <td>2    </td> <td>1      </td> <td>0.01  </td>
         </tr>
     </tbody>
 </table>
@@ -371,11 +428,13 @@ Let's see why this matters.
 An advantage of the histogram over a bar chart is that a histogram can contain bins of unequal width. Below, the values in the `Millions` column are binned into three uneven categories.
 
 
+
 {:.input_area}
 ```python
 uneven = make_array(300, 400, 600, 1500)
 millions.hist('Adjusted Gross', bins=uneven, unit="Million Dollars")
 ```
+
 
 
 ![png](../../../images/chapters/07/2/Visualizing_Numerical_Distributions_20_0.png)
@@ -384,10 +443,12 @@ millions.hist('Adjusted Gross', bins=uneven, unit="Million Dollars")
 Here are the counts in the three bins.
 
 
+
 {:.input_area}
 ```python
 millions.bin('Adjusted Gross', bins=uneven)
 ```
+
 
 
 
@@ -401,16 +462,19 @@ millions.bin('Adjusted Gross', bins=uneven)
     </thead>
     <tbody>
         <tr>
-            <td>300 </td> <td>81                  </td>
+            <td>300  </td> <td>81                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>400 </td> <td>80                  </td>
+            <td>400  </td> <td>80                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>600 </td> <td>37                  </td>
+            <td>600  </td> <td>37                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1500</td> <td>0                   </td>
+            <td>1,500</td> <td>0                   </td>
         </tr>
     </tbody>
 </table>
@@ -420,10 +484,11 @@ millions.bin('Adjusted Gross', bins=uneven)
 
 Although the ranges [300, 400) and [400, 600) have nearly identical counts, the bar over the former is twice as tall as the latter because it is only half as wide. The density of values in the [300, 400) is twice as much as the density in [400, 600). 
 
-Histograms help us visualize where on the number line the data are most concentrated, epecially when the bins are uneven.
+Histograms help us visualize where on the number line the data are most concentrated, especially when the bins are uneven.
 
 ### The Problem with Simply Plotting Counts
 It is possible to display counts directly in a chart, using the `normed=False` option of the `hist` method. The resulting chart has the same shape as a histogram when the bins all have equal widths, though the numbers on the vertical axis are different.
+
 
 
 {:.input_area}
@@ -432,16 +497,19 @@ millions.hist('Adjusted Gross', bins=np.arange(300,2001,100), normed=False)
 ```
 
 
+
 ![png](../../../images/chapters/07/2/Visualizing_Numerical_Distributions_25_0.png)
 
 
 While the count scale is perhaps more natural to interpret than the density scale, the chart becomes highly misleading when bins have different widths. Below, it appears (due to the count scale) that high-grossing movies are quite common, when in fact we have seen that they are relatively rare.
 
 
+
 {:.input_area}
 ```python
 millions.hist('Adjusted Gross', bins=uneven, normed=False)
 ```
+
 
 
 ![png](../../../images/chapters/07/2/Visualizing_Numerical_Distributions_27_0.png)
@@ -452,11 +520,13 @@ Even though the method used is called `hist`, **the figure above is NOT A HISTOG
 The picture becomes even more absurd if the last two bins are combined.
 
 
+
 {:.input_area}
 ```python
 very_uneven = make_array(300, 400, 1500)
 millions.hist('Adjusted Gross', bins=very_uneven, normed=False)
 ```
+
 
 
 ![png](../../../images/chapters/07/2/Visualizing_Numerical_Distributions_29_0.png)
@@ -506,10 +576,12 @@ Even though the density scale correctly represents percents using area, some det
 Take another look at the [300, 400) bin in the figure below. The flat top of the bar, at the level 0.405% per million dollars, hides the fact that the movies are somewhat unevenly distributed across that bin. 
 
 
+
 {:.input_area}
 ```python
 millions.hist('Adjusted Gross', bins=uneven, unit="Million Dollars")
 ```
+
 
 
 ![png](../../../images/chapters/07/2/Visualizing_Numerical_Distributions_33_0.png)
@@ -518,11 +590,13 @@ millions.hist('Adjusted Gross', bins=uneven, unit="Million Dollars")
 To see this, let us split the [300, 400) bin into 10 narrower bins, each of width 10 million dollars.
 
 
+
 {:.input_area}
 ```python
 some_tiny_bins = make_array(300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 600, 1500)
 millions.hist('Adjusted Gross', bins=some_tiny_bins, unit='Million Dollars')
 ```
+
 
 
 ![png](../../../images/chapters/07/2/Visualizing_Numerical_Distributions_35_0.png)
@@ -542,6 +616,7 @@ Notice that because we have the entire dataset that is being used to draw the hi
 Let's draw the histogram again, this time with four bins, and check our understanding of the concepts.
 
 
+
 {:.input_area}
 ```python
 uneven_again = make_array(300, 350, 400, 450, 1500)
@@ -549,7 +624,9 @@ millions.hist('Adjusted Gross', bins=uneven_again, unit='Million Dollars')
 ```
 
 
+
 ![png](../../../images/chapters/07/2/Visualizing_Numerical_Distributions_40_0.png)
+
 
 
 
@@ -557,6 +634,7 @@ millions.hist('Adjusted Gross', bins=uneven_again, unit='Million Dollars')
 ```python
 millions.bin('Adjusted Gross', bins=uneven_again)
 ```
+
 
 
 
@@ -570,19 +648,23 @@ millions.bin('Adjusted Gross', bins=uneven_again)
     </thead>
     <tbody>
         <tr>
-            <td>300 </td> <td>32                  </td>
+            <td>300  </td> <td>32                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>350 </td> <td>49                  </td>
+            <td>350  </td> <td>49                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>400 </td> <td>25                  </td>
+            <td>400  </td> <td>25                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>450 </td> <td>92                  </td>
+            <td>450  </td> <td>92                  </td>
         </tr>
+    </tbody>
         <tr>
-            <td>1500</td> <td>0                   </td>
+            <td>1,500</td> <td>0                   </td>
         </tr>
     </tbody>
 </table>

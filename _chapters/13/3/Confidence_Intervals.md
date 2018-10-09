@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/13/3/Confidence_Intervals.ipynb
-title: '13.3 Confidence Intervals'
-permalink: 'chapters/13/3/Confidence_Intervals'
-previouschapter:
-  url: chapters/13/2/Bootstrap
-  title: '13.2 The Bootstrap'
-nextchapter:
-  url: chapters/13/4/Using_Confidence_Intervals
-  title: '13.4 Using Confidence Intervals'
-redirect_from:
-  - 'chapters/13/3/confidence-intervals'
+interact_link: chapters/13/3/Confidence_Intervals.ipynb
+title: 'Confidence Intervals'
+permalink: '/chapters/13/3/Confidence_Intervals'
+prev_page:
+  url: /chapters/13/2/Bootstrap
+  title: 'The Bootstrap'
+next_page:
+  url: /chapters/13/4/Using_Confidence_Intervals
+  title: 'Using Confidence Intervals'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Confidence Intervals
@@ -28,16 +27,20 @@ We will now use the bootstrap method to estimate an unknown population median. T
 The table `baby` contains the following variables for mother-baby pairs: the baby's birth weight in ounces, the number of gestational days, the mother's age in completed years, the mother's height in inches, pregnancy weight in pounds, and whether or not the mother smoked during pregnancy.
 
 
+
 {:.input_area}
 ```python
 baby = Table.read_table(path_data + 'baby.csv')
 ```
 
 
+
+
 {:.input_area}
 ```python
 baby
 ```
+
 
 
 
@@ -96,6 +99,7 @@ $$
 $$
 
 
+
 {:.input_area}
 ```python
 ratios = baby.select('Birth Weight', 'Gestational Days').with_column(
@@ -104,10 +108,13 @@ ratios = baby.select('Birth Weight', 'Gestational Days').with_column(
 ```
 
 
+
+
 {:.input_area}
 ```python
 ratios
 ```
+
 
 
 
@@ -160,10 +167,12 @@ ratios
 Here is a histogram of the ratios.
 
 
+
 {:.input_area}
 ```python
 ratios.select('Ratio BW/GD').hist()
 ```
+
 
 
 ![png](../../../images/chapters/13/3/Confidence_Intervals_8_0.png)
@@ -172,10 +181,12 @@ ratios.select('Ratio BW/GD').hist()
 At first glance the histogram looks quite symmetric, with the density at its maximum over the interval 4 ounces per day to 4.5 ounces per day. But a closer look reveals that some of the ratios were quite large by comparison. The maximum value of the ratios was just over 0.78 ounces per day, almost double the typical value.
 
 
+
 {:.input_area}
 ```python
 ratios.sort('Ratio BW/GD', descending=True).take(0)
 ```
+
 
 
 
@@ -200,10 +211,12 @@ ratios.sort('Ratio BW/GD', descending=True).take(0)
 The median gives a sense of the typical ratio because it is unaffected by the very large or very small ratios. The median ratio in the sample is about 0.429 ounces per day.
 
 
+
 {:.input_area}
 ```python
 np.median(ratios.column(2))
 ```
+
 
 
 
@@ -220,6 +233,7 @@ But what was the median in the population? We don't know, so we will estimate it
 Our method will be exactly the same as in the previous section. We will bootstrap the sample 5,000 times resulting in 5,000 estimates of the median. Our 95% confidence interval will be the "middle 95%" of all of our estimates.
 
 Recall the function `bootstrap_median` defined in the previous section. We will call this function and construct a 95% confidence interval for the median ratio in the population. Remember that the table `ratios` contains the relevant data from our original sample.
+
 
 
 {:.input_area}
@@ -243,11 +257,15 @@ def bootstrap_median(original_sample, label, replications):
 ```
 
 
+
+
 {:.input_area}
 ```python
 # Generate the medians from 5000 bootstrap samples
 bstrap_medians = bootstrap_median(ratios, 'Ratio BW/GD', 5000)
 ```
+
+
 
 
 {:.input_area}
@@ -258,6 +276,7 @@ right = percentile(97.5, bstrap_medians)
 
 make_array(left, right)
 ```
+
 
 
 
@@ -276,6 +295,7 @@ The estimate of 0.429 based on the original sample happens to be exactly half-wa
 To visualize our results, let us draw the empirical histogram of our bootstrapped medians and place the confidence interval on the horizontal axis.
 
 
+
 {:.input_area}
 ```python
 resampled_medians = Table().with_column(
@@ -284,6 +304,7 @@ resampled_medians = Table().with_column(
 resampled_medians.hist(bins=15)
 plots.plot(make_array(left, right), make_array(0, 0), color='yellow', lw=8);
 ```
+
 
 
 ![png](../../../images/chapters/13/3/Confidence_Intervals_18_0.png)
@@ -299,13 +320,16 @@ Keep in mind that this interval is an approximate 95% confidence interval. There
 What we have done for medians can be done for means as well. Suppose we want to estimate the average age of the mothers in the population. A natural estimate is the average age of the mothers in the sample. Here is the distribution of their ages, and their average age which was about 27.2 years.
 
 
+
 {:.input_area}
 ```python
 baby.select('Maternal Age').hist()
 ```
 
 
+
 ![png](../../../images/chapters/13/3/Confidence_Intervals_22_0.png)
+
 
 
 
@@ -313,6 +337,7 @@ baby.select('Maternal Age').hist()
 ```python
 np.mean(baby.column('Maternal Age'))
 ```
+
 
 
 
@@ -327,6 +352,7 @@ np.mean(baby.column('Maternal Age'))
 What was the average age of the mothers in the population? We don't know the value of this parameter.
 
 Let's estimate the unknown parameter by the bootstrap method. To do this, we will edit the code for `bootstrap_median` to instead define the function `bootstrap_mean`. The code is the same except that the statistics are means instead of medians, and are collected in an array called `means` instead of `medians`
+
 
 
 {:.input_area}
@@ -350,6 +376,8 @@ def bootstrap_mean(original_sample, label, replications):
 ```
 
 
+
+
 {:.input_area}
 ```python
 # Generate the means from 5000 bootstrap samples
@@ -361,6 +389,7 @@ right = percentile(97.5, bstrap_means)
 
 make_array(left, right)
 ```
+
 
 
 
@@ -379,6 +408,7 @@ Notice how close the two ends are to the average of about 27.2 years in the orig
 The empirical histogram of the 5,000 bootstrapped means is shown below, along with the 95% confidence interval for the population mean.
 
 
+
 {:.input_area}
 ```python
 resampled_means = Table().with_column(
@@ -389,6 +419,7 @@ plots.plot(make_array(left, right), make_array(0, 0), color='yellow', lw=8);
 ```
 
 
+
 ![png](../../../images/chapters/13/3/Confidence_Intervals_28_0.png)
 
 
@@ -397,10 +428,12 @@ Once again, the average of the original sample (27.23 years) is close to the cen
 Notice also that the empirical histogram of the resampled means has roughly a symmetric bell shape, even though the histogram of the sampled ages was not symmetric at all:
 
 
+
 {:.input_area}
 ```python
 baby.select('Maternal Age').hist()
 ```
+
 
 
 ![png](../../../images/chapters/13/3/Confidence_Intervals_31_0.png)
@@ -410,6 +443,7 @@ This is a consequence of the Central Limit Theorem of probability and statistics
 
 ### An 80% Confidence Interval
 You can use the bootstrapped sample means to construct an interval of any level of confidence. For example, to construct an 80% confidence interval for the mean age in the population, you would take the "middle 80%" of the resampled means. So you would want 10% of the disribution in each of the two tails, and hence the endpoints would be the 10th and 90th percentiles of the resampled means.
+
 
 
 {:.input_area}
@@ -422,10 +456,12 @@ make_array(left_80, right_80)
 
 
 
+
 {:.output_data_text}
 ```
 array([27.01192504, 27.44633731])
 ```
+
 
 
 
@@ -435,6 +471,7 @@ array([27.01192504, 27.44633731])
 resampled_means.hist(bins=15)
 plots.plot(make_array(left_80, right_80), make_array(0, 0), color='yellow', lw=8);
 ```
+
 
 
 ![png](../../../images/chapters/13/3/Confidence_Intervals_35_0.png)
@@ -450,10 +487,12 @@ To get a narrow confidence interval at a high level of confidence, you'll have t
 In the sample, 39% of the mothers smoked during pregnancy.
 
 
+
 {:.input_area}
 ```python
 baby.where('Maternal Smoker', are.equal_to(True)).num_rows/baby.num_rows
 ```
+
 
 
 
@@ -468,11 +507,13 @@ baby.where('Maternal Smoker', are.equal_to(True)).num_rows/baby.num_rows
 For what follows is useful to observe that this proportion can also be calculated by an array operation:
 
 
+
 {:.input_area}
 ```python
 smoking = baby.column('Maternal Smoker')
 np.count_nonzero(smoking)/len(smoking)
 ```
+
 
 
 
@@ -487,6 +528,7 @@ np.count_nonzero(smoking)/len(smoking)
 What percent of mothers in the population smoked during pregnancy? This is an unknown parameter which we can estimate by a bootstrap confidence interval. The steps in the process are analogous to those we took to estimate the population mean and median.
 
 We will start by defining a function `bootstrap_proportion` that returns an array of bootstrapped sampled proportions. Once again, we will achieve this by editing our definition of `bootstrap_median`. The only change in computation is in replacing the median of the resample by the proportion of smokers in it. The code assumes that the column of data consists of Boolean values. The other changes are only to the names of arrays, to help us read and understand our code.
+
 
 
 {:.input_area}
@@ -510,7 +552,9 @@ def bootstrap_proportion(original_sample, label, replications):
     return proportions
 ```
 
+
 Let us use `bootstrap_proportion` to construct an approximate 95% confidence interval for the percent of smokers among the mothers in the population. The code is analogous to the corresponding code for the mean and median.
+
 
 
 {:.input_area}
@@ -528,6 +572,7 @@ make_array(left, right)
 
 
 
+
 {:.output_data_text}
 ```
 array([0.3637138 , 0.41737649])
@@ -538,6 +583,7 @@ array([0.3637138 , 0.41737649])
 The confidence interval goes from about 36% to about 42%. The original sample percent of 39% is very close to the center of the interval, as you can see below.
 
 
+
 {:.input_area}
 ```python
 resampled_proportions = Table().with_column(
@@ -546,6 +592,7 @@ resampled_proportions = Table().with_column(
 resampled_proportions.hist(bins=15)
 plots.plot(make_array(left, right), make_array(0, 0), color='yellow', lw=8);
 ```
+
 
 
 ![png](../../../images/chapters/13/3/Confidence_Intervals_46_0.png)

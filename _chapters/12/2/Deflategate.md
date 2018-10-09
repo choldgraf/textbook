@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/12/2/Deflategate.ipynb
-title: '12.2 Deflategate'
-permalink: 'chapters/12/2/Deflategate'
-previouschapter:
-  url: chapters/12/1/AB_Testing
-  title: '12.1 A/B Testing'
-nextchapter:
-  url: chapters/12/3/Causality
-  title: '12.3 Causality'
-redirect_from:
-  - 'chapters/12/2/deflategate'
+interact_link: chapters/12/2/Deflategate.ipynb
+title: 'Deflategate'
+permalink: '/chapters/12/2/Deflategate'
+prev_page:
+  url: /chapters/12/1/AB_Testing
+  title: 'A/B Testing'
+next_page:
+  url: /chapters/12/3/Causality
+  title: 'Causality'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Deflategate
@@ -26,11 +25,13 @@ At half-time, all the game balls were collected for inspection. Two officials, C
 Here are the data. Each row corresponds to one football. Pressure is measured in psi. The Patriots ball that had been intercepted by the Colts was not inspected at half-time. Nor were most of the Colts' balls – the officials simply ran out of time and had to relinquish the balls for the start of second half play.
 
 
+
 {:.input_area}
 ```python
 football = Table.read_table(path_data + 'deflategate.csv')
 football.show()
 ```
+
 
 
 <div markdown="0">
@@ -108,6 +109,7 @@ football.show()
 For each of the 15 balls that were inspected, the two officials got different results. It is not uncommon that repeated measurements on the same object yield different results, especially when the measurements are performed by different people. So we will assign to each the ball the average of the two measurements made on that ball.
 
 
+
 {:.input_area}
 ```python
 football = football.with_column(
@@ -115,6 +117,7 @@ football = football.with_column(
     ).drop(1, 2)
 football.show()
 ```
+
 
 
 <div markdown="0">
@@ -194,6 +197,7 @@ At a glance, it seems apparent that the Patriots' footballs were at a lower pres
 We can calculate the drop in pressure for each football, by first setting up an array of the starting values. For this we will need an array consisting of 11 values each of which is 12.5, and another consisting of four values each of which is all 13. We will use the NumPy function `np.ones`, which takes a count as its argument and returns an array of that many elements, each of which is 1.
 
 
+
 {:.input_area}
 ```python
 np.ones(11)
@@ -202,10 +206,12 @@ np.ones(11)
 
 
 
+
 {:.output_data_text}
 ```
 array([ 1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.])
 ```
+
 
 
 
@@ -221,6 +227,7 @@ start
 
 
 
+
 {:.output_data_text}
 ```
 array([ 12.5,  12.5,  12.5,  12.5,  12.5,  12.5,  12.5,  12.5,  12.5,
@@ -232,12 +239,14 @@ array([ 12.5,  12.5,  12.5,  12.5,  12.5,  12.5,  12.5,  12.5,  12.5,
 The drop in pressure for each football is the difference between the starting pressure and the combined pressure measurement.
 
 
+
 {:.input_area}
 ```python
 drop = start - football.column('Combined')
 football = football.with_column('Pressure Drop', drop)
 football.show()
 ```
+
 
 
 <div markdown="0">
@@ -315,11 +324,13 @@ football.show()
 It looks as though the Patriots' drops were larger than the Colts'. Let's look at the average drop in each of the two groups. We no longer need the combined scores.
 
 
+
 {:.input_area}
 ```python
 football = football.drop('Combined')
 football.group('Team', np.average)
 ```
+
 
 
 
@@ -358,6 +369,7 @@ For the alternative, we can take the position that the Patriots' drops are too l
 A natural statistic is the difference between the two average drops, which we will compute as "average drop for Patriots - average drop for Colts". Large values of this statistic will favor the alternative hypothesis.
 
 
+
 {:.input_area}
 ```python
 observed_means = football.group('Team', np.average).column(1)
@@ -365,6 +377,7 @@ observed_means = football.group('Team', np.average).column(1)
 observed_difference = observed_means.item(1) - observed_means.item(0)
 observed_difference
 ```
+
 
 
 
@@ -382,12 +395,14 @@ This positive difference reflects the fact that the average drop in pressure of 
 If the null hypothesis were true, then the Patriots' drops would be comparable to 11 drops drawn at random without replacement from all 15 drops, and the Colts' drops would be the remaining four. We can simulate this by randomly permuting all 15 drops and assigning each team the appropriate number of permuted values.
 
 
+
 {:.input_area}
 ```python
 shuffled_drops = football.sample(with_replacement=False).column(1)
 original_and_shuffled = football.with_column('Shuffled Drop', shuffled_drops)
 original_and_shuffled.show()
 ```
+
 
 
 <div markdown="0">
@@ -465,10 +480,12 @@ original_and_shuffled.show()
 How do all the group averages compare?
 
 
+
 {:.input_area}
 ```python
 original_and_shuffled.group('Team', np.average)
 ```
+
 
 
 
@@ -503,6 +520,7 @@ It's time for a step that is now familiar. We will do repeated simulations of th
 In the last section we defined a function called `permuted_sample_average_difference` to do this. Here is the definition again. The code is based on the steps we took to compare the averages of the shuffled data.
 
 
+
 {:.input_area}
 ```python
 def permuted_sample_average_difference(table, label, group_label, repetitions):
@@ -523,10 +541,13 @@ def permuted_sample_average_difference(table, label, group_label, repetitions):
 ```
 
 
+
+
 {:.input_area}
 ```python
 differences = permuted_sample_average_difference(football, 'Pressure Drop', 'Team', 10000)
 ```
+
 
 The array `differences` contains 10,000 values of the test statistic simulated under the null hypothesis.
 
@@ -536,11 +557,13 @@ To calculate the empirical P-value, it's important to recall the alternative hyp
 The "direction of the alternative" is towards large drops for the Patriots, with correspondingly large values for out test statistic "Patriots' average - Colts' average". So the P-value is the chance (computed under the null hypothesis) of getting a test statistic equal to our observed value of 0.73352272727272805 or *larger*.
 
 
+
 {:.input_area}
 ```python
 empirical_P = np.count_nonzero(differences >= observed_difference) / 10000
 empirical_P
 ```
+
 
 
 
@@ -555,6 +578,7 @@ empirical_P
 That's a pretty small P-value. To visualize this, here is the empirical distribution of the test statistic under the null hypothesis, with the observed statistic marked on the horizontal axis.
 
 
+
 {:.input_area}
 ```python
 Table().with_column('Difference Between Group Averages', differences).hist()
@@ -563,6 +587,7 @@ plots.title('Prediction Under the Null Hypothesis')
 print('Observed Difference:', observed_difference)
 print('Empirical P-value:', empirical_P)
 ```
+
 
 {:.output_stream}
 ```

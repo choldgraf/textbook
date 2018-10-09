@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/16/Inference_for_Regression.ipynb
-title: '16. Inference for Regression'
-permalink: 'chapters/16/Inference_for_Regression'
-previouschapter:
-  url: chapters/15/6/Numerical_Diagnostics
-  title: '15.6 Numerical Diagnostics'
-nextchapter:
-  url: chapters/16/1/Regression_Model
-  title: '16.1 A Regression Model'
-redirect_from:
-  - 'chapters/16/inference-for-regression'
+interact_link: chapters/16/Inference_for_Regression.ipynb
+title: 'Inference for Regression'
+permalink: '/chapters/16/Inference_for_Regression'
+prev_page:
+  url: /chapters/15/6/Numerical_Diagnostics
+  title: 'Numerical Diagnostics'
+next_page:
+  url: /chapters/16/1/Regression_Model
+  title: 'A Regression Model'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Inference for Regression

@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/15/5/Visual_Diagnostics.ipynb
-title: '15.5 Visual Diagnostics'
-permalink: 'chapters/15/5/Visual_Diagnostics'
-previouschapter:
-  url: chapters/15/4/Least_Squares_Regression
-  title: '15.4 Least Squares Regression'
-nextchapter:
-  url: chapters/15/6/Numerical_Diagnostics
-  title: '15.6 Numerical Diagnostics'
-redirect_from:
-  - 'chapters/15/5/visual-diagnostics'
+interact_link: chapters/15/5/Visual_Diagnostics.ipynb
+title: 'Visual Diagnostics'
+permalink: '/chapters/15/5/Visual_Diagnostics'
+prev_page:
+  url: /chapters/15/4/Least_Squares_Regression
+  title: 'Least Squares Regression'
+next_page:
+  url: /chapters/15/6/Numerical_Diagnostics
+  title: 'Numerical Diagnostics'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Visual Diagnostics
@@ -33,13 +32,16 @@ $$
 The function `residual` calculates the residuals. The calculation assumes all the relevant functions we have already defined: `standard_units`, `correlation`, `slope`, `intercept`, and `fit`.
 
 
+
 {:.input_area}
 ```python
 def residual(table, x, y):
     return table.column(y) - fit(table, x, y)
 ```
 
+
 Continuing our example of using Galton's data to estimate the heights of adult children (the response) based on the midparent height (the predictor), let us calculate the fitted values and the residuals.
+
 
 
 {:.input_area}
@@ -50,6 +52,7 @@ heights = heights.with_columns(
     )
 heights
 ```
+
 
 
 
@@ -102,6 +105,7 @@ heights
 When there are so many variables to work with, it is always helpful to start with visualization. The function `scatter_fit` draws the scatter plot of the data, as well as the regression line. 
 
 
+
 {:.input_area}
 ```python
 def scatter_fit(table, x, y):
@@ -112,16 +116,20 @@ def scatter_fit(table, x, y):
 ```
 
 
+
+
 {:.input_area}
 ```python
 scatter_fit(heights, 'MidParent', 'Child')
 ```
 
 
+
 ![png](../../../images/chapters/15/5/Visual_Diagnostics_6_0.png)
 
 
 A *residual plot* can be drawn by plotting the residuals against the predictor variable. The function `residual_plot` does just that. 
+
 
 
 {:.input_area}
@@ -139,10 +147,13 @@ def residual_plot(table, x, y):
 ```
 
 
+
+
 {:.input_area}
 ```python
 residual_plot(heights, 'MidParent', 'Child')
 ```
+
 
 
 ![png](../../../images/chapters/15/5/Visual_Diagnostics_9_0.png)
@@ -154,6 +165,7 @@ The midparent heights are on the horizontal axis, as in the original scatter plo
 Residual plots help us make visual assessments of the quality of a linear regression analysis. Such assessments are called *diagnostics*. The function ``regression_diagnostic_plots`` draws the original scatter plot as well as the residual plot for ease of comparison.
 
 
+
 {:.input_area}
 ```python
 def regression_diagnostic_plots(table, x, y):
@@ -162,10 +174,13 @@ def regression_diagnostic_plots(table, x, y):
 ```
 
 
+
+
 {:.input_area}
 ```python
 regression_diagnostic_plots(heights, 'MidParent', 'Child')
 ```
+
 
 
 ![png](../../../images/chapters/15/5/Visual_Diagnostics_13_0.png)
@@ -189,12 +204,14 @@ Drawing the scatter plot of the data usually gives an indication of whether the 
 Our data are a [dataset](http://www.statsci.org/data/oz/dugongs.html)  on the age and length of dugongs, which are marine mammals related to manatees and sea cows (image from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Dugong_dugon.jpg)). The data are in a table called `dugong`. Age is measured in years and length in meters. Because dugongs tend not to keep track of their birthdays, ages are estimated based on variables such as the condition of their teeth.
 
 
+
 {:.input_area}
 ```python
 dugong = Table.read_table('http://www.statsci.org/data/oz/dugongs.txt')
 dugong = dugong.move_to_start('Length')
 dugong
 ```
+
 
 
 
@@ -247,10 +264,12 @@ dugong
 If we could measure the length of a dugong, what could we say about its age? Let's examine what our data say. Here is a regression of age (the response) on length (the predictor). The correlation between the two variables is substantial, at 0.83.
 
 
+
 {:.input_area}
 ```python
 correlation(dugong, 'Length', 'Age')
 ```
+
 
 
 
@@ -265,10 +284,12 @@ correlation(dugong, 'Length', 'Age')
 High correlation notwithstanding, the plot shows a curved pattern that is much more visible in the residual plot.
 
 
+
 {:.input_area}
 ```python
 regression_diagnostic_plots(dugong, 'Length', 'Age')
 ```
+
 
 
 ![png](../../../images/chapters/15/5/Visual_Diagnostics_21_0.png)
@@ -291,10 +312,12 @@ At the low end of the lengths, the residuals are almost all positive; then they 
 Recall the table `hybrid` that contains data on hybrid cars in the U.S. Here is a regression of fuel efficiency on the rate of acceleration. The association is negative: cars that accelearate quickly tend to be less efficient.
 
 
+
 {:.input_area}
 ```python
 regression_diagnostic_plots(hybrid, 'acceleration', 'mpg')
 ```
+
 
 
 ![png](../../../images/chapters/15/5/Visual_Diagnostics_24_0.png)

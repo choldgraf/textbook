@@ -1,14 +1,13 @@
 ---
 title: '3. Programming in Python'
-permalink: 'chapters/03/programming-in-python'
-previouschapter:
-  url: chapters/02/5/endnote
-  title: '2.5 Endnote'
-nextchapter:
-  url: chapters/03/1/Expressions
-  title: '3.1 Expressions'
-redirect_from:
-  - 'chapters/03/programming-in-python'
+permalink: '/chapters/03/programming-in-python'
+prev_page:
+  url: /chapters/02/5/endnote
+  title: 'Endnote'
+next_page:
+  url: /chapters/03/1/Expressions
+  title: 'Expressions'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 Programming in Python
 =====================

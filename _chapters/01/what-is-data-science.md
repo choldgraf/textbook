@@ -1,14 +1,13 @@
 ---
-title: '1. Data Science'
-permalink: 'chapters/01/what-is-data-science'
-previouschapter:
-  url: chapters/intro
-  title: '0. Introduction'
-nextchapter:
-  url: chapters/01/1/intro
-  title: '1.1 Introduction'
-redirect_from:
-  - 'chapters/01/what-is-data-science'
+title: 'Data Science'
+permalink: '/chapters/01/what-is-data-science'
+prev_page:
+  url: /chapters/intro
+  title: 'Introduction'
+next_page:
+  url: /chapters/01/1/intro
+  title: 'Introduction'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 What is Data Science
 ====================

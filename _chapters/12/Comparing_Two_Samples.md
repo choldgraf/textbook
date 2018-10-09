@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/12/Comparing_Two_Samples.ipynb
-title: '12. Comparing Two Samples'
-permalink: 'chapters/12/Comparing_Two_Samples'
-previouschapter:
-  url: chapters/11/3/Decisions_and_Uncertainty
-  title: '11.3 Decisions and Uncertainty'
-nextchapter:
-  url: chapters/12/1/AB_Testing
-  title: '12.1 A/B Testing'
-redirect_from:
-  - 'chapters/12/comparing-two-samples'
+interact_link: chapters/12/Comparing_Two_Samples.ipynb
+title: 'Comparing Two Samples'
+permalink: '/chapters/12/Comparing_Two_Samples'
+prev_page:
+  url: /chapters/11/3/Decisions_and_Uncertainty
+  title: 'Decisions and Uncertainty'
+next_page:
+  url: /chapters/12/1/AB_Testing
+  title: 'A/B Testing'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Comparing Two Samples

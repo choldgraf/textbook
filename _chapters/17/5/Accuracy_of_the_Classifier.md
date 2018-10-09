@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/17/5/Accuracy_of_the_Classifier.ipynb
-title: '17.5 The Accuracy of the Classifier'
-permalink: 'chapters/17/5/Accuracy_of_the_Classifier'
-previouschapter:
-  url: chapters/17/4/Implementing_the_Classifier
-  title: '17.4 Implementing the Classifier'
-nextchapter:
-  url: chapters/17/6/Multiple_Regression
-  title: '17.6 Multiple Regression'
-redirect_from:
-  - 'chapters/17/5/accuracy-of-the-classifier'
+interact_link: chapters/17/5/Accuracy_of_the_Classifier.ipynb
+title: 'The Accuracy of the Classifier'
+permalink: '/chapters/17/5/Accuracy_of_the_Classifier'
+prev_page:
+  url: /chapters/17/4/Implementing_the_Classifier
+  title: 'Implementing the Classifier'
+next_page:
+  url: /chapters/17/6/Multiple_Regression
+  title: 'Multiple Regression'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### The Accuracy of the Classifier
@@ -21,6 +20,7 @@ Note that this approach requires great discipline.  Before you start applying ma
 OK, so let's apply the hold-out method to evaluate the effectiveness of the $k$-nearest neighbor classifier for identifying wines.  The data set has 178 wines, so we'll randomly permute the data set and put 89 of them in the training set and the remaining 89 in the test set.
 
 
+
 {:.input_area}
 ```python
 shuffled_wine = wine.sample(with_replacement=False) 
@@ -28,7 +28,9 @@ training_set = shuffled_wine.take(np.arange(89))
 test_set  = shuffled_wine.take(np.arange(89, 178))
 ```
 
+
 We'll train the classifier using the 89 wines in the training set, and evaluate how well it performs on the test set. To make our lives easier, we'll write a function to evaluate a classifier on every wine in the test set:
+
 
 
 {:.input_area}
@@ -50,13 +52,16 @@ def evaluate_accuracy(training, test, k):
     return count_equal(c, test.column('Class')) / test.num_rows
 ```
 
+
 Now for the grand reveal -- let's see how we did.  We'll arbitrarily use $k=5$.
+
 
 
 {:.input_area}
 ```python
 evaluate_accuracy(training_set, test_set, 5)
 ```
+
 
 
 
@@ -91,11 +96,13 @@ Unfortunately, distinguishing between benign vs malignant can be tricky.  So, re
 We end up with the following data set.  For the "Class" column, 1 means malignant (cancer); 0 means benign (not cancer).
 
 
+
 {:.input_area}
 ```python
 patients = Table.read_table(path_data + 'breast-cancer.csv').drop('ID')
 patients
 ```
+
 
 
 
@@ -148,6 +155,7 @@ patients
 So we have 9 different attributes.  I don't know how to make a 9-dimensional scatterplot of all of them, so I'm going to pick two and plot them:
 
 
+
 {:.input_area}
 ```python
 color_table = Table().with_columns(
@@ -158,10 +166,13 @@ patients_with_colors = patients.join('Class', color_table)
 ```
 
 
+
+
 {:.input_area}
 ```python
 patients_with_colors.scatter('Bland Chromatin', 'Single Epithelial Cell Size', colors='Color')
 ```
+
 
 
 ![png](../../../images/chapters/17/5/Accuracy_of_the_Classifier_12_0.png)
@@ -176,6 +187,7 @@ Keep in mind that the jittering is just for visualization purposes, to make it e
 First we'll create a training set and a test set. The data set has 683 patients, so we'll randomly permute the data set and put 342 of them in the training set and the remaining 341 in the test set.
 
 
+
 {:.input_area}
 ```python
 shuffled_patients = patients.sample(683, with_replacement=False) 
@@ -183,13 +195,16 @@ training_set = shuffled_patients.take(np.arange(342))
 test_set  = shuffled_patients.take(np.arange(342, 683))
 ```
 
+
 Let's stick with 5 nearest neighbors, and see how well our classifier does.
+
 
 
 {:.input_area}
 ```python
 evaluate_accuracy(training_set, test_set, 5)
 ```
+
 
 
 

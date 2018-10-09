@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/16/3/Prediction_Intervals.ipynb
-title: '16.3 Prediction Intervals'
-permalink: 'chapters/16/3/Prediction_Intervals'
-previouschapter:
-  url: chapters/16/2/Inference_for_the_True_Slope
-  title: '16.2 Inference for the True Slope'
-nextchapter:
-  url: chapters/17/Classification
-  title: '17. Classification'
-redirect_from:
-  - 'chapters/16/3/prediction-intervals'
+interact_link: chapters/16/3/Prediction_Intervals.ipynb
+title: 'Prediction Intervals'
+permalink: '/chapters/16/3/Prediction_Intervals'
+prev_page:
+  url: /chapters/16/2/Inference_for_the_True_Slope
+  title: 'Inference for the True Slope'
+next_page:
+  url: /chapters/17/Classification
+  title: 'Classification'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Prediction Intervals
@@ -28,6 +27,7 @@ The height of the point where the red line hits the regression line is the fitte
 The function `fitted_value` computes this height. Like the functions `correlation`, `slope`, and `intercept`, its arguments include the name of the table and the labels of the $x$ and $y$ columns. But it also requires a fourth argument, which is the value of $x$ at which the estimate will be made.
 
 
+
 {:.input_area}
 ```python
 def fitted_value(table, x, y, given_x):
@@ -36,7 +36,9 @@ def fitted_value(table, x, y, given_x):
     return a * given_x  + b
 ```
 
+
 The fitted value at 300 gestational days is about 129.2 ounces. In other words, for a pregnancy that has a duration of 300 gestational days, our estimate for the baby's weight is about 129.2 ounces.
+
 
 
 {:.input_area}
@@ -44,6 +46,7 @@ The fitted value at 300 gestational days is about 129.2 ounces. In other words, 
 fit_300 = fitted_value(baby, 'Gestational Days', 'Birth Weight', 300)
 fit_300
 ```
+
 
 
 
@@ -64,10 +67,12 @@ To do this, we must generate new samples. We can do that by bootstrapping the sc
 The predictions vary from one line to the next. The table below shows the slope and intercept of each of the 10 lines, along with the prediction. 
 
 
+
 {:.input_area}
 ```python
 lines
 ```
+
 
 
 
@@ -131,6 +136,7 @@ In each repetition, the function bootstraps the original scatter plot and finds 
 Finally, it draws the empirical histogram of all the predicted values, and prints the interval consisting of the "middle 95%" of the predicted values. It also prints the predicted value based on the regression line through the original scatter plot.
 
 
+
 {:.input_area}
 ```python
 # Bootstrap prediction of variable y at new_x
@@ -166,10 +172,13 @@ def bootstrap_prediction(table, x, y, new_x, repetitions):
 ```
 
 
+
+
 {:.input_area}
 ```python
 bootstrap_prediction(baby, 'Gestational Days', 'Birth Weight', 300, 5000)
 ```
+
 
 {:.output_stream}
 ```
@@ -192,10 +201,12 @@ An approximate 95% prediction interval of scores has been constructed by taking 
 The figure below shows the histogram of 5,000 bootstrap predictions at 285 gestational days. The prediction based on the original sample is about 122 ounces, and the interval ranges from about 121 ounces to about 123 ounces. 
 
 
+
 {:.input_area}
 ```python
 bootstrap_prediction(baby, 'Gestational Days', 'Birth Weight', 285, 5000)
 ```
+
 
 {:.output_stream}
 ```
@@ -214,10 +225,12 @@ Notice that this interval is narrower than the prediction interval at 300 gestat
 The mean number of gestational days is about 279 days: 
 
 
+
 {:.input_area}
 ```python
 np.mean(baby.column('Gestational Days'))
 ```
+
 
 
 

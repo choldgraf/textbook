@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/10/Sampling_and_Empirical_Distributions.ipynb
-title: '10. Sampling and Empirical Distributions'
-permalink: 'chapters/10/Sampling_and_Empirical_Distributions'
-previouschapter:
-  url: chapters/09/5/Finding_Probabilities
-  title: '9.5 Finding Probabilities'
-nextchapter:
-  url: chapters/10/1/Empirical_Distributions
-  title: '10.1 Empirical Distributions'
-redirect_from:
-  - 'chapters/10/sampling-and-empirical-distributions'
+interact_link: chapters/10/Sampling_and_Empirical_Distributions.ipynb
+title: 'Sampling and Empirical Distributions'
+permalink: '/chapters/10/Sampling_and_Empirical_Distributions'
+prev_page:
+  url: /chapters/09/5/Finding_Probabilities
+  title: 'Finding Probabilities'
+next_page:
+  url: /chapters/10/1/Empirical_Distributions
+  title: 'Empirical Distributions'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Sampling and Empirical Distributions
@@ -20,6 +19,7 @@ In this chapter we will take a more careful look at sampling, with special atten
 Let's start by drawing some samples. Our examples are based on the <code><a href="imdb.csv">top_movies.csv</a></code> data set.
 
 
+
 {:.input_area}
 ```python
 top1 = Table.read_table(path_data + 'top_movies.csv')
@@ -28,6 +28,7 @@ top = top2.move_to_start('Row Index')
 
 top.set_format(make_array(3, 4), NumberFormatter)
 ```
+
 
 
 
@@ -89,10 +90,12 @@ When you simply specify which elements of a set you want to choose, without any 
 You have done this many times, for example by using `take`:
 
 
+
 {:.input_area}
 ```python
 top.take(make_array(3, 18, 100))
 ```
+
 
 
 
@@ -123,10 +126,12 @@ top.take(make_array(3, 18, 100))
 You have also used `where`:
 
 
+
 {:.input_area}
 ```python
 top.where('Title', are.containing('Harry Potter'))
 ```
+
 
 
 
@@ -205,6 +210,7 @@ Imagine all the elements of the population listed in a sequence. One method of s
 Here we will choose a systematic sample of the rows of `top`. We will start by picking one of the first 10 rows at random, and then we will pick every 10th row after that.
 
 
+
 {:.input_area}
 ```python
 """Choose a random start among rows 0 through 9;
@@ -213,6 +219,7 @@ then take every 10th row."""
 start = np.random.choice(np.arange(10))
 top.take(np.arange(start, top.num_rows, 10))
 ```
+
 
 
 

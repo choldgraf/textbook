@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/15/6/Numerical_Diagnostics.ipynb
-title: '15.6 Numerical Diagnostics'
-permalink: 'chapters/15/6/Numerical_Diagnostics'
-previouschapter:
-  url: chapters/15/5/Visual_Diagnostics
-  title: '15.5 Visual Diagnostics'
-nextchapter:
-  url: chapters/16/Inference_for_Regression
-  title: '16. Inference for Regression'
-redirect_from:
-  - 'chapters/15/6/numerical-diagnostics'
+interact_link: chapters/15/6/Numerical_Diagnostics.ipynb
+title: 'Numerical Diagnostics'
+permalink: '/chapters/15/6/Numerical_Diagnostics'
+prev_page:
+  url: /chapters/15/5/Visual_Diagnostics
+  title: 'Visual Diagnostics'
+next_page:
+  url: /chapters/16/Inference_for_Regression
+  title: 'Inference for Regression'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Numerical Diagnostics
@@ -26,10 +25,12 @@ You can see this in all the residual plots above. We can also calculate the corr
 
 
 
+
 {:.input_area}
 ```python
 correlation(heights, 'MidParent', 'Residual')
 ```
+
 
 
 
@@ -44,10 +45,12 @@ correlation(heights, 'MidParent', 'Residual')
 That doesn't look like zero, but it is a tiny number that is 0 apart from rounding error due to computation. Here it is again, correct to 10 decimal places. The minus sign is because of the rounding that above.
 
 
+
 {:.input_area}
 ```python
 round(correlation(heights, 'MidParent', 'Residual'), 10)
 ```
+
 
 
 
@@ -60,6 +63,7 @@ round(correlation(heights, 'MidParent', 'Residual'), 10)
 
 
 
+
 {:.input_area}
 ```python
 dugong = dugong.with_columns(
@@ -68,6 +72,7 @@ dugong = dugong.with_columns(
 )
 round(correlation(dugong, 'Length', 'Residual'), 10)
 ```
+
 
 
 
@@ -89,10 +94,12 @@ In all the residual plots above, you have seen the horizontal line at 0 going th
 As a numerical example, here is the average of the residuals in the regression of children's heights based on parents' heights in Galton's dataset.
 
 
+
 {:.input_area}
 ```python
 round(np.mean(heights.column('Residual')), 10)
 ```
+
 
 
 
@@ -107,10 +114,12 @@ round(np.mean(heights.column('Residual')), 10)
 The same is true of the average of the residuals in the regression of the age of dugongs on their length. The mean of the residuals is 0, apart from rounding error. 
 
 
+
 {:.input_area}
 ```python
 round(np.mean(dugong.column('Residual')), 10)
 ```
+
 
 
 
@@ -134,10 +143,12 @@ We will soon see how this measures the accuracy of the regression estimate. But 
 In the case of children's heights and midparent heights, the SD of the residuals is about 3.39 inches.
 
 
+
 {:.input_area}
 ```python
 np.std(heights.column('Residual'))
 ```
+
 
 
 
@@ -152,11 +163,13 @@ np.std(heights.column('Residual'))
 That's the same as $\sqrt{1-r^2}$ times the SD of response variable: 
 
 
+
 {:.input_area}
 ```python
 r = correlation(heights, 'MidParent', 'Child')
 np.sqrt(1 - r**2) * np.std(heights.column('Child'))
 ```
+
 
 
 
@@ -171,11 +184,13 @@ np.sqrt(1 - r**2) * np.std(heights.column('Child'))
 The same is true for the regression of mileage on acceleration of hybrid cars. The correlation $r$ is negative (about -0.5), but $r^2$ is positive and therefore $\sqrt{1-r^2}$ is a fraction.
 
 
+
 {:.input_area}
 ```python
 r = correlation(hybrid, 'acceleration', 'mpg')
 r
 ```
+
 
 
 
@@ -188,6 +203,7 @@ r
 
 
 
+
 {:.input_area}
 ```python
 hybrid = hybrid.with_columns(
@@ -196,6 +212,7 @@ hybrid = hybrid.with_columns(
 )
 np.std(hybrid.column('residual')), np.sqrt(1 - r**2)*np.std(hybrid.column('mpg'))
 ```
+
 
 
 
@@ -231,10 +248,12 @@ $$
 To see where the fraction comes in, notice that the fitted values are all on the regression line whereas the observed values of $y$ are the heights of all the points in the scatter plot and are more variable.
 
 
+
 {:.input_area}
 ```python
 scatter_fit(heights, 'MidParent', 'Child')
 ```
+
 
 
 ![png](../../../images/chapters/15/6/Numerical_Diagnostics_19_0.png)
@@ -245,10 +264,12 @@ The fitted values range from about 64 to about 71, whereas the heights of all th
 To verify the result numerically, we just have to calculate both sides of the identity.
 
 
+
 {:.input_area}
 ```python
 correlation(heights, 'MidParent', 'Child')
 ```
+
 
 
 
@@ -263,10 +284,12 @@ correlation(heights, 'MidParent', 'Child')
 Here is ratio of the SD of the fitted values and the SD of the observed values of birth weight:
 
 
+
 {:.input_area}
 ```python
 np.std(heights.column('Fitted Value'))/np.std(heights.column('Child'))
 ```
+
 
 
 
@@ -283,10 +306,12 @@ The ratio is equal to $r$, confirming our result.
 Where does the absolute value come in? First note that as SDs can't be negative, nor can a ratio of SDs. So what happens when $r$ is negative? The example of fuel efficiency and acceleration will show us.
 
 
+
 {:.input_area}
 ```python
 correlation(hybrid, 'acceleration', 'mpg')
 ```
+
 
 
 
@@ -299,10 +324,12 @@ correlation(hybrid, 'acceleration', 'mpg')
 
 
 
+
 {:.input_area}
 ```python
 np.std(hybrid.column('fitted mpg'))/np.std(hybrid.column('mpg'))
 ```
+
 
 
 

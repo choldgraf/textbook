@@ -1,15 +1,14 @@
 ---
-interact_link: notebooks/14/6/Choosing_a_Sample_Size.ipynb
-title: '14.6 Choosing a Sample Size'
-permalink: 'chapters/14/6/Choosing_a_Sample_Size'
-previouschapter:
-  url: chapters/14/5/Variability_of_the_Sample_Mean
-  title: '14.5 The Variability of the Sample Mean'
-nextchapter:
-  url: chapters/15/Prediction
-  title: '15. Prediction'
-redirect_from:
-  - 'chapters/14/6/choosing-a-sample-size'
+interact_link: chapters/14/6/Choosing_a_Sample_Size.ipynb
+title: 'Choosing a Sample Size'
+permalink: '/chapters/14/6/Choosing_a_Sample_Size'
+prev_page:
+  url: /chapters/14/5/Variability_of_the_Sample_Mean
+  title: 'The Variability of the Sample Mean'
+next_page:
+  url: /chapters/15/Prediction
+  title: 'Prediction'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 ### Choosing a Sample Size
@@ -62,6 +61,7 @@ In the gold histogram, all of the area is being squished up around 1, leading to
 The same observation would hold if we varied the proportion of 1's or let the proportion of 0's be larger than the proportion of 1's. Let's check this by calculating the SDs of populations of 10 elements that only consist of 0's and 1's, in varying proportions. The function `np.ones` is useful for this. It takes a positive integer as its argument and returns an array consisting of that many 1's.
 
 
+
 {:.input_area}
 ```python
 sd = make_array()
@@ -77,6 +77,7 @@ zero_one_sds = Table().with_columns(
 
 zero_one_sds
 ```
+
 
 
 
@@ -127,10 +128,12 @@ Not surprisingly, the SD of a population with 10% 1's and 90% 0's is the same as
 More importantly for our purposes, the SD increases as the proportion of 1's increases, until the proportion of 1's is 0.5; then it starts to decrease symmetrically.
 
 
+
 {:.input_area}
 ```python
 zero_one_sds.scatter("Population Proportion of 1's")
 ```
+
 
 
 ![png](../../../images/chapters/14/6/Choosing_a_Sample_Size_6_0.png)

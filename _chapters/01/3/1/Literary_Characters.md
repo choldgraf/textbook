@@ -1,20 +1,20 @@
 ---
-interact_link: notebooks/01/3/1/Literary_Characters.ipynb
-title: '1.3.1 Literary Characters'
-permalink: 'chapters/01/3/1/Literary_Characters'
-previouschapter:
-  url: chapters/01/3/Plotting_the_Classics
-  title: '1.3 Plotting the Classics'
-nextchapter:
-  url: chapters/01/3/2/Another_Kind_Of_Character
-  title: '1.3.2 Another Kind of Character'
-redirect_from:
-  - 'chapters/01/3/1/literary-characters'
+interact_link: chapters/01/3/1/Literary_Characters.ipynb
+title: 'Literary Characters'
+permalink: '/chapters/01/3/1/Literary_Characters'
+prev_page:
+  url: /chapters/01/3/Plotting_the_Classics
+  title: 'Plotting the Classics'
+next_page:
+  url: /chapters/01/3/2/Another_Kind_Of_Character
+  title: 'Another Kind of Character'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE FILES IN /NOTEBOOKS***"
 ---
 
 # Literary Characters
 
 *The Adventures of Huckleberry Finn* describes a journey that Huck and Jim take along the Mississippi River. Tom Sawyer joins them towards the end as the action heats up. Having loaded the text, we can quickly visualize how many times these characters have each been mentioned at any point in the book.
+
 
 
 {:.input_area}
@@ -36,6 +36,7 @@ plots.title('Cumulative Number of Times Each Name Appears', y=1.08);
 ```
 
 
+
 ![png](../../../../images/chapters/01/3/1/Literary_Characters_1_0.png)
 
 
@@ -46,12 +47,14 @@ You can see that Jim is a central character by the large number of times his nam
 *Little Women* is a story of four sisters growing up together during the civil war. In this book, chapter numbers are spelled out and chapter titles are written in all capital letters.
 
 
+
 {:.input_area}
 ```python
 # The chapters of Little Women, in a table
 
 Table().with_column('Chapters', little_women_chapters)
 ```
+
 
 
 
@@ -144,6 +147,7 @@ As spring came on, a new set of  ...</td>
 We can track the mentions of main characters to learn about the plot of this book as well.  The protagonist Jo interacts with her sisters Meg, Beth, and Amy regularly, up until Chapter 27 when she moves to New York alone.
 
 
+
 {:.input_area}
 ```python
 # Counts of names in the chapters of Little Women
@@ -163,6 +167,7 @@ cum_counts = counts.cumsum().with_column('Chapter', np.arange(1, 48, 1))
 cum_counts.plot(column_for_xticks=5)
 plots.title('Cumulative Number of Times Each Name Appears', y=1.08);
 ```
+
 
 
 ![png](../../../../images/chapters/01/3/1/Literary_Characters_6_0.png)
